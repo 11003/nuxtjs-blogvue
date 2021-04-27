@@ -1,0 +1,63 @@
+/*加载*/
+.spinner {
+  position: relative;
+  margin: 0 auto;
+  width: 50px;
+  height: 60px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.BounceLoading-child {
+  position: absolute;
+  background-color: #0084ff;
+  border-radius: 50%;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: Bounce;
+  animation-name: Bounce;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  animation-duration: 0.8s;
+}
+@keyframes Bounce {
+  0%,
+  100% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+  50% {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+}
+.spinner .rect1 {
+  left: 0;
+  animation-delay: 0s;
+}
+.spinner .rect2 {
+  left: 18px;
+  animation-delay: -0.1s;
+}
+
+.spinner .rect3 {
+  left: 36px;
+  animation-delay: -0.2s;
+}
+
+.spinner .rect4 {
+  left: 54px;
+  animation-delay: -0.3s;
+}
+
+.spinner .rect5 {
+  left: 72px;
+  animation-delay: -0.4s;
+}

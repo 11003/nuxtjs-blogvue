@@ -1,0 +1,105 @@
+﻿.wrapper.style2 {
+    overflow: inherit;
+}
+.article-record-title {
+    position: sticky;
+    margin-right: 10px;
+}
+.wrapper.style2 li a:hover {
+    color: #333;
+    margin-left: 8px;
+}
+.article-record-title li a {
+    margin-bottom:8px;
+    padding:10px;
+    text-align: center;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    border: 1px solid #ddd;
+}
+
+.article-record-title li a:hover {
+    color: initial;
+}
+
+.article-record-title li.selected a {
+    background-color: #00BCD4;
+    color: #fff !important;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.article-record-content {
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.article-record-item h4 {
+    margin: 15px 0;
+}
+
+.article-record-item li {
+    padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-overflow: ellipsis; /* IE/Safari */
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis; /* Opera */
+}
+
+.article-record-item li a {
+    color: #666;
+}
+
+.article-record-item li a:hover {
+    color: #1E9FFF;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+@media(max-width:767px) {
+    .article-record-content {
+        padding: 5px 10px;
+    }
+
+    .article-record-item h4 {
+        margin: 8px 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .article-record-title {
+        top: 179px;
+        width: 112px;
+    }
+}
+
+@media (min-width: 992px) {
+    .article-record-title {
+        top: 169px;
+        width: 146.33px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .article-record-title {
+        width: 180px;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .article-record-content {
+        background-color: #000;
+        border: 1px solid #aaa;
+    }
+    .article-record-title li a {
+        background-color: #000;
+    }
+}

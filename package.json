@@ -1,0 +1,24 @@
+{
+  "name": "Sonder",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.1",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "core-js": "^3.9.1",
+    "highlight.js": "^10.7.2",
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.15.3",
+    "qs-stringify": "^1.2.1",
+    "sass-loader": "^10.0.1",
+    "vue-lazyload": "^1.3.3",
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {}
+}
