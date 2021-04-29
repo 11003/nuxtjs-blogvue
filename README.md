@@ -1,3 +1,13 @@
+## 效果
+
+🌙 深色模式
+
+![](https://gitee.com/liuhaier/images/raw/master/img/night.png)
+
+☀ 浅色模式
+
+![](https://gitee.com/liuhaier/images/raw/master/img/light.png)
+
 ## 使用项目
 
 ```bash
