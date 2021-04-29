@@ -36,15 +36,10 @@
 </template>
 
 <script>
-import Timeline from '@/components/Timeline'
-import RecordList from '@/components/RecordList'
 import {timeline} from "@/api";
 
 export default {
-  components: {
-    Timeline,
-    RecordList
-  },
+
   async asyncData({ store }) {
     let seoTitle = store.getters.config.seo_name;
     let timeline_data = [];
@@ -93,10 +88,27 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 @import "~@/assets/css/layui.css";
 @import "~@/assets/css/site.css";
 @import "~@/assets/css/site-media.css";
 @import "~@/assets/css/timeline.css";
-@import "~@/assets/css/article-record.css";
+</style>
+<style>
+.cd-timeline-block video {
+  width: 100%;
+}
+.cd-timeline-block img {
+  max-width: 100%;
+}
+.cd-timeline-content p,.cd-timeline-content pre {
+  margin: 1em 0;
+  line-height: 1.6;
+}
+.cd-timeline-content a {
+  display: block;
+}
+.cd-timeline-content h2 {
+  margin-bottom: .5em;
+}
 </style>

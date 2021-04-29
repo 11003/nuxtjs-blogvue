@@ -1,46 +1,9 @@
-html * {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.layui-timeline-item:before, hr {
+  border-bottom-color: transparent;
+  background-color: transparent;
 }
 
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  list-style:none;
-  border:none;
-}
-
-body {
-  font-size: 100%;
-  font-family: "Microsoft yahei", serif;
-  color: #7f8c97;
-}
-
-a {
-  color: #acb7c0;
-  text-decoration: none;
-  font-family: "Microsoft yahei", sans-serif;
-}
-
-img {
-  max-width: 100%;
-}
-
-h1, h2 {
-  font-family: "Microsoft yahei", sans-serif;
-  font-weight: bold;
-}
-
-/* --------------------------------
-
-Modules - reusable parts of our design
-
--------------------------------- */
 .cd-container {
-  /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 90%;
   max-width: 1170px;
   margin: 0 auto;
@@ -456,7 +419,12 @@ Main components
   .cd-timeline-content {
     box-shadow: 0 3px 0 #1a1a1a;
   }
-  .wrapper.style2 a {
-    background: #1a1a1a;
+  .cd-read-more {
+    background: #1a1a1a !important;
+    color: #fff !important;
+  }
+  .cd-read-more:hover {
+    background: #333 !important;
+    color: #fff !important;
   }
 }

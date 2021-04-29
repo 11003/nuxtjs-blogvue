@@ -1,7 +1,9 @@
 import {friendLinks, systemConfig} from "@/api";
 
 const state = {
-  config: {},
+  config: {
+    seo_name: 'Sonder'
+  },
   links: {},
   articlePass: null
 };

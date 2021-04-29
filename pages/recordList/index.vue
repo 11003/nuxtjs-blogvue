@@ -47,12 +47,10 @@
 
 <script>
 import {timelist} from "@/api";
-import RecordList from '@/components/RecordList';
 import Loading from "@/components/Loading";
 
 export default {
   components: {
-    RecordList,
     Loading
   },
   async asyncData({ store }) {
@@ -102,10 +100,9 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 @import "~@/assets/css/layui.css";
 @import "~@/assets/css/site.css";
 @import "~@/assets/css/site-media.css";
-@import "~@/assets/css/timeline.css";
 @import "~@/assets/css/article-record.css";
 </style>
