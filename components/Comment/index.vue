@@ -153,7 +153,8 @@ export default {
       if(this.$route.path === '/page') {
         p.cid = this.id
       } else {
-        p.aid = this.id
+        p.aid = this.id;
+        p.cid = this.$route.query.cid
       }
       addComment(p).then(res => {
         if (res.status) {
@@ -195,6 +196,7 @@ export default {
         uName: uName,
         mid: mid,
         aid: aid,
+        cid: this.$route.query.cid,
         reply_email_by_session: reply_email_by_session,
         reply_name_by_session: reply_name_by_session
       }
