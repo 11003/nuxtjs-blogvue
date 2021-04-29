@@ -105,9 +105,6 @@ export default {
   margin: 1em 0;
   line-height: 1.6;
 }
-.cd-timeline-content a {
-  display: block;
-}
 .cd-timeline-content h2 {
   margin-bottom: .5em;
 }
