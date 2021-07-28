@@ -2,11 +2,8 @@
 
 🌙 深色模式
 
-![](https://gitee.com/liuhaier/images/raw/master/img/night.png)
+![](https://cdn.jsdelivr.net/gh/Haiwar/images/img/20210728110409.png)
 
-☀ 浅色模式
-
-![](https://gitee.com/liuhaier/images/raw/master/img/light.png)
 
 ## 使用项目
 
