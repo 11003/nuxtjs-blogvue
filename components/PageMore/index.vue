@@ -7,18 +7,23 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 export default {
   data() {
     return {
       routerPath: '',
       cid: '',
-      pageNumber: 3,
+      pageNumber: 1,
       moreTxt: 'More'
     }
   },
+  computed: {
+    ...mapGetters(['config'])
+  },
   methods: {
     nextpage() {
-      this.$emit('nextnewpage', (this.pageNumber += 3));
+      if(this.moreTxt === 'Loading...') return;
+      this.$emit('nextnewpage', this.pageNumber+=1);
       this.moreTxt = 'Loading...';
       if(this.routerPath.indexOf('/search') !== -1) {
         return;
@@ -32,7 +37,7 @@ export default {
     if(this.routerPath.indexOf('/search') !== -1) {
       return;
     }
-    this.pageNumber = parseInt(localStorage.getItem('page_number' + this.cid)) || 3;
+    this.pageNumber = parseInt(localStorage.getItem('page_number' + this.cid)) || 1;
   },
 }
 </script>

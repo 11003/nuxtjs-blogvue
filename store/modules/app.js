@@ -5,7 +5,8 @@ const state = {
     seo_name: 'Sonder'
   },
   links: {},
-  articlePass: null
+  articlePass: null,
+  articleByAbout: null,
 };
 
 const mutations = {
@@ -17,6 +18,9 @@ const mutations = {
   },
   SET_ARTICLE_PASS: (state, articlePass) => {
     state.articlePass = articlePass;
+  },
+  SET_ARTICLE_BY_ABOUT: (state, article) => {
+    state.articleByAbout = article;
   },
 };
 

@@ -2,7 +2,7 @@
   <section
     id="two"
     class="wrapper style3"
-    style="background-image:url('https://api.sunweihu.com/api/bing1/api.php')"
+    style="background-image:url('https://picsum.photos/1920/1080')"
   >
     <div class="inner">
       <div id="flexgrid">
@@ -11,11 +11,7 @@
             <h3>✨{{ item.title }}</h3>
           </header>
           <p>{{ item.desc }}</p>
-          <ul class="actions">
-            <li>
-              <nuxt-link class="button alt" :to="{path: `/post/${item.id}?cid=${item.cid}&index=true`}">Learn More</nuxt-link>
-            </li>
-          </ul>
+          <nuxt-link class="button alt learn-more" :to="{path: `/post/${item.id}?cid=${item.cid}&index=true`}">Learn More</nuxt-link>
         </div>
       </div>
     </div>

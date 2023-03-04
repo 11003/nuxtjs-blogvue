@@ -6,7 +6,7 @@
           <div class="box">
             <div class="image about_img">
               <div class="about-bg" style="background: #2d3436;">
-                <img src="https://api.sunweihu.com/api/bing1/api.php" />
+                <img src="https://picsum.photos/1920/1080" />
               </div>
               <div class="author-intro align-center" v-if="super_admin_pic">
                 <img class="avatar" alt="Sonder" v-lazy="super_admin_pic">
@@ -37,13 +37,14 @@
 import {aboutMe, commentList} from "@/api";
 import Comment from '@/components/Comment';
 import {mapGetters} from "vuex";
+import axios from "axios";
 
 export default {
   components: {
     Comment
   },
   computed: {
-    ...mapGetters(['config']),
+    ...mapGetters(['config', 'articleByAbout']),
   },
   head() {
     return {
@@ -66,12 +67,13 @@ export default {
       if(this.cid === '41') {
         aboutMe().then(res => {
           this.about = res;
+          if(!res.content) {
+            this.about.content = this.articleByAbout
+          }
           this.super_admin_pic = res.super_admin_info.pic;
           this.super_admin_desc = res.super_admin_info.desc;
         })
-        return;
       }
-      console.log('单页')
     },
     // localStorage取出信息，如果存在则不显示姓名跟邮箱的输入框
     getReplyDataStorage () {
@@ -83,22 +85,16 @@ export default {
     },
     getComment() {
       const p = {
-        cid: this.cid
+        cid: this.cid,
       }
       commentList(p).then(res => {
-        let comment_list = res.comment;
-        comment_list.map(item => {
-          if(!item.user_avatar) {
-            item.user_avatar = 'https://gitee.com/liuhaier/images/raw/master/img/20210412171452.png'
-          }
-        });
-        this.comment_list = comment_list;
+        this.comment_list = res.comment;
       });
     }
   },
   mounted() {
-    $.get('https://v1.hitokoto.cn', res => {
-      this.inner_title = res.hitokoto;
+    axios.get('https://v1.hitokoto.cn').then(res => {
+      this.inner_title = res.data.hitokoto;
     })
     this.getReplyDataStorage()
   },
@@ -112,5 +108,8 @@ export default {
 </script>
 
 <style scoped>
-
+.box {
+  display: flex;
+  flex-direction: column;
+}
 </style>

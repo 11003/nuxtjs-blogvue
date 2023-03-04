@@ -1,24 +1,29 @@
 <template>
-  <section class="wrapper" style="padding: 0;">
-    <div class="box inner">
+  <section id="comment-list" class="wrapper overbox">
+    <div class="box inner overbox-check">
       <div class="comment_content"><h2 class="align-center" style="margin-top: 10px;">💬 COMMENT</h2>
         <hr/>
         <form action="#" method="post">
-          <div v-if="comment_inputs_show">
+          <div v-if="comment_inputs_show_box">
             <div class="field half first"><label for="name">Name</label><input name="name" id="name" type="text"
                                                                                placeholder="昵称"
                                                                                v-model="user_comment.name"/></div>
-            <div class="field half"><label for="email">Email</label><input name="email" id="email" type="email"
+            <div class="field half email-box"><label for="email">Email</label><input name="email" id="email" @blur="setAvatarByEmail" type="email"
                                                                            placeholder="邮箱"
-                                                                           v-model="user_comment.email"/></div>
+                                                                           v-model="user_comment.email"/>
+              <img v-show="avatarByEmail" :src="avatarByEmail" class="avatar-email"/>
+            </div>
           </div>
           <div v-else><p><strong>Hi！{{ user_comment.name }}</strong></p></div>
           <div><label for="message">Message</label><textarea ref="message" name="message" id="message" rows="6"
-                                                                           placeholder="输入评论......"
+                                                                           placeholder="请填写正确的邮箱，以便于更好的与您取得联系，否则您的留言可能会被删除！"
                                                                            v-model="user_comment.content"></textarea>
+            <div class='iconList'>
+              <span v-for='(item,index) in emojiList' :key='index'  @click="addIcon(item,'commentContent')" class='smile'>{{item}}</span>
+            </div>
           </div>
           <div v-if="msg" class="msg_color">{{ msg }}</div>
-          <div v-else class="tip">🦄 支持Makedown语法</div>
+          <div v-else class="tip">🦄 支持markdown语法</div>
           <div class="actions align-center">
             <input value="发送" :disabled="disabled" class="button special" type="button" @click="comment"/>
           </div>
@@ -38,9 +43,11 @@
                 <div class="time s-fc4 pointer" :title="item.date_create_time">{{ item.create_time }}</div>
                 <a href="javascript:void(0)" @click="rpClick(item.id)" v-if="item.id!==current">回复</a><a
                 href="javascript:void(0)" @click="rpClick(item.id,false)" v-else>收起</a>
-                <div :class="{show:item.id===current}" class="editor_hidden text"><textarea class="rp_editor"
-                                                                                            :placeholder="`回复` + item.user_name + `....`"
-                                                                                            v-model="rp_content"></textarea>
+                <div :class="{show:item.id===current}" class="editor_hidden text">
+                  <textarea class="rp_editor" :placeholder="`回复` + item.user_name + `....`" v-model="rp_content"></textarea>
+                  <div class='iconList'>
+                    <span v-for='(item,index) in emojiList' :key='index'  @click="addIcon(item,'rp_content')" class='smile'>{{item}}</span>
+                  </div>
                   <div class="rp_msg mt10px msg_color">
                     <button :disabled="send_status.f_send" class="rp_btn special"
                             @click="Send(item.id,id,rp_content,item.user_name,false)">发送
@@ -62,9 +69,11 @@
                                                                                                           @click="sub_rpClick(vo.id,false)"
                                                                                                           class="s-fc3"><i
                     class="fa fa-commenting"></i><span>收起</span></a></span></div>
-                  <div :class="{show:vo.id===sub_current}" class="editor_hidden text"><textarea class="rp_editor"
-                                                                                                :placeholder="`回复` + vo.reply_name + `....`"
-                                                                                                v-model="sub_rp_content"></textarea>
+                  <div :class="{show:vo.id===sub_current}" class="editor_hidden text">
+                    <textarea class="rp_editor" :placeholder="`回复` + vo.reply_name + `....`" v-model="sub_rp_content"></textarea>
+                    <div class='iconList'>
+                      <span v-for='(item,index) in emojiList' :key='index'  @click="addIcon(item,'sub_rp_content')" class='smile'>{{item}}</span>
+                    </div>
                     <div class="rp_msg mt10px msg_color">
                       <button :disabled="send_status.s_send" class="rp_btn special right"
                               @click="Send(item.id,id,sub_rp_content,vo.reply_name,true)">发送
@@ -84,10 +93,12 @@
 
 <script>
 import {addComment, addReply} from "@/api";
-
 export default {
   data() {
     return {
+      emoji:null,
+      emojiList:null,
+      avatarByEmail:null,
       current: undefined,
       sub_current: undefined,
       sub_Id: undefined,
@@ -112,7 +123,8 @@ export default {
         reply_name_by_session: "",
         reply_email_by_session: ""
       },
-      disabled: false
+      disabled: false,
+      comment_inputs_show_box: true,
     };
   },
   props: {
@@ -128,6 +140,13 @@ export default {
       data ? (this.send_status.s_send = false) : this.send_status.s_send;
     }
   },
+  created() {
+    if(process.client) {
+      this.emoji = require('emoji')
+      this.emojiList = Object.keys(this.emoji.EMOJI_MAP).slice(191,213).concat(Object.keys(this.emoji.EMOJI_MAP).slice(215,239))
+    }
+    this.comment_inputs_show_box = this.comment_inputs_show;
+  },
   mounted() {
     let reply_data = JSON.parse(localStorage.getItem("reply_data"));
     //输入框处于隐藏状态并且填写了评论信息
@@ -139,15 +158,41 @@ export default {
     }
   },
   methods: {
+    setAvatarByEmail() {
+      let qq=/^[1-9][0-9]{4,10}@qq.com$/;
+      if(this.user_comment.email && qq.test(this.user_comment.email)) {
+        let val = this.user_comment.email.split("@")
+        this.avatarByEmail = `https://q2.qlogo.cn/headimg_dl?dst_uin=${val[0]}&spec=100`
+        return;
+      }
+      this.avatarByEmail = null
+    },
+    addIcon(icon,vModel){
+      switch (vModel) {
+        case 'commentContent':
+          this.user_comment.content += icon;
+          break;
+        case 'rp_content':
+          this.rp_content += icon;
+          break;
+        case 'sub_rp_content':
+          this.sub_rp_content += icon;
+          break;
+      }
+    },
     /**
      * 评论
      */
     comment() {
       this.disabled = true;
       const p = {
+        user_avatar: this.avatarByEmail,
         content: this.user_comment.content,
         name: this.user_comment.name,
         email: this.user_comment.email,
+      }
+      if(this.$route.params?.title === '关于我') {
+        p.type = 'about'
       }
       // cid是栏目ID，aid是文章ID
       if(this.$route.path === '/page') {
@@ -163,6 +208,7 @@ export default {
             "reply_data",
             JSON.stringify(res.reply_data)
           );
+          this.comment_inputs_show_box = false;
           this.$emit("refresh_comment", this.id);
           setTimeout(() => {
             this.disabled = false;
@@ -247,4 +293,15 @@ export default {
 
 <style>
 @import "~@/assets/css/comment.css";
+.email-box {
+  position: relative;
+}
+.avatar-email {
+  position: absolute;
+  right: 10px;
+  bottom: 9%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 </style>

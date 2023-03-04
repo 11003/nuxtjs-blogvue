@@ -2,7 +2,8 @@
     overflow: inherit;
 }
 .article-record-title {
-    position: sticky;
+    position: sticky !important;
+    top: 65px !important;
     margin-right: 10px;
 }
 .wrapper.style2 li a:hover {
@@ -10,14 +11,11 @@
     margin-left: 8px;
 }
 .article-record-title li a {
-    margin-bottom:8px;
-    padding:10px;
     text-align: center;
     background-color: #fff;
     cursor: pointer;
     font-size: 16px;
     display: block;
-    border: 1px solid #ddd;
 }
 
 .article-record-title li a:hover {
@@ -36,7 +34,7 @@
 .article-record-content {
     padding: 10px 15px;
     background-color: #fff;
-    border: 1px solid #ddd;
+  border: 1px solid rgba(144, 144, 144, 0.25);
 }
 
 .article-record-item h4 {
@@ -51,6 +49,14 @@
     text-overflow: ellipsis; /* IE/Safari */
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis; /* Opera */
+}
+.article-record-ul {
+  margin: 0;
+  padding: 0;
+}
+#app ul.article-record-ul li {
+  padding-left: 0;
+  list-style: none;
 }
 
 .article-record-item li a {
@@ -84,7 +90,6 @@
 
 @media (min-width: 992px) {
     .article-record-title {
-        top: 169px;
         width: 146.33px;
     }
 }
@@ -97,7 +102,6 @@
 @media (prefers-color-scheme: dark) {
     .article-record-content {
         background-color: #000;
-        border: 1px solid #aaa;
     }
     .article-record-title li a {
         background-color: #000;

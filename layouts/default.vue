@@ -3,9 +3,9 @@
     <div id="top"></div>
     <app-nav @closeMenu="openMenu" :visible="openMenuShow"/>
     <app-header @openMenu="openMenu" :class="headerRevealClass"/>
-    <Nuxt />
-    <app-footer/>
-    <app-right-tool/>
+    <Nuxt keep-alive/>
+    <app-footer v-once/>
+    <app-right-tool v-once/>
   </div>
 </template>
 <script>
@@ -13,6 +13,7 @@ import AppHeader from "~/layouts/components/AppHeader";
 import AppFooter from "~/layouts/components/AppFooter";
 import AppNav from "~/layouts/components/AppNav";
 import AppRightTool from "~/layouts/components/AppRightTool";
+import {mapGetters} from "vuex";
 export default {
   name: 'App',
   components: {
@@ -22,6 +23,7 @@ export default {
     AppRightTool,
   },
   computed: {
+    ...mapGetters(['config']),
     headerRevealClass() {
       if(this.$route.path === '/') {
         return this.revealNav === true ? 'reveal' : 'alt'
@@ -30,6 +32,7 @@ export default {
   },
   data() {
     return {
+      darkCssLink: '/css/dark.css',
       openMenuShow: false,
       revealNav: null,
     }
@@ -53,9 +56,27 @@ export default {
     getRevealNavPosition() {
       const revealNav = sessionStorage.getItem('revealNav')
       this.revealNav = revealNav ? JSON.parse(revealNav) : null;
+    },
+    loadStyle(url) {
+      let link = document.createElement('link')
+      link.type = 'text/css'
+      link.rel = 'stylesheet'
+      link.href = url
+      localStorage.setItem('dark_link',this.darkCssLink)
+      let head = document.getElementsByTagName('head')[0]
+      head.appendChild(link)
+    },
+    setDark() {
+      let darkCssLink = localStorage.getItem('dark_link') || this.darkCssLink
+      if(this.config.isDark === '是') {
+        this.loadStyle(darkCssLink)
+      } else {
+        localStorage.removeItem('dark_link')
+      }
     }
   },
   mounted() {
+    this.setDark();
     if(this.$route.path === '/') {
       this.getRevealNavPosition();
       window.addEventListener('scroll', this.handleScroll, true);

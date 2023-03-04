@@ -1,0 +1,127 @@
+body, .wrapper.style2 {
+  background-color: #000 !important;
+}
+
+#three .box,.fixed_main_box-title {
+  background-color: #1e272e !important;
+  color: rgb(119, 140, 154) !important;
+}
+
+#footer, #one .content, #two .box, #footer .inner .box, .layui-container, .blog-nav-two, .cd-timeline-content, .books-item {
+  background-color: #000 !important;
+  color: rgb(119, 140, 154) !important;
+}
+#post #two .box, .cntwrap .sub_rp_content,.fixed_main_box-container {
+  background: #1e272e !important;
+}
+
+.search_msg, .wrapper.style2 h1, .wrapper.style2 h2, .wrapper.style2 h3, .wrapper.style2 h4, .wrapper.style2 h5, .wrapper.style2 h6, #article-content, .markdown-body table, label, a, .about_content, #comments div, #comments .cn, .cntwrap div.sub_rp_content .rp_sub, .wrapper.style2 table th {
+  color: rgb(119, 140, 154) !important;
+}
+
+.cntwrap .sub_rp_content {
+  background-color: #1e272e !important;
+}
+
+.markdown-body table tr {
+  background-color: #1e272e !important;
+  color: rgb(119, 140, 154) !important;
+}
+
+.article_list p.article_list_title {
+  color: rgb(119, 140, 154) !important;
+}
+
+.wrapper.style2 h2, a.loading-btn, #one .content h2, #three .box .title a, #four a, #post #two .box header, #post #footer .inner .box .content h2 {
+  color: rgb(119, 140, 154) !important;
+}
+
+.inner img {
+  filter: grayscale(30%) !important;
+  opacity: .6 !important;
+}
+
+.wrapper.style2 input[type="text"], .wrapper.style2 input[type="password"], .wrapper.style2 input[type="email"], .wrapper.style2 select, .wrapper.style2 textarea {
+  background-color: #636e72 !important;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+  background-color: #636e72 !important;
+}
+
+.wrapper.style2 strong, .wrapper.style2 b {
+  color: #8c98a4 !important;
+}
+
+div.rightNav {
+  border-left: 1px solid rgb(37, 64, 82);
+}
+
+div.rightNav .right-nav li.current a, div.rightNav .right-nav li a:hover {
+  border-left-color: rgb(9, 63, 153);
+  background-color: rgb(28, 30, 31);
+}
+
+code.hljs {
+  background-color: rgb(25, 27, 28);
+}
+p.heart::before {
+  border-top-color: rgb(42, 46, 47) !important;
+}
+p.heart::after {
+  background-color: #000!important;
+}
+p.heart {
+  color: rgb(169, 166, 161)!important;
+}
+.heart:hover {
+  color: rgb(204, 59, 50) !important;
+}
+#cd-timeline::before {
+  background-color: #1a1a1a;
+}
+.cd-timeline-content {
+  box-shadow: 0 3px 0 #1a1a1a;
+}
+.cd-read-more {
+  background: #1a1a1a !important;
+  color: #fff !important;
+}
+.cd-read-more:hover {
+  background: #333 !important;
+  color: #fff !important;
+}
+.article-record-content {
+  background-color: #000;
+}
+.article-record-title li a {
+  background-color: #000;
+}
+.actions .fit .friends .userinfo {
+  background-color: #000;
+  color: #fff9ec;
+}
+.books-item {
+  background-color: #000;
+}
+.books-item .header .title{
+  color: #aaaaaa;
+}
+.btn-title {
+  color: #fff;
+}
+.search_button {
+  border: 1px solid hsla(0,0%,100%,.7);
+}
+.books-item {
+  background-color: #000;
+}
+.books-item .header .title{
+  color: #aaaaaa;
+}
+.heart::before {
+  border-top: 1px solid rgb(42, 46, 47);
+}
+.heart::after {
+  background-color: rgb(42, 46, 47);
+}

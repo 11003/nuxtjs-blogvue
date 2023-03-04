@@ -1,26 +1,45 @@
 <template>
-  <section id="banner" data-video="images/banner">
+  <section id="banner" data-video="images/banner" :style="{backgroundImage: `url(${config.bannerImg})`}">
     <div class="inner">
       <h1>{{ config.seo_name }}</h1>
       <p>{{ inner_title }}</p>
       <a @click="goToAbout" class="button scrolly gradient">了解更多</a>
     </div>
-    <video autoplay loop>
-      <source src="~@/static/images/banner.mp4" type="video/mp4">
-    </video>
+    <video autoplay loop muted ref="video"></video>
   </section>
 </template>
 <script>
 import {mapGetters} from 'vuex';
-
+import bannerMp4 from '@/static/images/banner.mp4'
 export default {
   computed: {
     ...mapGetters(['config']),
+  },
+  data() {
+    return {
+      bannerMp4,
+      bannerVideo: null,
+    }
   },
   props: {
     inner_title: {
       type: String
     }
+  },
+  watch: {
+    'config.bannerVideo': {
+      handler: function(v) {
+        this.$nextTick(() => {
+          this.$refs.video.src = v;
+        })
+      },
+      deep: true,
+    },
+  },
+  activated() {
+    this.$nextTick(() => {
+      this.$refs.video.src = this.config.bannerVideo;
+    })
   },
   methods: {
     to(toEl,n) {

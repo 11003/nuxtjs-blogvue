@@ -1,13 +1,13 @@
 <template>
-  <div class="top">
-    <ul>
-      <li v-for="(item,index) in rightList" :key="index">
-        <a class="fab" @click="go(item.url)">
-          <i class="top-icon fa" :class="item.class"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
+  <client-only>
+    <div class="right-tool-container">
+      <template v-for="(item,index) in rightList">
+        <div @click="go(item.url)" class="fab-size-normal cell poptip--top" :aria-controls="item.title" :key="index">
+          <i class="fa" :class="item.icon"></i>
+        </div>
+      </template>
+    </div>
+  </client-only>
 </template>
 
 <script>
@@ -17,16 +17,24 @@ export default {
     return {
       rightList: [
         {
+          title: '代码笔记',
+          url: '/notebook',
+          icon: 'fa-code'
+        },
+        {
+          title: '书签栏',
           url: '/recordList',
-          class: 'fa-bookmark'
+          icon: 'fa-bookmark'
         },
         {
+          title: '搜索',
           url: '/search',
-          class: 'fa-search'
+          icon: 'fa-search'
         },
         {
+          title: '回到顶部',
           url: null,
-          class: 'fa-arrow-up'
+          icon: 'fa-arrow-up'
         },
       ]
     }
@@ -55,12 +63,49 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="scss">
-ul li {
-  margin-bottom: 5px;
+.right-tool-container {
+  position: fixed;
+  right: 3%;
+  z-index: 9999;
+  bottom: 5%;
+  overflow: initial;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
-ul li:last-child {
-  margin-bottom: 0;
+.fab-size-normal {
+  background: rgb(50, 63, 166);
+  color: #fff;
+  user-select: none;
+  margin: 15px 0 0 0;
+  box-shadow: 0 0 4px rgba(0, 0, 0,0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  vertical-align: middle;
+  z-index: 998;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 3px;
+  transition: all 0.2s linear;
+}
+.fab-size-normal i{
+  font-style: normal;
+  font-size: 1.2em;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  padding: 8px;
+}
+.cell {
+  margin-bottom: 0 !important;
+}
+.cell[class*=poptip--]::after {
+  background: #fff;
+  color: #333333;
 }
 </style>

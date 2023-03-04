@@ -52,6 +52,14 @@ export function getArticle(data) {
     data
   });
 }
+// 代码笔记详情
+export function getCodeDetail(data) {
+  return api({
+    url: '/api/code',
+    method: 'get',
+    data
+  });
+}
 
 // 评论列表
 export function commentList(data) {
@@ -116,6 +124,29 @@ export function getLikeArticle(data) {
   return api({
     url: '/api/like_article',
     method: 'get',
+    data
+  });
+}
+// 获取相似文章
+export function addTimeline(data) {
+  return api({
+    url: '/api/add_timeline',
+    method: 'post',
+    data
+  });
+}
+export function delTimeline(data) {
+  return api({
+    url: '/api/del_timeline',
+    method: 'post',
+    data
+  });
+}
+export const uploadImg = '/api/upload'
+export function deleteImg(data) {
+  return api({
+    url: '/api/deleteImg',
+    method: 'post',
     data
   });
 }

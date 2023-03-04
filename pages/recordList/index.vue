@@ -8,13 +8,15 @@
               <nuxt-link :to="`/timeline`"><span>时光轴</span></nuxt-link>
               <span data-separator>|</span>
               <nuxt-link :to="`/recordList`" class="selected"><span>文章归档</span></nuxt-link>
+              <span data-separator>|</span>
+              <nuxt-link :to="`/notebook`"><span>代码笔记</span></nuxt-link>
             </div>
           </div>
           <div class="blog-panel">
             <Loading v-if="showLoading"/>
             <div class="layui-row" v-if="!showLoading">
               <div class="article-record-title article-record layui-hide-xs layui-col-md2">
-                <ul>
+                <ul class="article-record-ul">
                   <li :class="{selected:index===listIndex}" v-for="(item,index) in article_data"
                       :key="index+'A'" @click="selectedIndex(index)">
                     <a @click="to(index)">{{ index }}</a>
@@ -22,7 +24,7 @@
                 </ul>
               </div>
               <!-- 右侧文章 -->
-              <div class="layui-col-xs12 layui-col-md10">
+              <div class="layui-col-xs12 layui-col-md9">
                 <div class="article-record-content">
                   <div class="article-record-item" v-for="(item,index) in article_data"
                        :key="index+'B'">

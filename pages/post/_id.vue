@@ -4,12 +4,12 @@
       <div class="inner" v-cloak>
         <div class="box">
           <div class="image fit post-data-img">
-            <img v-lazy="post_data.img" alt="img" :style="post_data.img_style" />
+            <img v-lazy="post_data.img" alt="img" />
           </div>
           <div class="content">
             <header class="align-center post-header" v-if="post_data.create_time">
               <h2>{{ post_data.title }}</h2>
-              <p v-if="post_data.is_md !== 1">
+              <div v-if="post_data.is_md !== 1">
                 <span class="inline-block">
                     <i class="icon fa-calendar"></i>
                     <span>{{ post_data.create_time }}</span>
@@ -27,7 +27,7 @@
                     <i class="icon fa-list-alt"></i>
                     <nuxt-link style="color: #a6a6a6;" :to="{path: `/articleList/${post_data.cid}?index=false`}">{{ post_data.cate_name }}</nuxt-link>
                 </span>
-              </p>
+              </div>
               <p>{{ post_data.desc }}</p>
             </header>
             <hr/>
@@ -45,6 +45,11 @@
               <div id="article-content" class="markdown-body" v-html="post_data.content" v-lazy-container="{ selector: 'img' }" @click="imageChang($event)" v-highlight></div>
             </template>
 
+            <div class="align-center" v-if="config.showWxApp === '是'">
+              <img class="wx-img" v-lazy="`https://s2.loli.net/2022/07/24/oz9T8QrFZfkvsC3.jpg`"/>
+              <p class="wx-text">微信搜索 "技术百宝箱"</p>
+            </div>
+
 
             <div class="tag" v-if="post_data.keywords">
               🏷️
@@ -54,16 +59,16 @@
 
             </div>
             <div class="page">
-              <nuxt-link :title="next.create_time" :to="{path: nextLink}"
-                         class="next" v-if="next">
+              <nuxt-link :to="{path: nextLink}"
+                         class="next cell poptip--top" :aria-controls="prev.create_time" v-if="next">
                 <i class="fa fa-angle-left"></i><span>{{next.title}}</span>
               </nuxt-link>
-              <a v-else></a>
-              <nuxt-link :title="prev.create_time" :to="{path: prevLink}"
-                         class="prev" v-if="prev">
+              <a href="javascript:void(0)" v-else></a>
+              <nuxt-link :to="{path: prevLink}"
+                         class="prev cell poptip--top" :aria-controls="prev.create_time" v-if="prev">
                 <span>{{ prev.title }}</span><i class="fa fa-angle-right"></i>
               </nuxt-link>
-              <a v-else></a>
+              <a href="javascript:void(0)" v-else></a>
             </div>
             <div class="clear"></div>
             <div class="article_list">
@@ -129,14 +134,13 @@ export default {
         desc: data.desc,
         create_time: data.create_time,
         img: data.pic ? data.pic : "https://picsum.photos/id/" + data.id + "/1100/328",
-        img_style: data.pic ? "height:115%" : "",
         look: data.look + "次阅读",
         cate_name: data.catename,
         cid: data.cid,
         keywords: data.keywords,
         is_md: data.is_md
       }
-      post_data.metaDescription = post_data.content.replace(/[^\u4e00-\u9fa5]/gi, "");
+      post_data.metaDescription = post_data.content.substring(0, 100).replace(/\r?\n/g, '').replace(/#/g, '') + '...'
       post_data.is_md = data.is_md ? articlePass ? 0 : 1 : 0;
     }).catch(() => {error({statusCode: 404, message: "Post not found"});})
 
@@ -163,8 +167,13 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: this.post_data.metaDescription,
-        }
+          content: `${this.post_data.title} - ${this.post_data.metaDescription}`,
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: `${this.post_data.title} - ${this.post_data.keywords}`
+        },
       ]
     }
   },
@@ -218,15 +227,18 @@ export default {
       });
     },
     initViewer() {
-      let _id = document.getElementById("article-content");
-      if(!_id) return;
-      this.viewer = new Viewer(_id, {
-        toolbar: false,
-        show() {  // 动态加载图片后，更新实例
-          this.viewer.update();
-        },
-        transition: false
-      });
+      let that = this;
+      return new Promise(() => {
+        let _id = document.getElementById("article-content");
+        if(!_id) return;
+        this.viewer = new Viewer(_id, {
+          title: false,
+          transition: false,
+          show() {  // 动态加载图片后，更新实例
+            that.viewer.update();
+          },
+        });
+      })
     },
     imageChang(e) {
       if (e.target.nodeName === 'IMG') {
@@ -249,7 +261,6 @@ export default {
             img: data.pic
               ? data.pic
               : "https://picsum.photos/id/" + data.id + "/1100/328",
-            img_style: data.pic ? "height:115%" : "",
             look: data.look + "次阅读",
             cate_name: data.catename,
             cid: data.cid,
@@ -271,21 +282,20 @@ export default {
       setTimeout(() => {
         outline();
         clipboard();
-      },1000)
-    }
+      },200)
+    },
   },
   async mounted() {
-    // await this.getCurArticle();
     await this.replyDataStorage();
     await this.rightNav();
     await this.initViewer();
-    this.getComment();
   },
   created() {
     // 解决地址变化，页面不变
     this.id = this.$route.params.id;
     this.cid = this.$route.query.cid;
     this.is_index = this.$route.query.index;
+    this.getComment();
   }
 }
 </script>

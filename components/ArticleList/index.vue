@@ -9,14 +9,21 @@
       </template>
       <div class="grid-style">
         <div v-for="item in article_list" :key="item.id">
-          <div class="box wow fadeInDown">
-            <nuxt-link :to="{path: `/post/${item.id}?cid=${cid||item.cid}&index=${isIndex}`}">
-              <div class="image fit">
+          <div class="box wow zoomIn" style="animation-duration: .6s;">
+            <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${cid||item.cid}&index=${isIndex}`}">
+              <div class="image fit article_item">
                 <img
-                  :title="item.comment_count + `条评论,` + item.look + `次阅读`"
+                  :title="item.title"
                   class="img-fit"
                   v-lazy="item.pic"
                 />
+              </div>
+              <div class="entry-category">
+                <a href="javascript:void(0)" v-if="item.look" class="entry-category-tag">阅读 {{item.look}}</a>
+                <a href="javascript:void(0)" v-if="item.comment_count" class="entry-category-tag">评论 {{item.comment_count}}</a>
+                <template v-for="(key,ind) in item.keywords">
+                  <nuxt-link class="entry-category-tag" rel="category tag" :to="{path: `/search/${key}`}" :key="ind">{{ key }}</nuxt-link>
+                </template>
               </div>
             </nuxt-link>
 
@@ -77,6 +84,7 @@ export default {
   },
   data() {
     return {
+      limitNum: null,
       showLoading: true,
       pageStatus: null,
       emptyPic: false,
@@ -85,44 +93,52 @@ export default {
   },
   methods: {
     getArticles(n) {
+      if(this.limitNum>=50) {
+        this.limitNum = +this.config.artlsit_number;
+        localStorage.setItem("page_number" + this.cid, this.limitNum);
+      }
+      let limitNum = this.limitNum || 3
       const p = {
-        limitNumber: n,
+        pageNumber: n || 1,
+        limitNumber: limitNum,
         cid: this.cid
       }
       indexList(p).then(res => {
         let rowsList = res.rows
         this.showLoading = false;
+        this.limitNum = +this.config.artlsit_number
         if (res.count > 0) {
           rowsList.map(item => {
             if (item.pic === "") {
-              item.pic = "https://8150e502a00d512ce440-4f545a264b21ec0a641efaa20af32482.ssl.cf4.rackcdn.com/d300x200/i" + (item.id-5) +".jpg";
+              item.pic = `https://picsum.photos/id/${item.id}/600/350`;
             }
-            this.pageStatus = res.total_page === 0 ? null : true; // 显示条数按钮
             if(this.$refs['pageBtn']) this.$refs['pageBtn'].moreTxt = 'More'; // 变回more文案
           })
         } else {
           this.emptyPic = true;
         }
-        this.article_list = rowsList;
+        this.article_list = this.article_list.concat(rowsList);
+        this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
       })
     },
     WOWInit() {
       new WOW().init();
     }
   },
-  async mounted() {
+  mounted() {
     this.WOWInit();
-    let page_number = parseInt(this.config.artlsit_number) || 3;
-    let lo_pageNumber = parseInt(localStorage.getItem('page_number' + this.cid));
+    let page_number = 1;
+    let limit_number = +this.config.artlsit_number
+    let lo_pageNumber = +localStorage.getItem('page_number' + this.cid);
     if (!lo_pageNumber) {
       localStorage.setItem("page_number" + this.cid, page_number);
       lo_pageNumber = page_number; // 防止NaN
     }
-    await this.getArticles(lo_pageNumber)
+    //页面被刷新
+    if(+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
+      this.limitNum = lo_pageNumber * limit_number
+    }
+    this.getArticles()
   }
 }
 </script>
-
-<style scoped>
-
-</style>

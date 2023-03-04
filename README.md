@@ -1,10 +1,3 @@
-## 效果
-
-🌙 深色模式
-
-![](https://cdn.jsdelivr.net/gh/Haiwar/images/img/20210728110409.png)
-
-
 ## 使用项目
 
 ```bash
@@ -27,6 +20,12 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
+
+## 效果
+
+🌙 深色模式
+
+![](https://cdn.jsdelivr.net/gh/Haiwar/images/img/20210728110409.png)
 
 ## 更改自己的接口地址
 

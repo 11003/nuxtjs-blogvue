@@ -9,6 +9,15 @@
 
 code, pre {
 }
+.wx-img {
+  margin-bottom: 10px;
+  width: 120px;
+  border-radius: 999px;
+}
+.wx-text {
+  font-size: 14px;
+  color: #bdb7af;
+}
 
 div.markdown-body {
   font: 16px/1.6 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
@@ -20,8 +29,7 @@ div.markdown-body p code, div.markdown-body li code {
 }
 
 div.markdown-body img {
-  max-width: 100%;
-  display: block;
+  max-width: 40%;
   height: auto;
   cursor: zoom-in;
   margin: 8px auto;
@@ -120,7 +128,7 @@ a.prev:hover span {
   padding-right: .4em;
 }
 
-.caption {
+.caption,.c {
   text-align: center;
   font-size: 14px;
   padding: 0 1em;
@@ -146,9 +154,7 @@ ul.like_article li > a {
   color: #000000;
 }
 
-body, html {
-  scroll-behavior: smooth;
-}
+
 
 .comment_ordinary {
   position: relative;
@@ -668,6 +674,9 @@ p.cn {
 .markdown-body pre {
   position: relative;
 }
+.markdown-body pre code {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 
 .markdown-body pre:hover .btn {
   display: block !important;
@@ -710,11 +719,12 @@ p.cn {
   display: block;
   right: auto;
   left: 1365px;
-  top: 180px;
+  top: 40%;
+  margin-top: -201px;
   max-width: 226px;
   min-width: 200px;
   overflow: auto;
-  position: absolute;
+  position: fixed;
   max-height: 70vh;
   border-left: 1px solid #d7e4ed;
 }
@@ -770,10 +780,6 @@ p.cn {
 
 .rightNav .right-nav li.toc-h6 a {
   padding-left: 50px;
-}
-
-.wrapper > .inner {
-  transition: all .3s ease-out;
 }
 
 @media screen and (max-width: 1660px) {
@@ -832,5 +838,29 @@ p.cn {
   .markdown-body pre .btn[data-clipboard-action] {
     width: 40px;
     font-size: 11px;
+  }
+  div.markdown-body img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .wrapper > .inner.right-nav-inner {
+    margin: 0 auto 0 15%;
+    width: 1000px;
+  }
+  .rightNav {
+    left: 1300px;
+  }
+}
+
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
+  .wrapper > .inner.right-nav-inner {
+    margin: 0 auto 0 15%;
+    width: 1318px;
+  }
+  .rightNav {
+    left: 1730px;
   }
 }

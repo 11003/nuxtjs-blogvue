@@ -88,3 +88,7 @@ sw.*
 
 # Vim swap files
 *.swp
+
+static/baidu_verify_code-BK26ijQVVM.html
+
+.git1

@@ -1,22 +1,31 @@
-function clipboard () {
-  let articleContent = document.getElementById("article-content");
-  if(!articleContent) return;
-  let allpre = articleContent.getElementsByTagName("pre");
-  for (let i = 0; i < allpre.length; i++) {
-    let onepre = document.getElementsByTagName("pre")[i];
-    onepre.innerHTML += '<div class="btn"><button class="btn-tip">已复制！</button><button class="btn" data-clipboard-action="copy">复制</button></div>'
+function clipboard() {
+  const articleContent = document.getElementById("article-content");
+  if (!articleContent) return;
+  const allPre = articleContent.getElementsByTagName("pre");
+
+  for (let i = 0; i < allPre.length; i++) {
+    const onePre = document.getElementsByTagName("pre")[i];
+    onePre.innerHTML += '<div class="btn"><button class="btn-tip">已复制！</button><button class="btn" data-clipboard-action="copy">复制</button></div>';
   }
-  $("pre").each(function () {
-    $(this).attr('id', "pre" + $(this).index());
-    let btns = $(this).find("button");
-    $(btns).attr('data-clipboard-target', "#pre" + $(this).index())
-  });
-  let clipboard = new ClipboardJS('.btn');
+
+  const pres = document.getElementsByTagName("pre");
+  for (let i = 0; i < pres.length; i++) {
+    pres[i].setAttribute('id', "pre" + i);
+    const btns = pres[i].querySelectorAll("button");
+    for (let j = 0; j < btns.length; j++) {
+      btns[j].setAttribute('data-clipboard-target', "#pre" + i);
+    }
+  }
+
+  const clipboard = new ClipboardJS('.btn');
   clipboard.on('success', function () {
-    $(".btn").each(function () {
-      let btntip = $(this).find("button.btn-tip");
-      $(btntip).css("display", "block").delay(1000).fadeOut(200)
-    });
+    const btnTips = document.querySelectorAll(".btn-tip");
+    for (let i = 0; i < btnTips.length; i++) {
+      btnTips[i].style.display = "block";
+      setTimeout(() => {
+        btnTips[i].style.display = "none";
+      }, 1000);
+    }
   });
 }
 
