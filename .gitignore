@@ -92,3 +92,5 @@ sw.*
 static/baidu_verify_code-BK26ijQVVM.html
 
 .git1
+package-lock.json
+yarn.lock
