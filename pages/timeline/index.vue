@@ -71,7 +71,7 @@
 </template>
 
 <script>
-const maxFileNum = 3;
+const maxFileNum = 9;
 import {timeline, addTimeline, uploadImg, deleteImg, delTimeline} from "@/api";
 import uploads from "~/plugins/uploads";
 import ReDialog from "~/components/ReDialog";
@@ -115,18 +115,16 @@ export default {
     if(process.client){
       this.timelinePyq = localStorage.getItem(`${this.$route.path}-pyq`);
     }
+    this.$nextTick(() => {
+      this.WOWInit();
+      this.initViewer();
+    })
     // this.showFrom = !!this.$route.query.pyq
   },
   watch: {
     imgList: function(v) {
       this.disUpload = v?.length > maxFileNum;
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.WOWInit();
-      this.initViewer();
-    })
   },
   methods: {
     showFromHandler(item){
@@ -338,6 +336,7 @@ export default {
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   position: relative;
+  list-style: none;
 }
 .img-list-li .van-uploader__preview-delete {
   position: absolute;
@@ -358,6 +357,7 @@ export default {
 .img-list .img-list-item {
   width: 100px;
   height: 100px;
+  object-fit: cover;
 }
 .img-list .img-list-item:last-child{
   margin-right: 0;

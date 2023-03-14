@@ -56,7 +56,7 @@ export default {
   top: 50%;
 }
 .heart::after {
-  background-color: #fff;
+  background-color: #F5F5F5;
   content: "♥";
   padding-left: 0.5rem;
   padding-right: 0.5rem;
