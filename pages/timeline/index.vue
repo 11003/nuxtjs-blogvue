@@ -115,11 +115,13 @@ export default {
     if(process.client){
       this.timelinePyq = localStorage.getItem(`${this.$route.path}-pyq`);
     }
+    // this.showFrom = !!this.$route.query.pyq
+  },
+  mounted() {
     this.$nextTick(() => {
       this.WOWInit();
       this.initViewer();
     })
-    // this.showFrom = !!this.$route.query.pyq
   },
   watch: {
     imgList: function(v) {
