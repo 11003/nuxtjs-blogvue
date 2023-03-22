@@ -192,6 +192,7 @@ export default {
       })
     },
     async changeFile(e){
+      // let file = e.target.files[0]; // 一张图片
       let files = e.target.files;
       this.resetFile = false;
       let fileCount = files.length;
