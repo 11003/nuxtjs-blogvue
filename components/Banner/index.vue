@@ -10,14 +10,12 @@
 </template>
 <script>
 import {mapGetters} from 'vuex';
-import bannerMp4 from '@/static/images/banner.mp4'
 export default {
   computed: {
     ...mapGetters(['config']),
   },
   data() {
     return {
-      bannerMp4,
       bannerVideo: null,
     }
   },
