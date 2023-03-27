@@ -56,7 +56,7 @@
                 </div>
                 <div class="clear"></div>
               </div>
-              <div class="sub_rp_content">
+              <div class="sub_rp_content" v-if="item.reply.length">
                 <div class="rp_sub" v-for="(vo,key) in item.reply" :id="`sub_rp_`+vo.id">
                   <a :href="`#sub_rp_`+vo.id" class="reply_name">{{ vo.reply_name }}</a>
                   <a v-html="vo.nameplate"></a>
@@ -229,6 +229,7 @@ export default {
      * @constructor
      */
     Send(mid, aid, content, uName, is_sub) {
+      this.reply_data = localStorage.getItem("reply_data")?JSON.parse(localStorage.getItem("reply_data")):{};
       let reply_name_by_session = this.reply_data
         ? this.reply_data.reply_name_by_session
         : "";
