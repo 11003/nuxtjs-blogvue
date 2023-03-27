@@ -2,10 +2,10 @@
 
 ```bash
 # 下载 yarn
-# npm install --global yarn
+$ npm install --global yarn
 
 # 淘宝源
-# yarn config set registry https://registry.npm.taobao.org
+$ yarn config set registry https://registry.npm.taobao.org
 
 # install dependencies
 $ yarn install
@@ -25,13 +25,13 @@ $ yarn generate
 
 🌙 深色模式
 
-![](https://cdn.jsdelivr.net/gh/Haiwar/images/img/20210728110409.png)
+![](https://s2.loli.net/2023/03/27/siQgh4YmeMK96Hn.png)
 
 ## 更改自己的接口地址
 
 进入`nuxt.config.js`里面
 
-必须要和 [thinkphp-blogphp](https://github.com/Haiwar/thinkphp-blogphp) 配合
+必须要和 [thinkphp-blogphp](https://github.com/11003/thinkphp-blogphp) 配合
 
 ```
 env: {

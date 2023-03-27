@@ -8,7 +8,7 @@
           <h5>{{ config.banquan }}</h5>
         </div>
         <div class="fas">
-          <a target="_blank" href="https://github.com/Haiwar">
+          <a target="_blank" :href="config.userinfoMenu[2].url">
             <i class="fa fa-github"></i>
           </a>
         </div>
