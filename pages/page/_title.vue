@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section id="one" class="wrapper style2">
+    <section id="one" class="wrapper style2" :class="{'about_page':about_page}">
       <div class="inner">
         <div>
           <div class="box">
@@ -60,11 +60,14 @@ export default {
       comment_inputs_show_props: true,
       about: {},
       comment_list: [],
+      about_page: false,
     }
   },
   methods: {
     getPage () {
+      this.about_page = false;
       if(this.cid === '41') {
+        this.about_page = true;
         aboutMe().then(res => {
           this.about = res;
           if(!res.content) {
@@ -111,5 +114,10 @@ export default {
 .box {
   display: flex;
   flex-direction: column;
+}
+</style>
+<style>
+.about_page .huan {
+  display: none;
 }
 </style>
