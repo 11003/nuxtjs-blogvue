@@ -7,7 +7,7 @@
           <h4>{{ config.qianming }}</h4>
           <h5>{{ config.banquan }}</h5>
         </div>
-        <div class="fas">
+        <div class="fas" v-if="config.userinfoMenu">
           <a target="_blank" :href="config.userinfoMenu[2].url">
             <i class="fa fa-github"></i>
           </a>
