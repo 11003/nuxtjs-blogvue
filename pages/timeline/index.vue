@@ -59,7 +59,7 @@
               <img class="img-list-item" :src="item"/>
             </li>
           </ul>
-          <input accept="image/*" v-if='resetFile' v-show='false' type="file" multiple ref="selectFile" @change='changeFile'>
+          <input accept="image/*" v-show='false' type="file" multiple ref="selectFile" @change='changeFile'>
         </div>
         <div class="actions align-center upload-form-button">
           <input :value="data.id?`修改`:`发送`" class="button special" type="button" @click="addTimeLineHandle"/>
