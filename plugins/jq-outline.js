@@ -2,7 +2,7 @@ function outline() {
   const pc = isPc();
   if(!pc) return;
   const articleContent = document.querySelector("#article-content");
-  const children = articleContent.children;
+  const children = articleContent?.children;
   for (let i = 0; i < children.length; i++) {
     const tagName = children[i].tagName;
     if (tagName.substr(0, 1).toUpperCase() === "H") {

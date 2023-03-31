@@ -1,5 +1,5 @@
 <template>
-  <section id="one" class="wrapper style2 notebook-page" >
+  <section id="one" class="wrapper style2 notebook-page copy-record-content-box" >
     <div class="inner">
       <div class="blog-body">
         <div class="layui-container">
@@ -94,28 +94,6 @@ export default {
   }
 }
 </script>
-<style>
-.notebook-page pre.code {
-  position: relative;
-}
-.notebook-page pre.code:hover .code-copy {
-  display: block;
-}
-.notebook-page pre.code .code-copy {
-  position: absolute;
-  right: 10px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  top: 7px;
-  font-size: 13px;
-  padding: 0 10px;
-  color: #f5f5f5;
-  cursor: pointer;
-  display: none;
-  background-color: #333;
-}
-</style>
 <style scoped>
 @import "~@/assets/css/layui.css";
 @import "~@/assets/css/site.css";

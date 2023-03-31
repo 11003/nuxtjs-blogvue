@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="copy-record-content-box">
     <section id="two" class="wrapper style2 post">
       <div class="inner" v-cloak>
         <div class="box">
@@ -97,7 +97,7 @@
 import Comment from '@/components/Comment'
 import {commentList, getArticle, getLikeArticle, getPage} from "@/api";
 import outline from '@/plugins/jq-outline';
-import clipboard from '@/plugins/jq-clipboard';
+import addLineAndCopy from "@/plugins/jq-codeCopy"
 import {mapGetters} from "vuex";
 export default {
   components: {
@@ -277,17 +277,9 @@ export default {
           this.comment_list = data.comment;
           this.post_data.comment_count = data.count;
         })
-    },
-    rightNav() {
-      setTimeout(() => {
-        outline();
-        clipboard();
-      },200)
-    },
+    }
   },
   async mounted() {
-    await this.replyDataStorage();
-    await this.rightNav();
     await this.initViewer();
   },
   created() {
@@ -296,6 +288,13 @@ export default {
     this.cid = this.$route.query.cid;
     this.is_index = this.$route.query.index;
     this.getComment();
+    if(process.client) {
+      this.replyDataStorage();
+      this.$nextTick(()=>{
+        outline();
+        addLineAndCopy();
+      })
+    }
   }
 }
 </script>

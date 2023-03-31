@@ -25,7 +25,6 @@ export default {
     script: [
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js', async: false },
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js', async: false },
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js', async: false },
       { src: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.7/viewer.min.js', async: false },
       { src: 'https://hm.baidu.com/hm.js?db00f175af988a564e9942aa5fc351f9', async: false },
     ]

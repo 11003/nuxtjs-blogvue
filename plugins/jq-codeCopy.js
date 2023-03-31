@@ -1,7 +1,8 @@
 function addLineAndCopy() {
-  // markdown code is stored in pre code tags
   document.querySelectorAll('pre code').forEach(codeBlock => {
     // add copy button
+    const existingCopyButton = codeBlock.querySelector('.copy-button');
+    if(existingCopyButton) return;
     const copyBtn = document.createElement('div');
     copyBtn.classList.add('code-copy', 'el-icon-document-copy');
     copyBtn.textContent = '复制';
@@ -16,7 +17,13 @@ function addLineAndCopy() {
       if (e.target.textContent === '已复制') return;
       const code = e.target.previousElementSibling.textContent;
       const tempEl = document.createElement('textarea');
-      tempEl.value = code;
+      let topCode = ""
+      if(code === '复制') {
+        topCode = e.target.previousElementSibling.previousElementSibling.textContent
+        tempEl.value = topCode;
+      } else {
+        tempEl.value = code;
+      }
       document.body.appendChild(tempEl);
       tempEl.select();
       document.execCommand('copy');

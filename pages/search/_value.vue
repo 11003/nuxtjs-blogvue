@@ -13,7 +13,7 @@
                   placeholder="请输入文章关键字"
                 />
               </div>
-              <div>
+              <div class="search_button_box">
                 <button type="submit" class="fit search_button">
                   <span class="btn-title">搜索</span></button>
               </div>
@@ -51,7 +51,7 @@
         <div class="grid-style" id="search-article-content">
           <Loading :show="showLoading"/>
           <div v-for="(item,index) in article_list" :key="index">
-            <div v-if="item.article_type === 'CODE'" class="wow zoomIn books-item code-item" style="animation-duration: .5s;">
+            <div v-if="item.article_type === 'CODE'" class="wow zoomIn books-item code-item copy-record-content-box" style="animation-duration: .5s;">
               <div class="header">
                 <span class="title">{{item.title}}</span>
                 <a class="iconfont icon-wangzhi link" :title="item.url" v-if="item.url" target="_blank" :href="`${item.url}`"></a>
@@ -73,7 +73,7 @@
                 <div class="image fit article_item">
                   <img
                     :title="item.title"
-                    class="img-fit"
+                    class="img-fit no-zoom"
                     v-lazy="item.pic"
                   />
                 </div>
@@ -171,21 +171,22 @@ export default {
     },
     initViewer() {
       let that = this;
-      return new Promise(() => {
-        let _id = document.getElementById("search-article-content");
-        if(!_id) return;
-        this.viewer = new Viewer(_id, {
-          title: false,
-          toolbar: false,
-          loop: false,
-          keyboard: false,
-          navbar: false,
-          transition: false,
-          show() {  // 动态加载图片后，更新实例
-            that.viewer.update();
-          },
-        });
-      })
+      let _id = document.getElementById("search-article-content");
+      if(!_id) return;
+      this.viewer = new Viewer(_id, {
+        title: false,
+        toolbar: false,
+        loop: false,
+        keyboard: false,
+        navbar: false,
+        transition: false,
+        show() {  // 动态加载图片后，更新实例
+          that.viewer.update();
+        },
+        filter(image) {
+          return !image.classList.contains('no-zoom');
+        }
+      });
     },
     SearchBtn() {
       if (this.SearchKey) {
@@ -243,6 +244,9 @@ export default {
           this.emptyPic = false;
           this.article_list = this.article_list.concat(rowsList);
           this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
+          this.$nextTick(()=>{
+            addLineAndCopy();
+          })
           this.SearchMsg =
             "已搜索到<code class='search_key'>" + this.SearchKey + "</code>的相关内容，大约" + res.count + "篇。";
         } else {
@@ -260,7 +264,6 @@ export default {
   mounted() {
     this.WOWInit();
     this.initViewer();
-    addLineAndCopy()
     this.SearchKeyValue = this.$route.params.value || "";
     if (localStorage.getItem("HistoryList")) {
       this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
@@ -374,13 +377,16 @@ export default {
     }
   }
 }
+.search_button_box {
+  padding: 2rem 0 0 0.3rem;
+}
 .search_button {
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
-  width: 70px;
+  width: 100px;
   border: 1px solid #292b35;
   padding: 0;
 }
@@ -392,7 +398,7 @@ export default {
     color: #fff;
   }
   .search_button {
-    border: 1px solid hsla(0,0%,100%,.7);
+    border: 1px solid #5c5656;
   }
   .books-item {
     background-color: #000;
