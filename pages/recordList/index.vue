@@ -19,7 +19,7 @@
                 <ul class="article-record-ul">
                   <li :class="{selected:index===listIndex}" v-for="(item,index) in article_data"
                       :key="index+'A'" @click="selectedIndex(index)">
-                    <a @click="to(index)">{{ index }}</a>
+                    <span class="cur-item-time" @click="to(index)">{{ index }}</span>
                   </li>
                 </ul>
               </div>

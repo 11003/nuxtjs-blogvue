@@ -95,7 +95,7 @@ p.heart {
 .article-record-content {
   background-color: #000;
 }
-.article-record-title li a {
+.article-record-title li .cur-item-time {
   background-color: #000;
 }
 .actions .fit .friends .userinfo {

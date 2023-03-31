@@ -6,11 +6,10 @@
     top: 65px !important;
     margin-right: 10px;
 }
-.wrapper.style2 li a:hover {
-    color: #333;
-    margin-left: 8px;
+.wrapper.style2 li .cur-item-time:hover {
+    color: #bcbcbc;
 }
-.article-record-title li a {
+.article-record-title li .cur-item-time {
     text-align: center;
     background-color: #fff;
     cursor: pointer;
@@ -18,11 +17,11 @@
     display: block;
 }
 
-.article-record-title li a:hover {
+.article-record-title li .cur-item-time:hover {
     color: initial;
 }
 
-.article-record-title li.selected a {
+.article-record-title li.selected .cur-item-time {
     background-color: #00BCD4;
     color: #fff !important;
     -moz-transition: all .2s;
@@ -103,7 +102,7 @@
     .article-record-content {
         background-color: #000;
     }
-    .article-record-title li a {
+    .article-record-title li .cur-item-time {
         background-color: #000;
     }
 }
