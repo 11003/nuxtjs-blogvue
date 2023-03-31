@@ -22,7 +22,6 @@
 }
 
 .article-record-title li.selected .cur-item-time {
-    background-color: #00BCD4;
     color: #fff !important;
     -moz-transition: all .2s;
     -o-transition: all .2s;
