@@ -61,7 +61,7 @@ export default {
 </script>
 <style scoped>
 #banner .inner a.gradient {
-  background: linear-gradient(155deg, #08AEEA 0%, #B721FF, #3369e7, #2AF598 100%) left center/400% 400%;
+  background: linear-gradient(155deg, var(--text_color) 0%, #B721FF, #3369e7, #2AF598 100%) left center/400% 400%;
   color: #FFFFFF !important;
   animation: move 10s infinite;
 }

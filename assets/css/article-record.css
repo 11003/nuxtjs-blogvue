@@ -11,7 +11,6 @@
 }
 .article-record-title li .cur-item-time {
     text-align: center;
-    background-color: #fff;
     cursor: pointer;
     font-size: 16px;
     display: block;
@@ -22,7 +21,7 @@
 }
 
 .article-record-title li.selected .cur-item-time {
-    color: #fff !important;
+    color: var(--text_active_color);
     -moz-transition: all .2s;
     -o-transition: all .2s;
     -webkit-transition: all .2s;
@@ -104,4 +103,7 @@
     .article-record-title li .cur-item-time {
         background-color: #000;
     }
+  .article-record-title li.selected .cur-item-time {
+    color: #fff !important;
+  }
 }

@@ -46,9 +46,6 @@ export default {
 li a.loading-btn{
   border-radius: 50px;
 }
-.loading-btn {
-  border: 1px solid #222222;
-}
 @media screen and  (max-width:480px) and (max-width:736px) {
   li a.loading-btn{
     width: 50%;

@@ -41,11 +41,7 @@ body .share .layui-layer-content {
 }
 
 .blog-body > .layui-container {
-    -moz-box-shadow: 0 0 10px 2px #666;
-    -webkit-box-shadow: 0 0 10px 2px #666;
-    box-shadow: 0 0 10px 2px #666;
     padding: 15px;
-    background-color: #eee;
     min-height: 700px;
 }
 
@@ -72,7 +68,7 @@ body .share .layui-layer-content {
 
 .blog-nav-two .layui-breadcrumbs a:hover,
 .blog-nav-two .layui-breadcrumbs .selected {
-    color: #1E9FFF !important;
+    color: var(--text_color) !important;
 }
 
 .blog-nav-two .layui-breadcrumbs a span {
@@ -84,5 +80,5 @@ body .share .layui-layer-content {
 
 .blog-nav-two .layui-breadcrumbs a span:hover,
 .blog-nav-two .layui-breadcrumbs .selected span {
-    border-bottom: 3px solid #01aaed;
+    border-bottom: 3px solid var(--text_color);
 }

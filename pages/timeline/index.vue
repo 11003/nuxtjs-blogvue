@@ -3,7 +3,7 @@
     <div class="inner">
       <div class="blog-body">
         <div class="layui-container">
-          <div class="blog-nav-two shadow">
+          <div class="blog-nav-two">
             <div class="layui-breadcrumbs">
               <nuxt-link :to="`/timeline`" class="selected"><span @click="showFromHandler">时光轴</span></nuxt-link>
               <span data-separator>|</span>

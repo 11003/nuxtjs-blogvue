@@ -24,12 +24,14 @@ div.markdown-body {
 }
 
 div.markdown-body p code, div.markdown-body li code {
-  color: #c7254e;
+  color: #f35858;
   border-radius: 4px;
+  padding: 0.25rem 0.35rem;
 }
 
 div.markdown-body img {
   max-width: 40%;
+  max-height: 365px;
   height: auto;
   cursor: zoom-in;
   margin: 8px auto;
@@ -175,11 +177,11 @@ ul.like_article li > a {
 }
 
 .comment_ordinary_user_friend {
-  background-color: #08AEEA;
-  background-image: -webkit-linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
-  background-image: -moz-linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
-  background-image: -o-linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
-  background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+  background-color: var(--text_color);
+  background-image: -webkit-linear-gradient(0deg, var(--text_color) 0%, #2AF598 100%);
+  background-image: -moz-linear-gradient(0deg, var(--text_color) 0%, #2AF598 100%);
+  background-image: -o-linear-gradient(0deg, var(--text_color) 0%, #2AF598 100%);
+  background-image: linear-gradient(0deg, var(--text_color) 0%, #2AF598 100%);
 }
 
 .comment_ordinary_user_admin {
