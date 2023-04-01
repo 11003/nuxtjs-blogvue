@@ -85,7 +85,7 @@ p.heart {
   color: rgb(204, 59, 50) !important;
 }
 #cd-timeline::before {
-  background-color: #1a1a1a;
+  background-color: #1a1a1a !important;
 }
 .cd-timeline-content {
   box-shadow: 0 3px 0 #1a1a1a !important;

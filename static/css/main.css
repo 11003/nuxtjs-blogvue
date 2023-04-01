@@ -2497,7 +2497,9 @@ body.is-loading #banner:before {
   .cntwrap .sub_rp_content {
     background-color: #111111 !important;
   }
-
+  #cd-timeline::before {
+    background-color: #1a1a1a !important;
+  }
   .m-cmmt .cmmts .comment_item {
     border-top: 1px dotted #3d3939 !important;
   }
