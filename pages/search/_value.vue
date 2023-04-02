@@ -152,7 +152,7 @@ export default {
     SearchKeyValue: {
       deep: true,
       handler(data) {
-        if(!data) return;
+        if(!data||window.name === "isReload") return;
         this.SearchKey = data;
         this.articles(1,data);
       }
@@ -225,7 +225,7 @@ export default {
       this.SearchVal(search);
       // 只修改search参数不重新加载页面
       // window.history.pushState('', 'uselessTitle', '?search_value=' + this.SearchKey);
-      this.$router.push(`/search/${this.SearchKey}`) // 只为了修改地址拦的参数
+      // this.$router.push(`/search/${this.SearchKey}`) // 只为了修改地址拦的参数
       const p = {
         pageNumber: n,
         limitNumber: parseInt(this.config.artlsit_number) || 3,
@@ -261,13 +261,15 @@ export default {
       });
     },
   },
+  created() {
+    this.SearchKeyValue = this.$route.params.value || "";
+    if(process.client && localStorage.getItem("HistoryList")) {
+      this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
+    }
+  },
   mounted() {
     this.WOWInit();
     this.initViewer();
-    this.SearchKeyValue = this.$route.params.value || "";
-    if (localStorage.getItem("HistoryList")) {
-      this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
-    }
     // localStorage.setItem('page_number_search', this.page_number);
   }
 }
