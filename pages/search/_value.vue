@@ -152,7 +152,7 @@ export default {
     SearchKeyValue: {
       deep: true,
       handler(data) {
-        if(!data||window.name === "isReload") return;
+        if(!data) return;
         this.SearchKey = data;
         this.articles(1,data);
       }
