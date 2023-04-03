@@ -244,6 +244,7 @@ export default {
           this.emptyPic = false;
           this.article_list = this.article_list.concat(rowsList);
           this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
+          if(!this.pageStatus) this.page_number = 1
           this.$nextTick(()=>{
             addLineAndCopy();
           })
