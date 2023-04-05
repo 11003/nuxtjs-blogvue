@@ -157,7 +157,7 @@ export default {
       handler(data) {
         if(!data) return;
         this.SearchKey = data;
-        this.articles(1,data);
+        this.articles(1,data,true);
       }
     }
   },
@@ -194,7 +194,7 @@ export default {
     SearchBtn() {
       if (this.SearchKey) {
         // localStorage.setItem('page_number_search', this.page_number);
-        this.articles(this.page_number, this.SearchKey);
+        this.articles(this.page_number, this.SearchKey,true);
       } else {
         this.$nextTick(() => {
           this.$refs.SearchKeyID.focus();
@@ -221,9 +221,9 @@ export default {
       localStorage.removeItem('HistoryList');
       this.HistoryList = [];
     },
-    articles(n, search) {
+    articles(n, search, clear = false) {
       if(this.showLoading) return;
-      if(search) this.article_list = [];
+      if(clear) this.article_list = [];
       this.showLoading = true;
       this.SearchVal(search);
       // 只修改search参数不重新加载页面
