@@ -69,7 +69,7 @@
               </div>
             </div>
             <div v-else class="box wow zoomIn" style="animation-duration: .5s;">
-              <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${item.cid}&search=${SearchKeyValue}&index=search`}">
+              <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search`}">
                 <div class="image fit article_item">
                   <img
                     :title="item.title"
@@ -88,7 +88,7 @@
               <div class="content">
                 <header class="align-center">
                   <h2 class="title">
-                    <nuxt-link :to="{path: `/post/${item.id}?cid=${item.cid}&search=${SearchKeyValue}&index=search`}" >{{ item.title }}</nuxt-link>
+                    <nuxt-link :to="{path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search`}" >{{ item.title }}</nuxt-link>
                   </h2>
                   <p>
                       <span class="inline-block">
@@ -126,6 +126,9 @@ export default {
   },
   computed: {
     ...mapGetters(['config']),
+    searchValue: function(){
+      return this.SearchKeyValue || this.SearchKey
+    }
   },
   head(){
     return {
