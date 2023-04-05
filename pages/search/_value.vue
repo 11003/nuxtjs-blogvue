@@ -58,13 +58,13 @@
               </div>
               <div class="code-content markdown-body" @click="watchImg($event)" v-highlight v-html="item.content" v-lazy-container="{ selector: 'img' }"></div>
               <div class="info">
-                <div class="tags" v-show="item.keywords">
+                <div class="tags" v-if="item.keywords">
                   🏷️
                   <span class="tag" :key="indexK" v-for="(itemK,indexK) in item.keywords">
                     <nuxt-link :to="{path: `/search/${itemK}`}">#{{ itemK }}</nuxt-link>
                   </span>
                 </div>
-                <div class="tags" v-show="!item.keywords"></div>
+                <div class="tags" v-else></div>
                 <p class="time">{{ item.create_time }}</p>
               </div>
             </div>
