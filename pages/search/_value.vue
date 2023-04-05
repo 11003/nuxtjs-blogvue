@@ -58,13 +58,13 @@
               </div>
               <div class="code-content markdown-body" @click="watchImg($event)" v-highlight v-html="item.content" v-lazy-container="{ selector: 'img' }"></div>
               <div class="info">
-                <div class="tags" v-if="item.keywords">
+                <div class="tags" v-show="item.keywords">
                   🏷️
                   <span class="tag" :key="indexK" v-for="(itemK,indexK) in item.keywords">
                     <nuxt-link :to="{path: `/search/${itemK}`}">#{{ itemK }}</nuxt-link>
                   </span>
                 </div>
-                <div class="tags" v-else></div>
+                <div class="tags" v-show="!item.keywords"></div>
                 <p class="time">{{ item.create_time }}</p>
               </div>
             </div>
@@ -126,23 +126,13 @@ export default {
   },
   computed: {
     ...mapGetters(['config']),
-    searchValue: function (){
-      return this.SearchKeyValue || this.SearchKey;
-    },
+    searchValue: function(){
+      return this.SearchKeyValue || this.SearchKey
+    }
   },
   head(){
     return {
       title: `搜索${this.SearchKey} - ${this.config.seo_name}`,
-    }
-  },
-  watch: {
-    SearchKeyValue: {
-      deep: true,
-      handler(data) {
-        if(!data) return;
-        this.SearchKey = data;
-        this.articles(1,data,true);
-      }
     }
   },
   data() {
@@ -159,6 +149,16 @@ export default {
       HistoryList: [],
       article_list: [],
       page_number: 3,
+    }
+  },
+  watch: {
+    SearchKeyValue: {
+      deep: true,
+      handler(data) {
+        if(!data) return;
+        this.SearchKey = data;
+        this.articles(1,data,true);
+      }
     }
   },
   methods: {
@@ -221,7 +221,7 @@ export default {
       localStorage.removeItem('HistoryList');
       this.HistoryList = [];
     },
-    articles(n, search, clear = false) {
+    articles(n, search,clear = false) {
       if(this.showLoading) return;
       if(clear) this.article_list = [];
       this.showLoading = true;
@@ -265,15 +265,13 @@ export default {
       });
     },
   },
-  created() {
-    if(process.client && localStorage.getItem("HistoryList")) {
-      this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
-    }
-    this.SearchKeyValue = this.$route.params.value || "";
-  },
   mounted() {
     this.WOWInit();
     this.initViewer();
+    this.SearchKeyValue = this.$route.params.value || "";
+    if (localStorage.getItem("HistoryList")) {
+      this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
+    }
     // localStorage.setItem('page_number_search', this.page_number);
   }
 }
