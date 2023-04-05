@@ -126,13 +126,23 @@ export default {
   },
   computed: {
     ...mapGetters(['config']),
-    searchValue: function(){
-      return this.SearchKeyValue || this.SearchKey
-    }
+    searchValue: function (){
+      return this.SearchKeyValue || this.SearchKey;
+    },
   },
   head(){
     return {
       title: `搜索${this.SearchKey} - ${this.config.seo_name}`,
+    }
+  },
+  watch: {
+    SearchKeyValue: {
+      deep: true,
+      handler(data) {
+        if(!data) return;
+        this.SearchKey = data;
+        this.articles(1,data,true);
+      }
     }
   },
   data() {
@@ -149,16 +159,6 @@ export default {
       HistoryList: [],
       article_list: [],
       page_number: 3,
-    }
-  },
-  watch: {
-    SearchKeyValue: {
-      deep: true,
-      handler(data) {
-        if(!data) return;
-        this.SearchKey = data;
-        this.articles(1,data,true);
-      }
     }
   },
   methods: {
@@ -266,10 +266,10 @@ export default {
     },
   },
   created() {
-    this.SearchKeyValue = this.$route.params.value || "";
     if(process.client && localStorage.getItem("HistoryList")) {
       this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
     }
+    this.SearchKeyValue = this.$route.params.value || "";
   },
   mounted() {
     this.WOWInit();
