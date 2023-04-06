@@ -83,12 +83,28 @@
             </div>
           </div>
         </div>
+        <div class="tree">
+          <h3 class="directory">目录</h3>
+          <ul class="menu_content">
+            <li v-for="(item, key) of cata.menuData" :key="key"
+                :style="menuStyle(item.type)"
+            >
+              <a
+                :href="'#' + item.point"
+                :class="cata.menuState === item.txt ? `tree_list active`:`tree_list`"
+              >
+                {{ item.txt }}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
     <!--right-nav-->
-    <div class="rightNav">
-      <ul class="right-nav"></ul>
-    </div>
+    <!--<div class="rightNav">-->
+    <!--  <ul class="right-nav"></ul>-->
+    <!--</div>-->
+
     <Comment :comment_list="comment_list" :id="id" :comment_inputs_show="comment_inputs_show_props" @refresh_comment="getComment"/>
   </div>
 </template>
@@ -96,7 +112,6 @@
 <script>
 import Comment from '@/components/Comment'
 import {commentList, getArticle, getLikeArticle, getPage} from "@/api";
-import outline from '@/plugins/jq-outline';
 import addLineAndCopy from "@/plugins/jq-codeCopy"
 import {mapGetters} from "vuex";
 export default {
@@ -199,7 +214,11 @@ export default {
       like_article: [],
       post_data: {},
       comment_list: [],
-      pass_status: false
+      pass_status: false,
+      cata: {
+        menuData: [],
+        menuState: ""
+      }
     }
   },
   methods: {
@@ -234,7 +253,7 @@ export default {
     },
     initViewer() {
       let that = this;
-      return new Promise(() => {
+      return new Promise((resolve) => {
         let _id = document.getElementById("article-content");
         if(!_id) return;
         this.viewer = new Viewer(_id, {
@@ -244,6 +263,7 @@ export default {
             that.viewer.update();
           },
         });
+        resolve()
       })
     },
     imageChang(e) {
@@ -283,9 +303,70 @@ export default {
           this.comment_list = data.comment;
           this.post_data.comment_count = data.count;
         })
-    }
+    },
+    /******文章目录******/
+    getElement(nodeArr){
+      let nodeInfo = []
+      const dom = document.querySelector('.markdown-body')
+      // console.log(dom.childNodes)
+      dom.childNodes.forEach((item, key) => {
+        // console.log(item.nodeName)
+        if (nodeArr.includes(item.nodeName)) {
+          nodeInfo.push({
+            type: item.nodeName,
+            txt: item.innerText,
+            offsetTop: item.offsetTop,
+            point: `target_${key}`,
+          })
+          item.setAttribute('id', `target_${key}`)
+          console.log(item)
+        }
+      })
+      this.cata.menuData = nodeInfo
+      this.cata.menuState = nodeInfo[0].txt
+      console.log('nodeInfo', nodeInfo)
+    },
+    onScroll(e){
+      // 当前页面滚动的距离
+      let scrollTop = e.target.documentElement.scrollTop || e.target.body.scrollTop
+      // console.log(scrollTop)
+      //变量windowHeight是可视区的高度
+      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+      //变量scrollHeight是滚动条的总高度
+      let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+
+      let currentmenu = this.cata.menuData[0].txt // 设置menuState对象默认值第一个标题
+      for (let item of this.cata.menuData) {
+        console.log(item.offsetTop)
+        if (scrollTop >= item.offsetTop) {
+          currentmenu = item.txt
+        } else break
+      }
+
+      if (currentmenu !== this.cata.menuState) {
+        this.cata.menuState = currentmenu
+      }
+
+      // 如果到底部，就命中最后一个标题
+      if (scrollTop + windowHeight === scrollHeight) {
+        console.log('滚动到底部了')
+        this.cata.menuState = this.cata.menuData[this.cata.menuData.length - 1].txt
+      }
+    },
+    menuStyle(type){
+      let style = {}
+      if (type === 'H2') style = { 'padding-left': 10 + 'px' }
+      if (type === 'H3') style = { 'padding-left': 20 + 'px' }
+      if (type === 'H4') style = { 'padding-left': 30 + 'px' }
+      return style
+    },
+    componentDidMount(){
+      this.getElement(['H1', 'H2', 'H3', 'H4'])
+    },
   },
   async mounted() {
+    this.componentDidMount();
+    window.addEventListener('scroll', this.onScroll, true)
     await this.initViewer();
   },
   created() {
@@ -297,7 +378,6 @@ export default {
     if(process.client) {
       this.replyDataStorage();
       this.$nextTick(()=>{
-        outline();
         addLineAndCopy();
       })
     }
@@ -307,4 +387,40 @@ export default {
 
 <style>
 @import "~@/assets/css/post.min.css";
+</style>
+<style lang="scss">
+.tree {
+  width: 100%;
+  min-height: 400px;
+  background-color: #fff;
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  .menu_content {
+    width: 100%;
+    .tree_list {
+      display: block;
+      padding: 10px 0;
+      &:hover {
+        background-color: #f7f8fa;
+        border-radius: 6px;
+      }
+    }
+    .active {
+      position: relative;
+      color: #1e80ff;
+      &::before {
+        content: '';
+        height: 20px;
+        width: 5px;
+        background: #1e80ff;
+        position: absolute;
+        left: -17px;
+        top: 50%;
+        border-radius: 0 5px 5px 0;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
 </style>
