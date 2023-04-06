@@ -69,7 +69,7 @@
               </div>
             </div>
             <div v-else class="box wow zoomIn" style="animation-duration: .5s;">
-              <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${item.cid}&search=${SearchKeyValue}&index=search`}">
+              <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search`}">
                 <div class="image fit article_item">
                   <img
                     :title="item.title"
@@ -88,7 +88,7 @@
               <div class="content">
                 <header class="align-center">
                   <h2 class="title">
-                    <nuxt-link :to="{path: `/post/${item.id}?cid=${item.cid}&search=${SearchKeyValue}&index=search`}" >{{ item.title }}</nuxt-link>
+                    <nuxt-link :to="{path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search`}" >{{ item.title }}</nuxt-link>
                   </h2>
                   <p>
                       <span class="inline-block">
@@ -126,6 +126,9 @@ export default {
   },
   computed: {
     ...mapGetters(['config']),
+    searchValue: function(){
+      return this.SearchKeyValue || this.SearchKey
+    }
   },
   head(){
     return {
@@ -154,7 +157,7 @@ export default {
       handler(data) {
         if(!data) return;
         this.SearchKey = data;
-        this.articles(1,data);
+        this.articles(1,data,true);
       }
     }
   },
@@ -191,7 +194,7 @@ export default {
     SearchBtn() {
       if (this.SearchKey) {
         // localStorage.setItem('page_number_search', this.page_number);
-        this.articles(this.page_number, this.SearchKey);
+        this.articles(this.page_number, this.SearchKey,true);
       } else {
         this.$nextTick(() => {
           this.$refs.SearchKeyID.focus();
@@ -218,9 +221,9 @@ export default {
       localStorage.removeItem('HistoryList');
       this.HistoryList = [];
     },
-    articles(n, search) {
+    articles(n, search,clear = false) {
       if(this.showLoading) return;
-      if(search) this.article_list = [];
+      if(clear) this.article_list = [];
       this.showLoading = true;
       this.SearchVal(search);
       // 只修改search参数不重新加载页面
@@ -262,15 +265,13 @@ export default {
       });
     },
   },
-  created() {
-    this.SearchKeyValue = this.$route.params.value || "";
-    if(process.client && localStorage.getItem("HistoryList")) {
-      this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
-    }
-  },
   mounted() {
     this.WOWInit();
     this.initViewer();
+    this.SearchKeyValue = this.$route.params.value || "";
+    if (localStorage.getItem("HistoryList")) {
+      this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
+    }
     // localStorage.setItem('page_number_search', this.page_number);
   }
 }

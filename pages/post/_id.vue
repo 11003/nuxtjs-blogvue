@@ -154,7 +154,13 @@ export default {
 
     // 相关文章
     let like_article = [];
-    const getLikeArticlePromise = getLikeArticle({id: params.id, cid: query.cid, is_index: query.index}).then(res => {
+    let q_data = {};
+    if(query.search) {
+      q_data = {id: params.id, cid: query.cid, is_index: query.index, search: query.search}
+    } else {
+      q_data = {id: params.id, cid: query.cid, is_index: query.index}
+    }
+    const getLikeArticlePromise = getLikeArticle(q_data).then(res => {
       like_article = res;
     })
     await Promise.all([getArticlePromise,getPrevNextPromise,getLikeArticlePromise])
