@@ -1,8 +1,8 @@
 <template>
   <div class="copy-record-content-box">
     <section id="two" class="wrapper style2 post">
-      <div class="inner" v-cloak>
-        <div class="box">
+      <div class="main-container" v-cloak>
+        <div class="box main-area article-area">
           <div class="image fit post-data-img">
             <img v-lazy="post_data.img" alt="img" />
           </div>
@@ -83,21 +83,24 @@
             </div>
           </div>
         </div>
-        <div class="tree">
-          <h3 class="directory">目录</h3>
-          <ul class="menu_content">
-            <li v-for="(item, key) of cata.menuData" :key="key"
-                :style="menuStyle(item.type)"
-            >
-              <a
-                :href="'#' + item.point"
-                :class="cata.menuState === item.txt ? `tree_list active`:`tree_list`"
-              >
-                {{ item.txt }}
-              </a>
-            </li>
-          </ul>
+        <div class="sidebar">
+          <div class="sticky-block-box post_tree">
+            <ul class="menu_content">
+              <li class="menu_content-item" v-for="(item, key) of cata.menuData" :key="key">
+                <a
+                  :style="menuStyle(item.type)"
+                  @click="doMenu(item.point)"
+                  href="javascript:void(0);"
+                  class="tree_list"
+                  :class="{active_tree_item: cata.menuState === item.txt}"
+                >
+                  {{ item.txt }}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
+
       </div>
     </section>
     <!--right-nav-->
@@ -324,11 +327,11 @@ export default {
       })
       this.cata.menuData = nodeInfo
       this.cata.menuState = nodeInfo[0].txt
-      console.log('nodeInfo', nodeInfo)
+      // console.log('nodeInfo', nodeInfo)
     },
     onScroll(e){
       // 当前页面滚动的距离
-      let scrollTop = e.target.documentElement.scrollTop || e.target.body.scrollTop
+      let scrollTop = e.target.documentElement?.scrollTop || e.target.body?.scrollTop
       // console.log(scrollTop)
       //变量windowHeight是可视区的高度
       let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
@@ -337,7 +340,7 @@ export default {
 
       let currentmenu = this.cata.menuData[0].txt // 设置menuState对象默认值第一个标题
       for (let item of this.cata.menuData) {
-        console.log(item.offsetTop)
+        // console.log(item.offsetTop)
         if (scrollTop >= item.offsetTop) {
           currentmenu = item.txt
         } else break
@@ -359,6 +362,15 @@ export default {
       if (type === 'H3') style = { 'padding-left': 20 + 'px' }
       if (type === 'H4') style = { 'padding-left': 30 + 'px' }
       return style
+    },
+    doMenu(id){
+      if(!id) return
+      const target = document.querySelector(`#${id}`);
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({
+        top: targetTop,
+        behavior: 'smooth'
+      });
     },
     componentDidMount(){
       this.getElement(['H1', 'H2', 'H3', 'H4'])
@@ -389,31 +401,46 @@ export default {
 @import "~@/assets/css/post.min.css";
 </style>
 <style lang="scss">
-.tree {
-  width: 100%;
+.post_tree {
+  border-left: 1px solid #d7e4ed;
   min-height: 400px;
-  background-color: #fff;
-  padding: 20px;
+  //background-color: #fff;
   max-height: 70vh;
   overflow-y: scroll;
   .menu_content {
     width: 100%;
+    padding: 0;
+    margin: 0;
+    .menu_content-item {
+      list-style-type: none;
+      text-decoration: none;
+      padding: 0 !important;
+    }
     .tree_list {
       display: block;
-      padding: 10px 0;
+      //background-color: #f6f8fa;
+      text-decoration: none;
+      padding: 5px 0 5px 10px;
+      border-left: 1px solid transparent;
+      line-height: 20px;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      outline: 0;
+      color: #808080;
       &:hover {
-        background-color: #f7f8fa;
-        border-radius: 6px;
+        color: var(--text_active_color);
       }
     }
-    .active {
+    .active_tree_item {
       position: relative;
-      color: #1e80ff;
+      color: var(--text_active_color);
       &::before {
         content: '';
         height: 20px;
         width: 5px;
-        background: #1e80ff;
+        background: var(--text_active_color);
         position: absolute;
         left: -17px;
         top: 50%;

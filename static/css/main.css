@@ -2548,10 +2548,14 @@ body.is-loading #banner:before {
     color: #8c98a4 !important
   }
 
-  div.rightNav {
+  div.rightNav,div.post_tree {
     border-left: 1px solid rgb(37, 64, 82)
   }
-
+  div.post_tree .tree_list.active_tree_item,
+  div.post_tree .tree_list.active_tree_item:hover {
+    border-left-color: rgb(9, 63, 153);
+    background-color: rgb(28, 30, 31)
+  }
   div.rightNav .right-nav li.current a, div.rightNav .right-nav li a:hover {
     border-left-color: rgb(9, 63, 153);
     background-color: rgb(28, 30, 31)

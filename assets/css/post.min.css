@@ -706,7 +706,32 @@ p.cn {
   color: #f5f5f5;
   border: none;
 }
-
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1140px;
+}
+.main-area {
+  position: relative;
+  width: 820px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.sidebar {
+  width: 17rem;
+  transition: top .2s;
+}
+.sticky-block-box {
+  position: sticky;
+  top: 0;
+  width: inherit;
+  transition: top .2s;
+  display: flex;
+  flex-direction: column;
+}
 .markdown-body pre .btn-tip {
   z-index: 9;
 }
@@ -741,7 +766,11 @@ p.cn {
   list-style-type: none;
   text-decoration: none;
 }
-
+.post_tree .tree_list,
+.post_tree .tree_list:hover {
+  border-left-color: #4285f4;
+  color: #4285f4;
+}
 .rightNav .right-nav li.current a, .rightNav .right-nav li a:hover {
   border-left-color: #4285f4;
   background-color: #f6f8fa;
