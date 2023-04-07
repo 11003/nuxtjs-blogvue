@@ -2,7 +2,9 @@
   font-family: "Roboto Mono";
   src: local("Roboto Mono"), url("../fonts/RobotoMono-Regular.ttf");
 }
-
+.wrapper.style2.post {
+  overflow: initial;
+}
 .top li {
   cursor: pointer;
 }
@@ -724,9 +726,9 @@ p.cn {
   width: 18%;
   transition: top .2s;
 }
-.fixed-block-box {
-  position: fixed;
-  top: 0;
+.sticky-block-box {
+  position: sticky;
+  top: 110px;
   width: 100%;
   transition: top .2s;
   display: flex;
