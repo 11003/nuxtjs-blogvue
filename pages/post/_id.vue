@@ -325,6 +325,7 @@ export default {
           console.log(item)
         }
       })
+      if(!nodeInfo.length) return
       this.cata.menuData = nodeInfo
       this.cata.menuState = nodeInfo[0].txt
       // console.log('nodeInfo', nodeInfo)
