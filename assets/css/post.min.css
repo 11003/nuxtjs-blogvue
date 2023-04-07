@@ -716,18 +716,18 @@ p.cn {
 }
 .main-area {
   position: relative;
-  width: 820px;
+  width: 81%;
   max-width: 100%;
   box-sizing: border-box;
 }
 .sidebar {
-  width: 17rem;
+  width: 18%;
   transition: top .2s;
 }
 .sticky-block-box {
   position: sticky;
   top: 0;
-  width: inherit;
+  width: 100%;
   transition: top .2s;
   display: flex;
   flex-direction: column;

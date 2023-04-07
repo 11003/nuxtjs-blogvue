@@ -393,6 +393,10 @@ export default {
         addLineAndCopy();
       })
     }
+  },
+  beforeDestroy () {
+    // 组件销毁时移除滚动事件
+    window.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>
@@ -402,11 +406,9 @@ export default {
 </style>
 <style lang="scss">
 .post_tree {
-  border-left: 1px solid #d7e4ed;
   min-height: 400px;
-  //background-color: #fff;
   max-height: 70vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   .menu_content {
     width: 100%;
     padding: 0;

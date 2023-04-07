@@ -2548,7 +2548,7 @@ body.is-loading #banner:before {
     color: #8c98a4 !important
   }
 
-  div.rightNav,div.post_tree {
+  div.rightNav,div.post_tree .menu_content{
     border-left: 1px solid rgb(37, 64, 82)
   }
   div.post_tree .tree_list.active_tree_item,
