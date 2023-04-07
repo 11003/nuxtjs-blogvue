@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="sidebar">
-          <div class="sticky-block-box post_tree">
+          <div class="fixed-block-box post_tree" :style="{ top: anchorPosition.top, left: anchorPosition.left}">
             <ul class="menu_content">
               <li class="menu_content-item" v-for="(item, key) of cata.menuData" :key="key">
                 <a
@@ -221,11 +221,21 @@ export default {
       cata: {
         menuData: [],
         menuState: ""
-      }
+      },
+      container: ".main-container",
+      anchorPosition: {
+        left: 0,
+        top: 0
+      },
+      position: {
+        right: 0,
+        left: 0,
+        top: 0
+      },
     }
   },
   methods: {
-    // localStorage取出信息，如果存在则不显示姓名跟邮箱的输入框
+    // localStorage取出信息，如果存在则不显示姓名 跟邮箱的输入框
     replyDataStorage() {
       let reply_data = JSON.parse(localStorage.getItem("reply_data")); // 取出用户信息
       if (reply_data) {
@@ -376,9 +386,27 @@ export default {
     componentDidMount(){
       this.getElement(['H1', 'H2', 'H3', 'H4'])
     },
+    // 获取滚动内容的外层容器对象及DOM
+    getScrollObj() {
+      if(this.container){
+        this.scrollContainer = document.querySelector(this.container)
+        this.scrollEle = this.scrollContainer
+      } else {
+        this.scrollContainer = window
+        this.scrollEle = document.documentElement || document.body
+      }
+    },
+    computedAnchorPosition(){
+      this.anchorPosition.top = this.container ?
+        `${this.position.top || 100 + this.scrollEle.offsetTop - (document.documentElement || document.body).scrollTop}px`:
+        `${this.position.top || 100 + this.scrollEle.offsetTop}px`
+      this.anchorPosition.left = `calc(${this.scrollEle.offsetLeft + this.scrollEle.offsetWidth}px - ${this.position.right || 200}px)`
+    }
   },
   async mounted() {
     this.componentDidMount();
+    this.getScrollObj()
+    this.computedAnchorPosition()
     window.addEventListener('scroll', this.onScroll, true)
     await this.initViewer();
   },

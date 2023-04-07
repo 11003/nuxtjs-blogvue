@@ -724,8 +724,8 @@ p.cn {
   width: 18%;
   transition: top .2s;
 }
-.sticky-block-box {
-  position: sticky;
+.fixed-block-box {
+  position: fixed;
   top: 0;
   width: 100%;
   transition: top .2s;
