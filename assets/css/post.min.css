@@ -732,13 +732,12 @@ p.cn {
   border-top-right-radius: 8px !important;
 }
 .main-bottom-container {
+  padding: 15px;
   background-color: #fff;
-  width: 100%;
-  padding: 35px 15px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.main-area {
+.main-area,.main-bottom-container {
   width: 81%;
 }
 .main-area {
