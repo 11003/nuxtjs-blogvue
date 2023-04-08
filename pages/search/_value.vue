@@ -148,7 +148,7 @@ export default {
       SearchKeyValue: '',
       HistoryList: [],
       article_list: [],
-      page_number: 3,
+      page_number: 1,
     }
   },
   watch: {
@@ -194,7 +194,7 @@ export default {
     SearchBtn() {
       if (this.SearchKey) {
         // localStorage.setItem('page_number_search', this.page_number);
-        this.articles(this.page_number, this.SearchKey,true);
+        this.articles(1, this.SearchKey,true);
       } else {
         this.$nextTick(() => {
           this.$refs.SearchKeyID.focus();
@@ -223,7 +223,14 @@ export default {
     },
     articles(n, search,clear = false) {
       if(this.showLoading) return;
-      if(clear) this.article_list = [];
+      if(clear && this.article_list.length) {
+        this.$nextTick(()=>{
+          if(this.$refs.pageBtn) {
+            this.$refs.pageBtn.pageNumber = 1
+          }
+        })
+        this.article_list = [];
+      }
       this.showLoading = true;
       this.SearchVal(search);
       // 只修改search参数不重新加载页面

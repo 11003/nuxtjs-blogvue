@@ -21,6 +21,9 @@ body, .wrapper.style2,#comment-list,.main-bottom-container {
 .cntwrap .sub_rp_content{
   background: #101112 !important;
 }
+div.markdown-body p code, div.markdown-body li code {
+  background-color: #191111!important;
+}
 textarea.rp_editor {
   background: rgba(144, 144, 144, 0.075) !important;
   border-color: rgba(144, 144, 144, 0.25) !important;
