@@ -69,6 +69,7 @@
                     @click="doMenu(item.point)"
                     href="javascript:void(0);"
                     class="tree_list"
+                    :title="item.txt"
                     :class="{active_tree_item: cata.menuState === item.txt}"
                   >
                     {{ item.txt }}
