@@ -9,7 +9,7 @@
                                                                                placeholder="昵称"
                                                                                v-model="user_comment.name"/></div>
             <div class="field half email-box"><label for="email">Email</label><input name="email" id="email" @blur="setAvatarByEmail" type="email"
-                                                                           placeholder="邮箱"
+                                                                           placeholder="输入QQ邮箱会自动获取你的QQ头像"
                                                                            v-model="user_comment.email"/>
               <img v-show="avatarByEmail" :src="avatarByEmail" class="avatar-email"/>
             </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="m-cmmt" id="comments">
         <div class="cmmts">
-          <div class="comment_item" v-for="(item,index) in comment_list" :id="`rp_`+item.id">
+          <div class="comment_item" v-for="(item) in comment_list" :id="`rp_`+item.id">
             <div class="head"><a class="avatar"><img v-lazy="item.user_avatar" :alt="item.user_name"/></a></div>
             <div class="cntwrap">
               <div class="rp_content">
@@ -57,7 +57,7 @@
                 <div class="clear"></div>
               </div>
               <div class="sub_rp_content" v-if="item.reply.length">
-                <div class="rp_sub" v-for="(vo,key) in item.reply" :id="`sub_rp_`+vo.id">
+                <div class="rp_sub" v-for="(vo) in item.reply" :id="`sub_rp_`+vo.id">
                   <a :href="`#sub_rp_`+vo.id" class="reply_name">{{ vo.reply_name }}</a>
                   <a v-html="vo.nameplate"></a>
                   <div class="select-wrapper s-fc4">回复&nbsp;<span class="uName">{{ vo.uName }}：</span><span

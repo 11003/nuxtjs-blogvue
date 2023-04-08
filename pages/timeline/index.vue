@@ -285,6 +285,9 @@ export default {
 .cd-timeline-block img {
   max-width: 100%;
 }
+.cd-timeline-block div>p>img {
+  max-width: 40%;
+}
 .cd-timeline-content p,.cd-timeline-content pre {
   margin: 1em 0;
   line-height: 1.6;
