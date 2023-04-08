@@ -2472,7 +2472,7 @@ body.is-loading #banner:before {
   background-color: #fff;
 }
 @media (prefers-color-scheme: dark) {
-  body, .wrapper.style2,#comment-list,.main-bottom-container {
+  body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
     background-color: #000 !important
   }
   #comment-list form {

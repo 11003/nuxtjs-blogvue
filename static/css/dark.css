@@ -1,4 +1,4 @@
-body, .wrapper.style2,#comment-list,.main-bottom-container {
+body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
   background-color: #000 !important;
 }
 #comment-list form {
