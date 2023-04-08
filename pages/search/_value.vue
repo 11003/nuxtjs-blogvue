@@ -127,7 +127,7 @@ export default {
   computed: {
     ...mapGetters(['config']),
     searchValue: function(){
-      return this.SearchKeyValue || this.SearchKey
+      return this.SearchKey
     }
   },
   head(){
@@ -145,20 +145,8 @@ export default {
       closeWeb: true,
       SearchKey: '',
       SearchMsg: '',
-      SearchKeyValue: '',
       HistoryList: [],
       article_list: [],
-      page_number: 1,
-    }
-  },
-  watch: {
-    SearchKeyValue: {
-      deep: true,
-      handler(data) {
-        if(!data) return;
-        this.SearchKey = data;
-        this.articles(1,data,true);
-      }
     }
   },
   methods: {
@@ -193,7 +181,6 @@ export default {
     },
     SearchBtn() {
       if (this.SearchKey) {
-        // localStorage.setItem('page_number_search', this.page_number);
         this.articles(1, this.SearchKey,true);
       } else {
         this.$nextTick(() => {
@@ -215,7 +202,9 @@ export default {
       if (this.HistoryList.length > 6) {
         this.HistoryList.pop()
       }
-      localStorage.setItem('HistoryList', JSON.stringify(this.HistoryList))
+      if(process.client) {
+        localStorage.setItem('HistoryList', JSON.stringify(this.HistoryList))
+      }
     },
     removeHistory() {
       localStorage.removeItem('HistoryList');
@@ -254,13 +243,13 @@ export default {
           this.emptyPic = false;
           this.article_list = this.article_list.concat(rowsList);
           this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
-          if(!this.pageStatus) this.page_number = 1
           this.$nextTick(()=>{
             addLineAndCopy();
           })
           this.SearchMsg =
             "已搜索到<code class='search_key'>" + this.SearchKey + "</code>的相关内容，大约" + res.count + "篇。";
         } else {
+          this.pageStatus = false;
           this.$nextTick(() => {
             this.$refs.SearchKeyID.focus();
           })
@@ -272,14 +261,18 @@ export default {
       });
     },
   },
+  created() {
+    this.SearchKey = this.$route.params.value || "";
+    if(this.SearchKey) {
+      this.articles(1,this.SearchKey,true);
+    }
+  },
   mounted() {
     this.WOWInit();
     this.initViewer();
-    this.SearchKeyValue = this.$route.params.value || "";
     if (localStorage.getItem("HistoryList")) {
       this.HistoryList = JSON.parse(localStorage.getItem("HistoryList"));
     }
-    // localStorage.setItem('page_number_search', this.page_number);
   }
 }
 </script>
