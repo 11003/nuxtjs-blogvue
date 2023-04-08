@@ -327,17 +327,23 @@ p > code {
 pre {
   -webkit-overflow-scrolling: touch;
   margin: 0 0 2rem 0;
-  padding: 32px 16px 10px 16px;
-  max-height: 100rem;
+  padding: 35px 16px 10px 16px;
 }
 
 pre code {
   display: block;
   line-height: 1.75;
   padding: 16px;
+  max-height: 100rem;
   overflow-x: auto
 }
-
+pre code::-webkit-scrollbar {
+  width: 6px;
+  background-color: #282c34;
+}
+pre code:hover ::-webkit-scrollbar-track-piece {
+  background-color: #c1c1c1;
+}
 pre, code {
   background-color: rgb(25, 27, 28);
   font-size: 15px;
