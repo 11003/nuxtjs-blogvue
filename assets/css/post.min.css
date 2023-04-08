@@ -8,13 +8,11 @@
 .top li {
   cursor: pointer;
 }
-
-code, pre {
-}
 .wx-img {
   margin-bottom: 10px;
   width: 120px;
   height: 120px;
+  border-radius: 50%;
 }
 .wx-text {
   font-size: 14px;
@@ -734,20 +732,19 @@ p.cn {
   border-top-right-radius: 8px !important;
 }
 .main-bottom-container {
+  background-color: #fff;
+  width: 100%;
+  padding: 35px 15px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.main-area,.main-bottom-container {
+.main-area {
   width: 81%;
 }
 .main-area {
   position: relative;
   max-width: 100%;
   box-sizing: border-box;
-}
-.main-bottom-container {
-  padding: 15px;
-  background-color: #fff;
 }
 .sidebar {
   width: 15.6666666%;

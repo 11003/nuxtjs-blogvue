@@ -2,7 +2,7 @@
   <section id="comment-list" class="wrapper overbox">
     <div class="box inner overbox-check">
       <div class="comment_content"><h2 class="align-center" style="margin-top: 10px;">💬 COMMENT</h2>
-        <div class="hy-box" v-if="isAbout">
+        <div class="hy-box" v-if="isAbout && config.openLink === '是'">
           <div class="hy-title">如果您想<span class="become-friend" @click="becomeFriend">加为好友</span>... 那么，您的格式也应该如此😁</div>
           <div class="hy-item">博客名字：<div class="select">{{config.seo_name}}</div></div>
           <div class="hy-item">博客简介：<div class="select">{{config.qianming}}</div></div>
@@ -11,7 +11,7 @@
         </div>
         <hr/>
         <form action="#" method="post">
-          <div v-if="comment_inputs_show_box">
+          <div v-if="comment_inputs_show_box" class="form-userinfo">
             <div class="field half first"><label for="name">Name</label><input name="name" id="name" type="text"
                                                                                placeholder="昵称"
                                                                                v-model="user_comment.name"/></div>

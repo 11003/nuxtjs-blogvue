@@ -306,9 +306,18 @@ input[type="button"].special {
 .sub_rp_content_reply .rp_content_item>p{
   margin: 0;
 }
+.form-userinfo {
+  display: flex;
+  justify-content: space-between;
+}
 @media screen  and (max-width: 480px) {
   .cntwrap div.sub_rp_content {
     padding: 0;
+  }
+}
+@media screen  and (max-width: 980px) {
+  .form-userinfo {
+    display: initial;
   }
 }
 @media screen and (max-width: 768px) {

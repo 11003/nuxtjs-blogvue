@@ -124,7 +124,8 @@ export default {
 .wx-img {
   margin-bottom: 10px;
   width: 120px;
-  border-radius: 999px;
+  height: 120px;
+  border-radius: 50%;
 }
 .wx-text {
   font-size: 14px;

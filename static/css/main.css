@@ -633,10 +633,6 @@ form .field.half {
   width: 48%
 }
 
-form .field.half.first {
-  margin-right: 2.5%
-}
-
 label {
   display: block;
   font-size: 0.9rem;
@@ -2994,11 +2990,6 @@ a.show-more .icon.shouqi {
     display: block;
     width: 100%
   }
-
-  form .field.half.first {
-    margin-right: 0
-  }
-
   html {
     font-size: 12pt
   }
