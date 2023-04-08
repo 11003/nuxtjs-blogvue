@@ -2,6 +2,13 @@
   <section id="comment-list" class="wrapper overbox">
     <div class="box inner overbox-check">
       <div class="comment_content"><h2 class="align-center" style="margin-top: 10px;">💬 COMMENT</h2>
+        <div class="hy-box" v-if="isAbout">
+          <div class="hy-title">如果您想<span class="become-friend" @click="becomeFriend">加为好友</span>... 那么，您的格式也应该如此😁</div>
+          <div class="hy-item">博客名字：<div class="select">{{config.seo_name}}</div></div>
+          <div class="hy-item">博客简介：<div class="select">{{config.qianming}}</div></div>
+          <div class="hy-item">博客链接：<div class="select">{{domain}}</div></div>
+          <div class="hy-item">博客头像：<div class="select">{{ domain }}/favicon.ico</div></div>
+        </div>
         <hr/>
         <form action="#" method="post">
           <div v-if="comment_inputs_show_box">
@@ -93,6 +100,7 @@
 
 <script>
 import {addComment, addReply} from "@/api";
+import {mapGetters} from "vuex";
 export default {
   data() {
     return {
@@ -125,7 +133,14 @@ export default {
       },
       disabled: false,
       comment_inputs_show_box: true,
+      domain: null
     };
+  },
+  computed: {
+    ...mapGetters(['config']),
+    isAbout: function(){
+      return +this.$route.query?.cid === 41
+    }
   },
   props: {
     id: {type: String, default: ""}, //文章id
@@ -142,6 +157,7 @@ export default {
   },
   created() {
     if(process.client) {
+      this.domain = this.getPageBaseUrl()
       this.emoji = require('emoji')
       this.emojiList = Object.keys(this.emoji.EMOJI_MAP).slice(191,213).concat(Object.keys(this.emoji.EMOJI_MAP).slice(215,239))
     }
@@ -158,6 +174,16 @@ export default {
     }
   },
   methods: {
+    // 获取当前网页的协议+域名
+    getPageBaseUrl () {
+      let baseURL = ''
+      if (!window.location.origin) { // 兼容IE，IE11版本下location.origin为undefined
+        baseURL = window.location.origin = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '')
+      } else {
+        baseURL = window.location.origin
+      }
+      return baseURL
+    },
     setAvatarByEmail() {
       let qq=/^[1-9][0-9]{4,10}@qq.com$/;
       if(this.user_comment.email && qq.test(this.user_comment.email)) {
@@ -287,7 +313,11 @@ export default {
     sub_rpClick(key, open = true) {
       this.rp_msg.s_rp_msg = "";
       this.sub_current = open ? key : undefined; //是否展开
-    }
+    },
+    becomeFriend(){
+      this.user_comment.content = `交换友链\n- 博客名字：xxx\n- 博客简介：xxx\n- 博客链接：xxx\n- 博客头像：xxx`
+      this.$refs.message.focus()
+    },
   },
 }
 </script>
@@ -304,5 +334,19 @@ export default {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+.become-friend {
+  cursor: pointer;
+  color: var(--text_color);
+}
+.become-friend:hover {
+  color: var(--text_active_color);
+}
+.hy-box .hy-item{
+  display: flex;
+  font-size: 14px;
+}
+.hy-box .hy-item .select{
+  user-select: all;
 }
 </style>
