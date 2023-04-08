@@ -782,6 +782,7 @@ p.cn {
 
   .main-container .box .content,.main-bottom-container {
     padding: 15px;
+    width: 100%;
   }
 
   .sidebar {
