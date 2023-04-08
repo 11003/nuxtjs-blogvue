@@ -328,12 +328,13 @@ export default {
             point: `target_${key}`,
           })
           item.setAttribute('id', `target_${key}`)
-          console.log(item)
+          // console.log(item)
         }
       })
       if(!nodeInfo.length) return
       this.cata.menuData = nodeInfo
       this.cata.menuState = nodeInfo[0].txt
+      window.addEventListener('scroll', this.onScroll, true)
       // console.log('nodeInfo', nodeInfo)
     },
     onScroll(e){
@@ -395,7 +396,6 @@ export default {
     let isMobile = window.matchMedia("(pointer:coarse)").matches;
     if(!isMobile) {
       this.componentDidMount();
-      window.addEventListener('scroll', this.onScroll, true)
     }
     await this.initViewer();
   },
@@ -413,8 +413,9 @@ export default {
     }
   },
   beforeDestroy () {
+    let isMobile = window.matchMedia("(pointer:coarse)").matches;
     // 组件销毁时移除滚动事件
-    window.removeEventListener('scroll', this.onScroll)
+    if(this.cata.menuData && !isMobile) window.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>
