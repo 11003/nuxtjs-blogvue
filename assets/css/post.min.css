@@ -62,9 +62,7 @@ div.markdown-body img {
 .fr {
   float: right;
 }
-.main-bottom-container {
-  margin-top: 8rem;
-}
+
 .tag a {
   display: inline-block;
   padding: 0 8px;
@@ -84,7 +82,6 @@ div.markdown-body img {
 .page {
   height: auto;
   display: flex;
-  margin-top: 1rem;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-content: flex-start;
@@ -303,13 +300,22 @@ p.cn {
 .rp_sub .rp_time a:hover {
   color: #027fff;
 }
-
+.post_tree .menu_content {
+  border-left: 1px solid rgb(200, 214, 224);
+}
+.post_tree .menu_content .tree_list.active_tree_item {
+  border-left: 1px solid var(--text_active_color);
+  background: #e7edf8;
+}
 .rp_sub .rp_time a span {
   margin-left: 6px;
 }
 
 .main-container .box .content {
-  padding: 0;
+  padding: 15px;
+}
+.main-container .box {
+  margin-bottom: 0;
 }
 
 #footer .box .content {
@@ -415,7 +421,9 @@ p.cn {
 .pointer {
   cursor: pointer;
 }
-
+.top-cate-link {
+  color: #4e5358;
+}
 @media screen and (max-width: 768px) {
   .m-cmmt {
     padding: 3rem 10px;
@@ -719,11 +727,17 @@ p.cn {
   justify-content: space-between;
   position: relative;
 }
+.main-area,.main-bottom-container {
+  width: 81%;
+}
 .main-area {
   position: relative;
-  width: 81%;
   max-width: 100%;
   box-sizing: border-box;
+}
+.main-bottom-container {
+  padding: 15px;
+  background-color: #fff;
 }
 .sidebar {
   width: 15.6666666%;
@@ -736,102 +750,23 @@ p.cn {
   display: flex;
   flex-direction: column;
 }
+.sidebar-empty .main-area,.sidebar-empty .main-bottom-container{
+  width: 100%;
+}
+.sidebar-empty .sidebar {
+  width: 0;
+}
 .markdown-body pre .btn-tip {
   z-index: 9;
-}
-
-.wrapper > .inner.right-nav-inner {
-  margin: 0 auto 0 15%;
-  width: 60rem;
-}
-
-.rightNav {
-  text-decoration: none;
-  display: block;
-  right: auto;
-  left: 1365px;
-  top: 40%;
-  margin-top: -201px;
-  max-width: 226px;
-  min-width: 200px;
-  overflow: auto;
-  position: fixed;
-  max-height: 70vh;
-  border-left: 1px solid #d7e4ed;
-}
-
-.right-nav {
-  padding: 0;
-  margin: 0;
-}
-
-.rightNav .right-nav li {
-  padding: 0 !important;
-  list-style-type: none;
-  text-decoration: none;
 }
 .post_tree .tree_list,
 .post_tree .tree_list:hover {
   border-left-color: #4285f4;
   color: #4285f4;
 }
-.rightNav .right-nav li.current a, .rightNav .right-nav li a:hover {
-  border-left-color: #4285f4;
-  background-color: #f6f8fa;
-  color: #4285f4;
-}
-
-.rightNav .right-nav li a {
-  padding-bottom: 5px;
-  padding-top: 5px;
-  text-decoration: none;
-  padding-left: 10px;
-  border-left: 1px solid transparent;
-  display: block;
-  line-height: 20px;
-  font-size: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  outline: 0;
-  color: #808080;
-}
-
-.rightNav .right-nav li.toc-h2 a {
-  padding-left: 10px;
-}
-
-.rightNav .right-nav li.toc-h3 a {
-  padding-left: 20px;
-}
-
-.rightNav .right-nav li.toc-h4 a {
-  padding-left: 30px;
-}
-
-.rightNav .right-nav li.toc-h5 a {
-  padding-left: 40px;
-}
-
-.rightNav .right-nav li.toc-h6 a {
-  padding-left: 50px;
-}
-
-@media screen and (max-width: 1660px) {
-  .rightNav {
-    left: 1185px;
-    top: 328px;
-  }
-}
-
 @media screen and (max-width: 1280px) {
-  .wrapper > .inner.right-nav-inner {
-    margin: 0 auto;
-    width: 75rem;
-  }
-
-  .rightNav {
-    display: none;
+  .main-container .box .content,.main-bottom-container {
+    padding: 15px;
   }
 }
 
@@ -841,21 +776,20 @@ p.cn {
     margin: 0 auto;
   }
 
-  .rightNav {
+  .main-area {
+    width: 100%;
+  }
+
+  .main-container .box .content,.main-bottom-container {
+    padding: 15px;
+  }
+
+  .sidebar {
     display: none;
   }
 }
 
 @media screen and (max-width: 736px) {
-  .wrapper > .inner.right-nav-inner {
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .rightNav {
-    display: none;
-  }
-
   .post .box div.content {
     padding: 0 !important;
   }
@@ -867,6 +801,21 @@ p.cn {
   hr {
     margin: 1rem 0 !important;
   }
+  .wrapper.style2.post {
+    overflow: hidden;
+  }
+  .post-main-container {
+    max-width: 100%;
+  }
+  .main-area {
+    width: 100%;
+  }
+  .sidebar {
+    display: none;
+  }
+  .box .post-data-img {
+    height: 150px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -877,25 +826,5 @@ p.cn {
   div.markdown-body img {
     max-width: 100%;
     display: block;
-  }
-}
-
-@media screen and (max-width: 1920px) {
-  .wrapper > .inner.right-nav-inner {
-    margin: 0 auto 0 15%;
-    width: 1000px;
-  }
-  .rightNav {
-    left: 1300px;
-  }
-}
-
-@media screen and (min-width: 1921px) and (max-width: 2560px) {
-  .wrapper > .inner.right-nav-inner {
-    margin: 0 auto 0 15%;
-    width: 1318px;
-  }
-  .rightNav {
-    left: 1730px;
   }
 }

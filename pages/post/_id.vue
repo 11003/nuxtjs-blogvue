@@ -1,7 +1,7 @@
 <template>
   <div class="copy-record-content-box">
     <section id="two" class="wrapper style2 post">
-      <div class="post-main-container">
+      <div class="post-main-container" :class="{'sidebar-empty':!cata.menuData.length}">
         <div class="main-container" v-cloak>
           <div class="box main-area article-area">
             <div class="image fit post-data-img">
@@ -26,7 +26,7 @@
                 </span>
                   <span class="inline-block">
                     <i class="icon fa-list-alt"></i>
-                    <nuxt-link style="color: #a6a6a6;" :to="{path: `/articleList/${post_data.cid}?index=false`}">{{ post_data.cate_name }}</nuxt-link>
+                    <nuxt-link class="top-cate-link" :to="{path: `/articleList/${post_data.cid}?index=false`}">{{ post_data.cate_name }}</nuxt-link>
                 </span>
                 </div>
                 <p>{{ post_data.desc }}</p>
@@ -318,7 +318,7 @@ export default {
       let nodeInfo = []
       const dom = document.querySelector('.markdown-body')
       // console.log(dom.childNodes)
-      dom.childNodes.forEach((item, key) => {
+      dom?.childNodes.forEach((item, key) => {
         // console.log(item.nodeName)
         if (nodeArr.includes(item.nodeName)) {
           nodeInfo.push({
@@ -392,8 +392,11 @@ export default {
     }
   },
   async mounted() {
-    this.componentDidMount();
-    window.addEventListener('scroll', this.onScroll, true)
+    let isMobile = window.matchMedia("(pointer:coarse)").matches;
+    if(!isMobile) {
+      this.componentDidMount();
+      window.addEventListener('scroll', this.onScroll, true)
+    }
     await this.initViewer();
   },
   created() {
