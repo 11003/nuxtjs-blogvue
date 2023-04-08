@@ -20,9 +20,7 @@
 }
 
 div.markdown-body {
-  font-size: 16px;
-  line-height: 1.6px;
-  /*font: 16px/1.6 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;*/
+  font: 16px/1.6 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
 }
 
 div.markdown-body p code, div.markdown-body li code {
