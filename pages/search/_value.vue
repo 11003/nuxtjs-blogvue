@@ -5,7 +5,7 @@
         <div class="content" style="padding: 2rem;">
           <form method="get" action="#" @submit.prevent="SearchBtn">
             <div class="row uniform">
-              <div>
+              <div class="uniform-input">
                 <input
                   type="text"
                   v-model="SearchKey"
@@ -50,7 +50,7 @@
         </p>
         <div class="grid-style" id="search-article-content">
           <Loading :show="showLoading"/>
-          <div v-for="(item,index) in article_list" :key="index">
+          <div v-for="(item,index) in article_list" :key="index" class="search_list-item">
             <div v-if="item.article_type === 'CODE'" class="wow zoomIn books-item code-item copy-record-content-box" style="animation-duration: .5s;">
               <div class="header">
                 <span class="title">{{item.title}}</span>
@@ -365,9 +365,13 @@ export default {
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
+    .time {
+      margin: 0;
+    }
     .tags {
       .tag {
         margin: 0;
+        padding: 0;
       }
       .tag a {
         display: inline-block;
@@ -380,9 +384,6 @@ export default {
       }
     }
   }
-}
-.search_button_box {
-  padding: 2rem 0 0 0.3rem;
 }
 .search_button {
   display: flex;

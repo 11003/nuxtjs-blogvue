@@ -20,7 +20,9 @@
 }
 
 div.markdown-body {
-  font: 16px/1.6 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.6px;
+  /*font: 16px/1.6 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;*/
 }
 
 div.markdown-body p code, div.markdown-body li code {
@@ -686,9 +688,9 @@ p.cn {
 .markdown-body pre {
   position: relative;
 }
-.markdown-body pre code {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
+/*.markdown-body pre code {*/
+/*  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;*/
+/*}*/
 
 .markdown-body pre:hover .btn {
   display: block !important;
@@ -728,8 +730,8 @@ p.cn {
 }
 .wrapper.style2 .box.main-area {
   overflow: hidden;
-  border-top-left-radius: 8px !important;
-  border-top-right-radius: 8px !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 .main-bottom-container {
   padding: 15px;
@@ -770,6 +772,9 @@ p.cn {
   border-left-color: #4285f4;
   color: #4285f4;
 }
+.tag {
+  padding: 0 15px;
+}
 @media screen and (max-width: 1280px) {
   .main-container .box .content,.main-bottom-container {
     padding: 15px;
@@ -797,6 +802,9 @@ p.cn {
 }
 
 @media screen and (max-width: 736px) {
+  .wrapper.style2 .box.main-area {
+    overflow: initial;
+  }
   .post .box div.content {
     padding: 0 !important;
   }

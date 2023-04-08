@@ -1,3 +1,13 @@
+::-webkit-scrollbar {
+  background-color: #1a1c1d;
+  color: #89837a;
+}
+::-webkit-scrollbar-corner {
+  background-color: #131516;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #373b3e;
+}
 body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
   background-color: #000 !important;
 }
