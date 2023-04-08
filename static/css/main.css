@@ -1333,7 +1333,7 @@ table.alt tbody tr td {
 }
 
 .wrapper.style2 a:hover {
-  color: #0d8abf
+  color: var(--text_active_color)
 }
 
 .wrapper.style2 strong, .wrapper.style2 b {

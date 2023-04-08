@@ -15,7 +15,7 @@
               </div>
               <div class="search_button_box">
                 <button type="submit" class="fit search_button">
-                  <span class="btn-title">搜索</span></button>
+                  <span class="btn-title">{{ searchText }}</span></button>
               </div>
             </div>
           </form>
@@ -49,7 +49,6 @@
           <img src="https://i.loli.net/2019/10/16/CnoBqkweLcPgfNM.png"/>
         </p>
         <div class="grid-style" id="search-article-content">
-          <Loading :show="showLoading"/>
           <div v-for="(item,index) in article_list" :key="index" class="search_list-item">
             <div v-if="item.article_type === 'CODE'" class="wow zoomIn books-item code-item copy-record-content-box" style="animation-duration: .5s;">
               <div class="header">
@@ -114,21 +113,22 @@
 
 <script>
 import {indexList} from "@/api";
-import Loading from "@/components/Loading";
 import PageMore from "@/components/PageMore";
 import {mapGetters} from "vuex";
 import addLineAndCopy from "~/plugins/jq-codeCopy";
 
 export default {
   components: {
-    Loading,
     PageMore
   },
   computed: {
     ...mapGetters(['config']),
     searchValue: function(){
       return this.SearchKey
-    }
+    },
+    searchText: function(){
+      return this.showLoading ? '搜索中' : '搜索'
+    },
   },
   head(){
     return {
@@ -227,7 +227,7 @@ export default {
       // this.$router.push(`/search/${this.SearchKey}`) // 只为了修改地址拦的参数
       const p = {
         pageNumber: n,
-        limitNumber: parseInt(this.config.artlsit_number) || 3,
+        limitNumber: 6,
         searchValue: (search || this.SearchKey).replace(' ','%')
       }
       indexList(p).then(res => {

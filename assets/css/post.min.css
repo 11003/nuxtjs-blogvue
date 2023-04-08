@@ -37,6 +37,9 @@ div.markdown-body img {
   cursor: zoom-in;
   margin: 8px auto;
 }
+a.cell,ul.like_article li > a {
+  color: #4e5358;
+}
 
 .mb1rem {
   margin-bottom: 1rem;

@@ -10,7 +10,7 @@
 
 .BounceLoading-child {
   position: absolute;
-  background-color: #0084ff;
+  background-color: var(--text_active_color);
   border-radius: 50%;
   -webkit-transform-origin: center;
   transform-origin: center;

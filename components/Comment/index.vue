@@ -23,7 +23,7 @@
           </div>
           <div v-else><p><strong>Hi！{{ user_comment.name }}</strong></p></div>
           <div><label for="message">Message</label><textarea ref="message" name="message" id="message" rows="6"
-                                                                           placeholder="今天有什么想说的吗？"
+                                                                           :placeholder="contentPlaceholder"
                                                                            v-model="user_comment.content"></textarea>
             <div class='iconList'>
               <span v-for='(item,index) in emojiList' :key='index'  @click="addIcon(item,'commentContent')" class='smile'>{{item}}</span>
@@ -140,7 +140,11 @@ export default {
     ...mapGetters(['config']),
     isAbout: function(){
       return +this.$route.query?.cid === 41
-    }
+    },
+    contentPlaceholder: function(){
+      return this.user_comment.name?'今天有什么想说的吗？':'请填写正确的邮箱，以便于更好的与您取得联系，否则您的留言可能会被删除！'
+    },
+
   },
   props: {
     id: {type: String, default: ""}, //文章id
