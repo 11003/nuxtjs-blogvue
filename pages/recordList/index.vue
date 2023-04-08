@@ -24,7 +24,7 @@
                 </ul>
               </div>
               <!-- 右侧文章 -->
-              <div class="layui-col-xs12 layui-col-md9">
+              <div class="layui-col-xs12 layui-col-md10">
                 <div class="article-record-content">
                   <div class="article-record-item" v-for="(item,index) in article_data"
                        :key="index+'B'">
@@ -32,7 +32,7 @@
                     <ul>
                       <li v-for="(i,k) in item" :key="k+'C'">
                         <span class="layui-badge layui-bg-black" style="margin-right:8px;">{{ i.create_time }}</span>
-                        <a :title="i.create_time" :href="`/post/${i.id}?cid=${i.cid}&index=true`">{{ i.title }}</a>
+                        <a href="javascript:void(0)" :title="i.create_time" :href="`/post/${i.id}?cid=${i.cid}&index=true`">{{ i.title }}</a>
                       </li>
                     </ul>
                   </div>

@@ -2494,9 +2494,6 @@ body.is-loading #banner:before {
     background: #1e272e !important
   }
 
-  .cntwrap .sub_rp_content {
-    background-color: #111111 !important;
-  }
   #cd-timeline::before {
     background-color: #1a1a1a !important;
   }
@@ -2508,12 +2505,11 @@ body.is-loading #banner:before {
     color: rgb(119, 140, 154) !important
   }
   .cntwrap .sub_rp_content {
-    background-color: #1e272e !important
+    background-color: #101112!important
   }
-  .cntwrap div.sub_rp_content .rp_sub {
-    border-bottom: 1px solid #343434 !important;
+  .post_tree .menu_content {
+    border-left: 1px solid rgb(37, 64, 82)!important;
   }
-
   .markdown-body table tr {
     color: #c9d1d9 !important;
     background-color: #0d1117;
@@ -2523,7 +2519,7 @@ body.is-loading #banner:before {
     background-color: #161b22;
   }
 
-  .article_list p.article_list_title {
+  .article_list p.article_list_title ,.hy-box{
     color: rgb(119, 140, 154) !important
   }
 
@@ -2544,6 +2540,11 @@ body.is-loading #banner:before {
     background-color: #636e72 !important
   }
 
+  textarea.rp_editor {
+    color: #f1f1f1;
+    background: rgba(144, 144, 144, 0.075) !important;
+    border-color: rgba(144, 144, 144, 0.25) !important;
+  }
   .wrapper.style2 strong, .wrapper.style2 b {
     color: #8c98a4 !important
   }

@@ -14,7 +14,7 @@ code, pre {
 .wx-img {
   margin-bottom: 10px;
   width: 120px;
-  border-radius: 999px;
+  height: 120px;
 }
 .wx-text {
   font-size: 14px;
@@ -28,7 +28,8 @@ div.markdown-body {
 div.markdown-body p code, div.markdown-body li code {
   color: #f35858;
   border-radius: 4px;
-  padding: 0.25rem 0.35rem;
+  padding: 0.17rem 0.35rem;
+  background-color: #f4e6e6;
 }
 
 div.markdown-body img {
@@ -726,6 +727,15 @@ p.cn {
   display: flex;
   justify-content: space-between;
   position: relative;
+}
+.wrapper.style2 .box.main-area {
+  overflow: hidden;
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}
+.main-bottom-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 .main-area,.main-bottom-container {
   width: 81%;

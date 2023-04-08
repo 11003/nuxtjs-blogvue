@@ -49,7 +49,8 @@
 }
 .article-record-ul {
   margin: 0;
-  padding: 0;
+  padding: 10px 0;
+  border: 1px solid rgba(144, 144, 144, 0.25);
 }
 #app ul.article-record-ul li {
   padding-left: 0;

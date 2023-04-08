@@ -153,6 +153,7 @@ p.cn {
 
 .m-cmmt .cmmts div.rp_config {
   margin-top: 15px;
+  margin-bottom: 8px;
   text-align: right;
 }
 
@@ -174,12 +175,9 @@ p.cn {
   margin: 0 !important;
 }
 
-.rp_sub .rp_time {
-  float: right;
-}
-
 .rp_sub .rp_time a {
   color: #8a93a0;
+  font-size: 16px;
 }
 
 .rp_sub .rp_time a:hover {
@@ -195,23 +193,15 @@ p.cn {
 }
 
 .cntwrap .sub_rp_content {
-  margin: 1rem 0;
-  padding: 0 0 0 1rem;
   background-color: #fafbfc;
   border-radius: 3px;
 }
-
-@media screen  and (max-width: 480px) {
-  .cntwrap div.sub_rp_content {
-    padding: 0;
-  }
-}
-
 .cntwrap div.sub_rp_content .rp_sub {
-  margin: 0 .765rem;
-  padding: 15px 0 30px 0;
   font-size: 1.083rem;
   color: #17181a;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
   clear: both;
 }
 
@@ -304,7 +294,23 @@ input[type="button"].special {
 .pointer {
   cursor: pointer;
 }
-
+.sub_rp_content_reply {
+  display: flex;
+  justify-content: space-between;
+}
+.sub_rp_content_reply .rp_content_item {
+  flex: 1;
+  margin-right: 30px;
+  font-size: 18px;
+}
+.sub_rp_content_reply .rp_content_item>p{
+  margin: 0;
+}
+@media screen  and (max-width: 480px) {
+  .cntwrap div.sub_rp_content {
+    padding: 0;
+  }
+}
 @media screen and (max-width: 768px) {
   .m-cmmt {
     padding: 3rem 10px;
@@ -322,7 +328,6 @@ input[type="button"].special {
     width: 80%;
   }
 }
-
 @media (prefers-color-scheme: dark) {
   .overbox {
     background-color: #000;

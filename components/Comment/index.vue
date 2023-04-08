@@ -23,7 +23,7 @@
           </div>
           <div v-else><p><strong>Hi！{{ user_comment.name }}</strong></p></div>
           <div><label for="message">Message</label><textarea ref="message" name="message" id="message" rows="6"
-                                                                           placeholder="请填写正确的邮箱，以便于更好的与您取得联系，否则您的留言可能会被删除！"
+                                                                           placeholder="今天有什么想说的吗？"
                                                                            v-model="user_comment.content"></textarea>
             <div class='iconList'>
               <span v-for='(item,index) in emojiList' :key='index'  @click="addIcon(item,'commentContent')" class='smile'>{{item}}</span>
@@ -69,7 +69,7 @@
                   <a v-html="vo.nameplate"></a>
                   <div class="select-wrapper s-fc4">回复&nbsp;<span class="uName">{{ vo.uName }}：</span><span
                     class="rp_time pointer" :title="vo.date_create_time">{{ vo.create_time }}</span></div>
-                  <div class="select-wrapper text"><span class="rp_content_item" v-html="vo.content" v-highlight></span><span
+                  <div class="select-wrapper text sub_rp_content_reply"><span class="rp_content_item" v-html="vo.content" v-highlight></span><span
                     class="rp_time"><a v-if="vo.id!==sub_current" href="javascript:void(0)" @click="sub_rpClick(vo.id)"
                                        class="s-fc3"><i class="fa fa-comment-o"></i><span>回复</span></a><a v-else
                                                                                                           href="javascript:void(0)"
