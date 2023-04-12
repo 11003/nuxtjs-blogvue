@@ -93,6 +93,10 @@ export default {
   },
   methods: {
     getArticles(n) {
+      if(this.limitNum>=50) {
+        this.limitNum=20;
+        localStorage.setItem("page_number" + this.cid, this.limitNum);
+      }
       let limitNum = this.limitNum || 3
       const p = {
         pageNumber: n || 1,
