@@ -1,7 +1,7 @@
 <template>
   <section id="three" class="wrapper style2">
     <div class="inner">
-      <TabSort v-show="config.showHomeSort === '是'" @setArticleOrder="setArticleOrder"/>
+      <TabSort v-show="config.showHomeSort === '是' && isIndex === 'true'" @setArticleOrder="setArticleOrder"/>
       <Loading :show="showLoading"/>
       <template v-if="emptyPic">
         <p class="align-center shake-chunk shake-constant shake-constant--hover" style="padding-top: 6em;">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <PageMore ref="pageBtn" @nextnewpage="getArticles" v-if="pageStatus"/>
+      <PageMore ref="pageBtn" @nextnewpage="moreArticles" v-if="pageStatus"/>
     </div>
   </section>
 </template>
@@ -96,20 +96,20 @@ export default {
     }
   },
   methods: {
-    setArticleOrder(order){
+    async setArticleOrder(order){
       this.article_list = [];
       this.pageStatus = false;
       this.showLoading = true;
       this.orderName = order;
+      await this.getArticles(1)
       this.$nextTick(()=>{
-        if(this.$refs.pageBtn) {
-          this.$refs.pageBtn.pageNumber = 1
-          console.log(`this.$refs.pageBtn.pageNumber = 1===>`, this.$refs.pageBtn.pageNumber)
-        }
+        if(this.$refs.pageBtn) this.$refs.pageBtn.pageNumber = 1
       })
-      this.getArticles(1)
     },
-    getArticles(n) {
+    moreArticles(n){
+      this.getArticles(n)
+    },
+    async getArticles(n) {
       if(this.limitNum>=50) {
         this.limitNum=20;
         localStorage.setItem("page_number" + this.cid, this.limitNum);
@@ -121,7 +121,7 @@ export default {
         limitNumber: limitNum,
         cid: this.cid
       }
-      indexList(p).then(res => {
+      await indexList(p).then(res => {
         let rowsList = res.rows
         this.showLoading = false;
         this.limitNum = +this.config.artlsit_number
@@ -141,22 +141,28 @@ export default {
     },
     WOWInit() {
       new WOW().init();
+    },
+    getPageNum(){
+      return new Promise(resolve => {
+        let page_number = 1;
+        let limit_number = +this.config.artlsit_number
+        let lo_pageNumber = +localStorage.getItem('page_number' + this.cid);
+        if (!lo_pageNumber) {
+          localStorage.setItem("page_number" + this.cid, page_number);
+          lo_pageNumber = page_number; // 防止NaN
+        }
+        //页面被刷新
+        if(+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
+          this.limitNum = lo_pageNumber * limit_number
+        }
+        resolve();
+      })
     }
   },
-  mounted() {
+  async mounted() {
     this.WOWInit();
-    let page_number = 1;
-    let limit_number = +this.config.artlsit_number
-    let lo_pageNumber = +localStorage.getItem('page_number' + this.cid);
-    if (!lo_pageNumber) {
-      localStorage.setItem("page_number" + this.cid, page_number);
-      lo_pageNumber = page_number; // 防止NaN
-    }
-    //页面被刷新
-    if(+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
-      this.limitNum = lo_pageNumber * limit_number
-    }
-    this.getArticles(1)
+    await this.getPageNum();
+    await this.getArticles(1)
   }
 }
 </script>

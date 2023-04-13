@@ -54,15 +54,15 @@ export default {
 <style lang="scss" scoped>
 .tab-list-container {
   margin: 0 auto 20px auto;
-  width: 345px;
+  width: 337px;
 }
-.tabs {
+.tab-list-container .tabs {
   display: flex;
   position: relative;
-  background-color: #1e1e1e;
+  background-color: #fff;
   box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
-  padding: 0.75rem;
-  border-radius: 99px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
 }
 .tabs * {
   z-index: 2;
@@ -81,20 +81,18 @@ input[type=radio] {
   justify-content: center;
   font-size: 1.2rem;
   font-weight: 500;
-  border-radius: 99px;
+  border-radius: 10px;
   cursor: pointer;
   transition: color 0.15s ease-in;
   margin-bottom: 0;
   user-select: none;
 }
+.tab:hover {
+  color: #185ee0;
+}
 input[type=radio]:checked + label {
   color: #185ee0 !important;
 }
-input[type=radio]:checked + label > .tab-notification {
-  background-color: #185ee0 !important;
-  color: #fff;
-}
-
 input[id=radio-1]:checked ~ .glider {
   transform: translateX(0);
 }
@@ -112,7 +110,7 @@ input[id=radio-3]:checked ~ .glider {
   display: flex;
   background-color: #e6eef9;
   z-index: 1;
-  border-radius: 99px;
+  border-radius: 5px;
   transition: 0.25s ease-out;
 }
 

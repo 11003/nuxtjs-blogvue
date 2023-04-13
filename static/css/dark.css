@@ -146,3 +146,6 @@ p.heart {
 .heart::after {
   background-color: rgb(42, 46, 47);
 }
+.tab-list-container .tabs {
+  background-color: #1e1e1e !important;
+}

@@ -2407,6 +2407,9 @@ body.is-loading #banner:before {
   .loading-btn {
     border: 1px solid #222222;
   }
+  .tab-list-container .tabs {
+    background-color: #1e1e1e !important;
+  }
 }
 
 #article-content h1, h2, h3, h4, h5, h6 {
