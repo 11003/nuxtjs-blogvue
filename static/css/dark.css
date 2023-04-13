@@ -49,9 +49,12 @@ textarea.rp_editor {
   color: rgb(119, 140, 154) !important;
 }
 .markdown-body table tr {
-  background-color: #1e272e !important;
+  background-color: #8c96a1 !important;
   color: #c9d1d9 !important;
   border-top: 1px solid #21262d;
+}
+table td,table th {
+  border: 1px solid #4a5056 !important;
 }
 .article_list p.article_list_title,.hy-box {
   color: rgb(119, 140, 154) !important;

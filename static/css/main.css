@@ -353,6 +353,8 @@ pre, code {
   max-width: 100%;
   overflow: auto;
   text-shadow: none;
+  color: #d9d9d9;
+  padding: 0.35rem;
 }
 
 pre:before {
@@ -1352,11 +1354,6 @@ table.alt tbody tr td {
 .wrapper.style2 table th {
   color: #000
 }
-
-.wrapper.style2 table thead {
-  border-bottom-color: rgba(0, 0, 0, 0.15)
-}
-
 .wrapper.style2 table tfoot {
   border-top-color: rgba(0, 0, 0, 0.15)
 }
@@ -2348,7 +2345,7 @@ body.is-loading #banner:before {
     border-left: 1px solid rgb(37, 64, 82)!important;
   }
   .markdown-body table tr {
-    color: #c9d1d9 !important;
+    color: #8c96a1 !important;
     background-color: #0d1117;
     border-top: 1px solid #21262d;
   }
@@ -2409,6 +2406,9 @@ body.is-loading #banner:before {
   }
   .tab-list-container .tabs {
     background-color: #1e1e1e !important;
+  }
+  table td,table th {
+    border: 1px solid #4a5056 !important;
   }
 }
 

@@ -144,8 +144,8 @@ export default {
         margin-bottom: 20px;
       }
       img {
-        max-width: 60%;
-        display: block;
+        max-width: 28%;
+        max-height: 365px;
         height: auto;
         cursor: zoom-in;
       }
