@@ -82,6 +82,7 @@ input[type=radio] {
   font-size: 1.2rem;
   font-weight: 500;
   border-radius: 10px;
+  line-height: 40px;
   cursor: pointer;
   transition: color 0.15s ease-in;
   margin-bottom: 0;
