@@ -17,7 +17,7 @@
                 </span>
                   <span class="inline-block">
                     <i class="icon fa-comments"></i>
-                    <span v-if="post_data.comment_count > 0"><a href="#comments">{{ post_data.comment_count }}条评论</a></span>
+                    <span v-if="post_data.comment_count > 0"><span @click="doMenu('comments')" class="cp">{{ post_data.comment_count }}条评论</span></span>
                     <span v-else>0条评论</span>
                 </span>
                   <span class="inline-block">
