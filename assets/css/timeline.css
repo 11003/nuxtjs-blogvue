@@ -426,4 +426,13 @@ Main components
     background: #333 !important;
     color: #fff !important;
   }
+  .cd-timeline-img {
+    box-shadow: 0 0 0 4px #1a1a1a, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+  }
+  .cd-timeline-block:nth-child(even) .cd-timeline-content::before {
+    border-right-color: #1a1a1a;
+  }
+  .cd-timeline-content::before {
+    border-left-color: #1a1a1a;
+  }
 }

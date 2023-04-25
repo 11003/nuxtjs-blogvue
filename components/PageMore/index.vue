@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     nextpage() {
+      console.log(`this.pageNumber===>`, this.pageNumber)
       if(this.moreTxt === 'Loading...') return;
       this.$emit('nextnewpage', this.pageNumber+=1);
       this.moreTxt = 'Loading...';

@@ -62,7 +62,7 @@
           <input accept="image/*" v-show='false' type="file" multiple ref="selectFile" @change='changeFile'>
         </div>
         <div class="actions align-center upload-form-button">
-          <input :value="data.id?`修改`:`发送`" class="button special" type="button" @click="addTimeLineHandle"/>
+          <input :value="text" class="button special" type="button" @click="addTimeLineHandle"/>
           <input value="取消" class="button close" type="button" @click="closeBox"/>
         </div>
       </form>
@@ -104,15 +104,21 @@ export default {
       timeline_data: [],
       imgList:[],
       disUpload: false,
-      showLoading: true
+      showLoading: true,
+      uploadLoading: false
+    }
+  },
+  computed: {
+    text: function (){
+      return this.uploadLoading ? '上传中...' : this.data.id ? '修改' : '发送'
     }
   },
   components: {
     ReDialog
   },
   created() {
-    this.getTimeLine();
     if(process.client){
+      this.getTimeLine();
       this.timelinePyq = localStorage.getItem(`${this.$route.path}-pyq`);
     }
     // this.showFrom = !!this.$route.query.pyq
@@ -165,7 +171,8 @@ export default {
       this.showFrom=!this.showFrom;
     },
     getTimeLine(){
-      timeline().then(data => {
+      let isMobile = window.matchMedia("(pointer:coarse)").matches
+      timeline({isPc: !isMobile}).then(data => {
         this.showLoading = false;
         data.forEach((item,index) => {
           switch (index % 3) {
@@ -201,7 +208,9 @@ export default {
         alert(`不能超过${maxFileNum}个`);
         return false;
       }
+      this.uploadLoading = true;
       let data = await uploads.uploadFile(files,'jpg|jpeg|png','file[]',uploadImg);
+      this.uploadLoading = false
       if(!data.code) {
         this.showFrom = false;
         alert('上传失败，服务器报错！');

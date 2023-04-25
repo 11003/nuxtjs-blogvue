@@ -1,6 +1,7 @@
 <template>
   <section id="three" class="wrapper style2">
     <div class="inner">
+      <TabSort v-show="config.showHomeSort === '是' && isIndex === 'true'" @setArticleOrder="setArticleOrder"/>
       <Loading :show="showLoading"/>
       <template v-if="emptyPic">
         <p class="align-center shake-chunk shake-constant shake-constant--hover" style="padding-top: 6em;">
@@ -50,7 +51,7 @@
           </div>
         </div>
       </div>
-      <PageMore ref="pageBtn" @nextnewpage="getArticles" v-if="pageStatus"/>
+      <PageMore ref="pageBtn" @nextnewpage="moreArticles" v-if="pageStatus"/>
     </div>
   </section>
 </template>
@@ -59,9 +60,11 @@
 import {mapGetters} from 'vuex';
 import Loading from '@/components/Loading';
 import PageMore from '@/components/PageMore';
+import TabSort from "@/components/TabSort";
 import {indexList} from "@/api";
 export default {
   components: {
+    TabSort,
     Loading,
     PageMore
   },
@@ -88,22 +91,37 @@ export default {
       showLoading: true,
       pageStatus: null,
       emptyPic: false,
-      article_list: []
+      article_list: [],
+      orderName: 'create_time'
     }
   },
   methods: {
-    getArticles(n) {
+    async setArticleOrder(order){
+      this.article_list = [];
+      this.pageStatus = false;
+      this.showLoading = true;
+      this.orderName = order;
+      await this.getArticles(1)
+      this.$nextTick(()=>{
+        if(this.$refs.pageBtn) this.$refs.pageBtn.pageNumber = 1
+      })
+    },
+    moreArticles(n){
+      this.getArticles(n)
+    },
+    async getArticles(n) {
       if(this.limitNum>=50) {
-        this.limitNum = +this.config.artlsit_number;
+        this.limitNum=20;
         localStorage.setItem("page_number" + this.cid, this.limitNum);
       }
       let limitNum = this.limitNum || 3
       const p = {
+        order: this.orderName,
         pageNumber: n || 1,
         limitNumber: limitNum,
         cid: this.cid
       }
-      indexList(p).then(res => {
+      await indexList(p).then(res => {
         let rowsList = res.rows
         this.showLoading = false;
         this.limitNum = +this.config.artlsit_number
@@ -123,22 +141,28 @@ export default {
     },
     WOWInit() {
       new WOW().init();
+    },
+    getPageNum(){
+      return new Promise(resolve => {
+        let page_number = 1;
+        let limit_number = +this.config.artlsit_number
+        let lo_pageNumber = +localStorage.getItem('page_number' + this.cid);
+        if (!lo_pageNumber) {
+          localStorage.setItem("page_number" + this.cid, page_number);
+          lo_pageNumber = page_number; // 防止NaN
+        }
+        //页面被刷新
+        if(+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
+          this.limitNum = lo_pageNumber * limit_number
+        }
+        resolve();
+      })
     }
   },
-  mounted() {
+  async mounted() {
     this.WOWInit();
-    let page_number = 1;
-    let limit_number = +this.config.artlsit_number
-    let lo_pageNumber = +localStorage.getItem('page_number' + this.cid);
-    if (!lo_pageNumber) {
-      localStorage.setItem("page_number" + this.cid, page_number);
-      lo_pageNumber = page_number; // 防止NaN
-    }
-    //页面被刷新
-    if(+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
-      this.limitNum = lo_pageNumber * limit_number
-    }
-    this.getArticles()
+    await this.getPageNum();
+    await this.getArticles(1)
   }
 }
 </script>
