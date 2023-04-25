@@ -370,7 +370,13 @@ pre:before {
   box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
   z-index: 2;
 }
-
+.copy-record-content-box .markdown-body p > code {
+  color: #f35858;
+  border-radius: 4px;
+  padding: 0.17rem 0.35rem;
+  background-color: #f4e6e6;
+  -webkit-box-decoration-break: clone;
+}
 code.hljs {
   background: transparent;
   border-color: transparent;
@@ -2416,6 +2422,9 @@ body.is-loading #banner:before {
   }
   table td,table th {
     border: 1px solid #4a5056 !important;
+  }
+  hr {
+    background-color: transparent !important;
   }
 }
 

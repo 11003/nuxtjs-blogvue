@@ -28,7 +28,7 @@ div.markdown-body p code, div.markdown-body li code {
   border-radius: 4px;
   padding: 0.17rem 0.35rem;
   background-color: #f4e6e6;
-  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 div.markdown-body img {

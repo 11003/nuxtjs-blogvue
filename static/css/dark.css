@@ -167,3 +167,6 @@ p.heart {
 .glider {
   background-color: #2c3239 !important;
 }
+hr {
+  background-color: transparent !important;
+}
