@@ -129,16 +129,16 @@ export default {
     nextLink() {
       let search = this.$route.query.search;
       if(search) {
-        return `/post/${this.next.id}?cid=${this.cid}&search=${search}&index=${this.is_index}`
+        return `/post/${this.next.id}?cid=${this.post_data.cid}&search=${search}&index=${this.is_index}`
       }
-      return `/post/${this.next.id}?cid=${this.cid}&index=${this.is_index}`
+      return `/post/${this.next.id}?cid=${this.post_data.cid}&index=${this.is_index}`
     },
     prevLink() {
       let search = this.$route.query.search;
       if(search) {
-        return `/post/${this.prev.id}?cid=${this.cid}&search=${search}&index=${this.is_index}`
+        return `/post/${this.prev.id}?cid=${this.post_data.cid}&search=${search}&index=${this.is_index}`
       }
-      return `/post/${this.prev.id}?cid=${this.cid}&index=${this.is_index}`
+      return `/post/${this.prev.id}?cid=${this.post_data.cid}&index=${this.is_index}`
     },
     ...mapGetters(['config']),
   },
@@ -148,7 +148,7 @@ export default {
     let articlePass = store.getters.articlePass || '';
     const p = {id: params.id, pass: articlePass}
     let post_data = {};
-    const getArticlePromise = getArticle(p).then(res => {
+    const getArticlePromise = await getArticle(p).then(res => {
       let data = res;
       post_data = {
         content: data.content,
@@ -169,7 +169,7 @@ export default {
     // 上下翻页
     let prev = '';
     let next = '';
-    const getPrevNextPromise = getPage({id: params.id, cid: query.cid, is_index: query.index, search: query.search}).then(res => {
+    const getPrevNextPromise = getPage({id: params.id, cid: post_data.cid, is_index: query.index, search: query.search}).then(res => {
       prev = res.prev ? res.prev : "";
       next = res.next ? res.next : "";
     });
@@ -178,9 +178,9 @@ export default {
     let like_article = [];
     let q_data = {};
     if(query.search) {
-      q_data = {id: params.id, cid: query.cid, is_index: query.index, search: query.search}
+      q_data = {id: params.id, cid: post_data.cid, is_index: query.index, search: query.search}
     } else {
-      q_data = {id: params.id, cid: query.cid, is_index: query.index}
+      q_data = {id: params.id, cid: post_data.cid, is_index: query.index}
     }
     const getLikeArticlePromise = getLikeArticle(q_data).then(res => {
       like_article = res;
@@ -403,7 +403,6 @@ export default {
   created() {
     // 解决地址变化，页面不变
     this.id = this.$route.params.id;
-    this.cid = this.$route.query.cid;
     this.is_index = this.$route.query.index;
     this.getComment();
     if(process.client) {
