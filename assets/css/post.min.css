@@ -23,7 +23,7 @@ div.markdown-body {
   font: 16px/1.6 Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
 }
 
-div.markdown-body p code, div.markdown-body li code {
+div.markdown-body p code, div.markdown-body li code:not(.hljs) {
   color: #f35858;
   border-radius: 4px;
   padding: 0.17rem 0.35rem;

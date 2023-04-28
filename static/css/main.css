@@ -370,7 +370,7 @@ pre:before {
   box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
   z-index: 2;
 }
-.copy-record-content-box .markdown-body p > code {
+.copy-record-content-box .markdown-body p > code:not(.hljs) {
   color: #f35858;
   border-radius: 4px;
   padding: 0.17rem 0.35rem;
@@ -2400,7 +2400,7 @@ body.is-loading #banner:before {
     border-left-color: rgb(9, 63, 153) !important;
     background-color: rgb(28, 30, 31) !important;
   }
-  div.markdown-body p code, div.markdown-body li code {
+  div.markdown-body p code, div.markdown-body li code:not(.hljs) {
     background-color: #191111!important;
   }
   code.hljs {

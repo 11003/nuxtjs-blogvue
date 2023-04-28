@@ -31,7 +31,7 @@ body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
 .cntwrap .sub_rp_content{
   background: #101112 !important;
 }
-div.markdown-body p code, div.markdown-body li code {
+div.markdown-body p code, div.markdown-body li code:not(.hljs) {
   background-color: #191111!important;
 }
 textarea.rp_editor {
