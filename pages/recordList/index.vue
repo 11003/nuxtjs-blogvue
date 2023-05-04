@@ -32,7 +32,7 @@
                     <ul>
                       <li v-for="(i,k) in item" :key="k+'C'">
                         <span class="layui-badge layui-bg-black" style="margin-right:8px;">{{ i.create_time }}</span>
-                        <a href="javascript:void(0)" :title="i.create_time" :href="`/post/${i.id}?cid=${i.cid}&index=true`">{{ i.title }}</a>
+                        <a :title="i.title_create_time" :href="`/post/${i.id}?cid=${i.cid}&index=true`">{{ i.title }}</a>
                       </li>
                     </ul>
                   </div>
