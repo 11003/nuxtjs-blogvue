@@ -552,6 +552,16 @@ p.cn {
 .badge.badge-3 {
   background-color: #ffb916;
 }
+.like_article_link {
+  display: flex;
+  align-items: center;
+}
+.like_article_title {
+  transition: margin-left .2s ease-in;
+}
+.like_article_link:hover .like_article_title {
+  margin-left: 0.35rem;
+}
 ul li.fit {
   padding-left: 0 !important;
 }
