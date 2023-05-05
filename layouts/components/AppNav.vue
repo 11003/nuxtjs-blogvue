@@ -5,6 +5,9 @@
       <a class="close" @click="closeMenu"></a>
       <ul class="links">
         <li v-for="item in nav_list" :key="item.id">
+          <nuxt-link @click.native="closeMenu" title="首页" :to="{path: '/'}">
+            首页
+          </nuxt-link>
           <nuxt-link @click.native="closeMenu" :title="item.catename" :to="{path: filterUrl(item)}">
             {{ item.catename }}
           </nuxt-link>
@@ -59,13 +62,7 @@ export default {
     },
     getNavigations() {
       navigations().then(res => {
-        let data = res;
-        let indexNav = {
-          url: "/",
-          catename: "首页"
-        };
-        this.nav_list = data;
-        this.nav_list.unshift(indexNav);
+        this.nav_list = res;
       });
     }
   },
