@@ -825,13 +825,6 @@ ol {
 ol li {
   padding-left: 0.25rem
 }
-
-ul {
-  list-style: disc;
-  margin: 0 0 2rem 0;
-  padding-left: 1rem
-}
-
 #post ul li, #app ul li {
   padding-left: 0.5rem
 }
@@ -1732,10 +1725,6 @@ body.subpage {
   z-index: 10002
 }
 
-#menu > ul {
-  margin: 0 0 1rem 0
-}
-
 #menu > ul.links {
   list-style: none;
   padding: 0
@@ -1747,10 +1736,9 @@ body.subpage {
 
 #menu > ul.links > li > a:not(.button) {
   border: 0;
-  border-top: solid 1px rgba(255, 255, 255, 0.25);
   color: #fff;
   display: block;
-  line-height: 3.5em;
+  line-height: 2.5em;
   text-decoration: none
 }
 
@@ -2970,7 +2958,8 @@ a.show-more .icon.shouqi {
   }
 
   #menu {
-    padding: 2.5em 1.75em
+    padding: 2.5em 1.5em;
+    max-width: 60%;
   }
 
   #header > a {
