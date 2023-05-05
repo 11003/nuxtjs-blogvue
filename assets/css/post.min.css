@@ -526,6 +526,35 @@ p.cn {
 .tag {
   padding: 0 15px;
 }
+.me-3 {
+  margin-right: 0.6rem;
+}
+.badge {
+  min-width: 0.325rem;
+  background-color: #adb5bd;
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: .75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+.badge.badge-1 {
+  background-color: #e04a1d;
+}
+.badge.badge-2 {
+  background-color: #f88217;
+}
+.badge.badge-3 {
+  background-color: #ffb916;
+}
+ul li.fit {
+  padding-left: 0 !important;
+}
 @media screen and (max-width: 1280px) {
   .main-container .box .content,.main-bottom-container {
     padding: 15px;

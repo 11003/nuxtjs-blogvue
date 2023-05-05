@@ -96,9 +96,9 @@
           <div class="article_list">
             <p class="article_list_title">📒&nbsp;相关文章</p>
             <ul class="like_article">
-              <li class="fit" v-for="item in like_article">
+              <li class="fit" v-for="(item,index) in like_article">
                 <nuxt-link :title="item.create_time" :to="{path: `/post/${item.id}?cid=${item.cid}&index=${is_index}`}">
-                  {{ item.title }}
+                  <span class="me-3 badge" :class="'badge-'+(index+1)">{{index+1}}</span>{{ item.title }}
                 </nuxt-link>
               </li>
             </ul>
