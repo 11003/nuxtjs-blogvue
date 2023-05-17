@@ -5,7 +5,7 @@
         <div class="layui-container">
           <div class="blog-nav-two">
             <div class="layui-breadcrumbs">
-              <nuxt-link :to="`/timeline`"><span>时光轴</span></nuxt-link>
+              <nuxt-link :to="`/timeline`"><span>🌳树洞</span></nuxt-link>
               <span data-separator>|</span>
               <nuxt-link :to="`/recordList`" class="selected"><span>文章归档</span></nuxt-link>
               <span data-separator>|</span>
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     overflowForTimeline() {
-      return this.title === '时光轴' ? 'overflow: hidden;' : null
+      return this.title === '🌳树洞' ? 'overflow: hidden;' : null
     }
   },
   methods: {

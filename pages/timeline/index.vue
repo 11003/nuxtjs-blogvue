@@ -5,7 +5,7 @@
         <div class="layui-container">
           <div class="blog-nav-two">
             <div class="layui-breadcrumbs">
-              <nuxt-link :to="`/timeline`" class="selected"><span @click="showFromHandler">时光轴</span></nuxt-link>
+              <nuxt-link :to="`/timeline`" class="selected"><span @click="showFromHandler">🌳树洞</span></nuxt-link>
               <span data-separator>|</span>
               <nuxt-link :to="`/recordList`"><span>文章归档</span></nuxt-link>
               <span data-separator>|</span>
