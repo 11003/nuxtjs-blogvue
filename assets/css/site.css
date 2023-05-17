@@ -1,10 +1,6 @@
 ﻿/* 全局样式
  * @Author: Leo
  */
-body {
-    background-color: #eee;
-    color: #333;
-}
 .layui-container {
     padding: 0 10px;
     position: relative;

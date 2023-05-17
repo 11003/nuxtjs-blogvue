@@ -15,7 +15,7 @@
           <div class="blog-panel">
             <Loading v-if="showLoading"/>
             <div class="layui-row" v-if="!showLoading">
-              <div class="article-record-title article-record layui-hide-xs layui-col-md2">
+              <div class="article-record-title article-record layui-hide-xs layui-col-md2 layui-col-sm2">
                 <ul class="article-record-ul">
                   <li :class="{selected:index===listIndex}" v-for="(item,index) in article_data"
                       :key="index+'A'" @click="selectedIndex(index)">
@@ -24,7 +24,7 @@
                 </ul>
               </div>
               <!-- 右侧文章 -->
-              <div class="layui-col-xs12 layui-col-md10">
+              <div class="layui-col-xs12 layui-col-md10 layui-col-sm10">
                 <div class="article-record-content">
                   <div class="article-record-item" v-for="(item,index) in article_data"
                        :key="index+'B'">

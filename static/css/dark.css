@@ -21,7 +21,7 @@ body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
 .post_tree .menu_content {
   border-left: 1px solid rgb(37, 64, 82)!important;
 }
-#footer, #one .content, #two .box, #footer .inner .box, .layui-container, .blog-nav-two, .cd-timeline-content, .books-item {
+#footer, #one .content,.cd-title, #two .box, #footer .inner .box, .layui-container, .blog-nav-two, .cd-timeline-content, .books-item {
   background-color: #000 !important;
   color: rgb(119, 140, 154) !important;
 }
@@ -117,6 +117,9 @@ p.heart {
 }
 .article-record-content {
   background-color: #000 !important;
+}
+.cd-content-item {
+  border: 1px solid rgb(38, 38, 38) !important;
 }
 .article-record-title li .cur-item-time {
   background-color: #000;

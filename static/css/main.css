@@ -2301,6 +2301,12 @@ body.is-loading #banner:before {
   ::-webkit-scrollbar-thumb {
     background-color: #373b3e;
   }
+  .article-record-ul::-webkit-scrollbar-track{
+    background: #131516 !important;
+  }
+  .article-record-ul::-webkit-scrollbar-thumb{
+    background: #373b3e !important;
+  }
   body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
     background-color: #000 !important
   }
@@ -2314,8 +2320,10 @@ body.is-loading #banner:before {
     background-color: #1e272e !important;
     color: rgb(119, 140, 154) !important
   }
-
-  #footer, #one .content, #two .box, #footer .inner .box, .layui-container, .blog-nav-two, .cd-timeline-content, .books-item {
+  .cd-content-item {
+    border: 1px solid rgb(38, 38, 38) !important;
+  }
+  #footer, #one .content,.cd-title, #two .box, #footer .inner .box, .layui-container, .blog-nav-two, .cd-timeline-content, .books-item {
     background-color: #000 !important;
     color: rgb(119, 140, 154) !important
   }

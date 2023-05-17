@@ -127,6 +127,14 @@ export function getLikeArticle(data) {
     data
   });
 }
+// 时间轴左侧时间树
+export function timelineTreeTime(data) {
+  return api({
+    url: '/api/timelineTreeTime',
+    method: 'get',
+    data
+  });
+}
 // 获取相似文章
 export function addTimeline(data) {
   return api({

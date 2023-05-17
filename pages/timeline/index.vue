@@ -1,5 +1,5 @@
 <template>
-  <section id="one" class="wrapper style2" style="overflow: hidden;">
+  <section id="one" class="wrapper style2">
     <div class="inner">
       <div class="blog-body">
         <div class="layui-container">
@@ -14,31 +14,36 @@
           </div>
           <div class="blog-panel">
             <Loading v-if="showLoading"/>
-            <template v-if="!showLoading">
-              <section id="cd-timeline" class="cd-container">
-                <div class="cd-timeline-block" v-for="(item,index) of timeline_data" v-cloak>
-                  <div class="cd-timeline-img wow rubberBand" :class="item.timelineImgClass">
-                    <img class="cd-timeline-img-icon" v-lazy="item.pic"/>
-                  </div>
-                  <div data-wow-delay=".3s" class="cd-timeline-content wow"
-                       :class="index % 2 === 0 ? 'fadeInLeft' : 'fadeInRight'">
-                    <h2>{{ item.title }}</h2>
-                    <div v-html="item.content" v-lazy-container="{ selector: 'img' }"></div>
-                    <ul class="img-list cd-img-list" v-show="item.img_list">
-                      <li class="img-list-li" v-for="img of item.img_list">
-                        <img class="img-list-item" v-lazy="img"/>
-                      </li>
-                    </ul>
-                    <a v-if="item.url" :href="item.url" target="_blank" class="cd-read-more">阅读更多</a>
-                    <span class="cd-date">{{ item.create_time }}</span>
-                    <div class="timeline-option" v-if="timelinePyq">
-                      <span class="timeline-option-edit" @click="showFromHandler(item)">修改</span>
-                      <span @click="delFromHandler(item)">删除</span>
+            <div class="time-container" v-if="!showLoading">
+              <div class="layui-col-md2 layui-col-sm2 layui-hide-xs article-record-title">
+                <ul class="article-record-ul">
+                  <li class="cur-item-time" v-for="(item,index) in timeline_data" :key="index" :class="{selected:index===listIndex}" @click="selectedIndex(index)">{{ index }}</li>
+                </ul>
+              </div>
+              <div class="layui-col-md10 layui-col-sm10" id="cd-timeline">
+                <div class="article-record-content">
+                  <div class="cd-content-item-box" :id="index" :key="index" v-for="(item,index) in timeline_data">
+                    <div class="cd-content-item" v-for="(val,k) in item" :key="k+'C'">
+                      <div class="cd-title">
+                        <div class="info">
+                          <img class="avatar no-zoom" :src="val.avatar"/>
+                          <span class="name">{{ val.master_name }}</span>
+                        </div>
+                        <div class="time">{{ val.create_time }}</div>
+                      </div>
+                      <div class="cd-content cd-timeline-content">
+                        <div v-html="val.content" v-lazy-container="{ selector: 'img' }"></div>
+                        <ul class="img-list cd-img-list" v-if="val.img_list">
+                          <li class="img-list-li" v-for="img of val.img_list">
+                            <img class="img-list-item" v-lazy="img"/>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </section>
-            </template>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -72,7 +77,7 @@
 
 <script>
 const maxFileNum = 9;
-import {timeline, addTimeline, uploadImg, deleteImg, delTimeline} from "@/api";
+import {timeline, addTimeline, uploadImg, homeAbout, deleteImg, delTimeline, timelineTreeTime} from "@/api";
 import uploads from "~/plugins/uploads";
 import ReDialog from "~/components/ReDialog";
 export default {
@@ -94,6 +99,9 @@ export default {
         id: null,
         type: 1
       },
+      userinfo: {},
+      timelineTreeTimeData: [],
+      listIndex: 0,
       maxSize: 0,
       files: [],
       resetFile: true,
@@ -121,6 +129,7 @@ export default {
       this.getTimeLine();
       this.timelinePyq = localStorage.getItem(`${this.$route.path}-pyq`);
     }
+    this.getTimelineTreeTime()
     // this.showFrom = !!this.$route.query.pyq
   },
   mounted() {
@@ -170,26 +179,28 @@ export default {
       this.num=0;
       this.showFrom=!this.showFrom;
     },
+    getTimelineTreeTime(){
+      timelineTreeTime().then(res => {
+        this.timelineTreeTimeData = res
+      })
+    },
+    selectedIndex(index){
+      this.listIndex = index;
+      let bridge = document.getElementById(index);
+      let body = document.body;
+      let height = 0;
+      do {
+        height += bridge.offsetTop;
+        bridge = bridge.offsetParent;
+      } while (bridge !== body)
+      window.scrollTo({
+        top: height - 80,
+        behavior: 'smooth'
+      })
+    },
     getTimeLine(){
-      let isMobile = window.matchMedia("(pointer:coarse)").matches
-      timeline({isPc: !isMobile}).then(data => {
+      timelineTreeTime().then(data => {
         this.showLoading = false;
-        data.forEach((item,index) => {
-          switch (index % 3) {
-            case 0:
-              item['pic'] = 'https://s2.loli.net/2022/03/10/2eR6VLQfDFdtb3q.png'
-              item['timelineImgClass'] = "cd-picture";
-              break;
-            case 1:
-              item['pic'] = "https://s2.loli.net/2022/03/10/vIoApyJtYbHL75a.png";
-              item['timelineImgClass'] = "cd-movie";
-              break;
-            case 2:
-              item['pic'] = "https://s2.loli.net/2022/03/10/rLM8BIy9hzAqTke.png";
-              item['timelineImgClass'] = "cd-location";
-              break;
-          }
-        });
         this.timeline_data = data;
       });
     },
@@ -268,6 +279,9 @@ export default {
         keyboard: false,
         navbar: false,
         transition: false,
+        filter(image) {
+          return !image.classList.contains('no-zoom');
+        }
       });
     }
   }
@@ -277,7 +291,78 @@ export default {
 @import "~@/assets/css/layui.css";
 @import "~@/assets/css/site.css";
 @import "~@/assets/css/site-media.css";
-@import "~@/assets/css/timeline.css";
+.article-record-title {
+  position: sticky !important;
+  top: 65px !important;
+  margin-right: 10px;
+}
+.article-record-ul {
+  max-height: 550px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 10px 0;
+  border: 1px solid rgba(144, 144, 144, 0.25);
+  background-color: #fff;
+}
+.article-record-ul::-webkit-scrollbar{
+  width:5px;
+  height:5px;
+}
+.article-record-ul::-webkit-scrollbar-track{
+  background: #EBEBEB;
+  border-radius:2px;
+}
+.article-record-ul::-webkit-scrollbar-thumb{
+  background: #EBEBEB;
+  border-radius:10px;
+}
+.article-record-ul:hover::-webkit-scrollbar-thumb{
+  background: #b5b5b5;
+}
+.article-record-ul::-webkit-scrollbar-corner{
+  background: #EBEBEB;
+}
+.cd-content-item {
+  background-color: #fff;
+  border: 1px solid rgba(144, 144, 144, 0.25);
+  margin-bottom: 5px;
+}
+.cur-item-time {
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  transition: all .2s;
+}
+.cur-item-time:hover {
+  color: #999;
+}
+.cur-item-time.selected {
+  color: var(--text_active_color);
+}
+.cd-title {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(144, 144, 144, 0.25);
+}
+.cd-title .info {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+}
+.name {
+  margin-left: 10px;
+  font-size: 16px;
+}
+.cd-content {
+  padding: 20px;
+}
 </style>
 <style>
 .fixed_main_box-container {
@@ -288,6 +373,15 @@ export default {
     width: 380px;
   }
 }
+.time-container {
+  margin: 0 auto;
+}
+.time-container::after {
+  /* clearfix */
+  content: '';
+  display: table;
+  clear: both;
+}
 .cd-timeline-block video {
   width: 100%;
 }
@@ -297,15 +391,25 @@ export default {
 .cd-timeline-block div>p>img {
   max-width: 40%;
 }
-.cd-timeline-content p,.cd-timeline-content pre {
+.cd-timeline-content p {
+  margin-bottom: 0;
+}
+.cd-timeline-content pre {
   margin: 1em 0;
   line-height: 1.6;
 }
 .cd-timeline-content h2 {
   margin-bottom: .5em;
 }
+.cd-timeline-content p>img {
+  max-width: 40%;
+  height: 300px;
+  object-fit: cover;
+  margin-right: 0.235rem;
+}
 .cd-timeline-content img {
   cursor: zoom-in;
+  width: 100%;
 }
 .upload_box {
   display: flex;
@@ -345,10 +449,11 @@ export default {
   flex-wrap: wrap;
   margin: 0 0 20px 0;
   padding: 0;
+  max-width: 320px;
 }
 .img-list li.img-list-li {
   padding: 0 !important;
-  margin-right: 0.5rem;
+  margin-right: 0.235rem;
   margin-bottom: 0.5rem;
   position: relative;
   list-style: none;
@@ -380,12 +485,6 @@ export default {
 .cd-img-list {
   margin-top: 0.5em;
 }
-.timeline-option {
-  text-align: right;
-}
-.timeline-option-edit {
-  margin-right: 10px;
-}
 .upload-form-button {
   display: flex;
   align-items: center;
@@ -398,5 +497,9 @@ export default {
 .upload-form-button input[type="button"] {
   width: 100%;
 }
-
+.time-container .article-record-content {
+  padding: 0 !important;
+  background-color: transparent;
+  border: none
+}
 </style>

@@ -51,7 +51,25 @@
   margin: 0;
   padding: 10px 0;
   border: 1px solid rgba(144, 144, 144, 0.25);
+  max-height: 550px;
+  overflow-y: auto;
 }
+.article-record-ul::-webkit-scrollbar{
+  width:5px;
+  height:5px;
+}
+.article-record-ul::-webkit-scrollbar-track{
+  background: #EBEBEB;
+  border-radius:2px;
+}
+.article-record-ul::-webkit-scrollbar-thumb{
+  background: #EBEBEB;
+  border-radius:10px;
+}
+.article-record-ul:hover::-webkit-scrollbar-thumb{
+  background: #b5b5b5;
+}
+
 #app ul.article-record-ul li {
   padding-left: 0;
   list-style: none;
