@@ -5,11 +5,7 @@
         <div class="layui-container">
           <div class="blog-nav-two">
             <div class="layui-breadcrumbs">
-              <nuxt-link :to="`/timeline`"><span>🌳树洞</span></nuxt-link>
-              <span data-separator>|</span>
-              <nuxt-link :to="`/recordList`"><span>文章归档</span></nuxt-link>
-              <span data-separator>|</span>
-              <nuxt-link :to="`/notebook`" class="selected"><span>代码笔记</span></nuxt-link>
+              <Breadcrumbs/>
             </div>
           </div>
           <div class="blog-panel">
@@ -46,9 +42,11 @@
 import {timeline} from "@/api";
 import Loading from "@/components/Loading";
 import addLineAndCopy from "@/plugins/jq-codeCopy"
+import Breadcrumbs from "@/components/Breadcrumbs";
 export default {
   components: {
-    Loading
+    Loading,
+    Breadcrumbs
   },
   async asyncData({ store }) {
     let seoTitle = store.getters.config.seo_name;

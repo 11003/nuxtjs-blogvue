@@ -14,6 +14,9 @@ body, .wrapper.style2,#comment-list,.main-bottom-container,.article-record-ul {
 #comment-list form {
   color: #f1f1f1;
 }
+.layui-breadcrumbs .breadcrumbs-item:hover,.layui-breadcrumbs .breadcrumbs-item.selected{
+  background-color: rgb(119, 140, 154) !important;
+}
 #three .box,.fixed_main_box-title {
   background-color: #1e272e !important;
   color: rgb(119, 140, 154) !important;
@@ -172,4 +175,7 @@ p.heart {
 }
 hr {
   background-color: transparent !important;
+}
+.wrapper.style2 a:hover, a:hover {
+  color: var(--text_dark_color) !important;
 }

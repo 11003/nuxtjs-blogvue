@@ -4,13 +4,7 @@
       <div class="blog-body">
         <div class="layui-container">
           <div class="blog-nav-two">
-            <div class="layui-breadcrumbs">
-              <nuxt-link :to="`/timeline`" class="selected"><span @click="showFromHandler">🌳树洞</span></nuxt-link>
-              <span data-separator>|</span>
-              <nuxt-link :to="`/recordList`"><span>文章归档</span></nuxt-link>
-              <span data-separator>|</span>
-              <nuxt-link :to="`/notebook`"><span>代码笔记</span></nuxt-link>
-            </div>
+            <Breadcrumbs @showFromHandler="showFromHandler"/>
           </div>
           <div class="blog-panel">
             <Loading v-if="showLoading"/>
@@ -77,9 +71,10 @@
 
 <script>
 const maxFileNum = 9;
-import {timeline, addTimeline, uploadImg, homeAbout, deleteImg, delTimeline, timelineTreeTime} from "@/api";
+import {addTimeline, uploadImg, deleteImg, delTimeline, timelineTreeTime} from "@/api";
 import uploads from "~/plugins/uploads";
 import ReDialog from "~/components/ReDialog";
+import Breadcrumbs from "~/components/Breadcrumbs";
 export default {
 
   async asyncData({ store }) {
@@ -122,7 +117,8 @@ export default {
     }
   },
   components: {
-    ReDialog
+    ReDialog,
+    Breadcrumbs
   },
   created() {
     if(process.client){

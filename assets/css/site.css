@@ -72,9 +72,3 @@ body .share .layui-layer-content {
     padding: 0 10px;
     line-height: 33px;
 }
-
-
-.blog-nav-two .layui-breadcrumbs a span:hover,
-.blog-nav-two .layui-breadcrumbs .selected span {
-    border-bottom: 3px solid var(--text_color);
-}

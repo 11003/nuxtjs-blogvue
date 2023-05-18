@@ -4,13 +4,7 @@
       <div class="blog-body">
         <div class="layui-container">
           <div class="blog-nav-two">
-            <div class="layui-breadcrumbs">
-              <nuxt-link :to="`/timeline`"><span>🌳树洞</span></nuxt-link>
-              <span data-separator>|</span>
-              <nuxt-link :to="`/recordList`" class="selected"><span>文章归档</span></nuxt-link>
-              <span data-separator>|</span>
-              <nuxt-link :to="`/notebook`"><span>代码笔记</span></nuxt-link>
-            </div>
+            <Breadcrumbs/>
           </div>
           <div class="blog-panel">
             <Loading v-if="showLoading"/>
@@ -50,10 +44,12 @@
 <script>
 import {timelist} from "@/api";
 import Loading from "@/components/Loading";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default {
   components: {
-    Loading
+    Loading,
+    Breadcrumbs
   },
   async asyncData({ store }) {
     let seoTitle = store.getters.config.seo_name;
@@ -79,7 +75,7 @@ export default {
   },
   computed: {
     overflowForTimeline() {
-      return this.title === '🌳树洞' ? 'overflow: hidden;' : null
+      return ['树洞'].includes(this.title) ? 'overflow: hidden;' : null
     }
   },
   methods: {

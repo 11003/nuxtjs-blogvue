@@ -9,6 +9,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 :root {
   --text_color: #175199;
+  --text_dark_color: #89b0d0;
   --text_active_color: #3c93f8;
 }
 @font-face {
@@ -2340,7 +2341,9 @@ body.is-loading #banner:before {
   .m-cmmt .cmmts .comment_item {
     border-top: 1px dotted #3d3939 !important;
   }
-
+  .layui-breadcrumbs .breadcrumbs-item:hover,.layui-breadcrumbs .breadcrumbs-item.selected{
+    background-color: rgb(119, 140, 154) !important;
+  }
   .top-cate-link,.books-item .header .title,.search_msg, .wrapper.style2 h1, .wrapper.style2 h2, .wrapper.style2 h3, .wrapper.style2 h4, .wrapper.style2 h5, .wrapper.style2 h6, #article-content, .markdown-body table, label, a, .about_content, #comments div, #comments .cn, .cntwrap div.sub_rp_content .rp_sub, .wrapper.style2 table th {
     color: rgb(119, 140, 154) !important
   }
@@ -2421,6 +2424,9 @@ body.is-loading #banner:before {
   }
   hr {
     background-color: transparent !important;
+  }
+  .wrapper.style2 a:hover, a:hover {
+    color: var(--text_dark_color) !important;
   }
 }
 
