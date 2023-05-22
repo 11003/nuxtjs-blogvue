@@ -352,6 +352,10 @@ export default {
   height: 30px;
   border-radius: 2px;
 }
+.time {
+  color: #999;
+  font-size: 15px;
+}
 .name {
   margin-left: 10px;
   font-size: 16px;
