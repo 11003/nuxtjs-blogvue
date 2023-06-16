@@ -44,6 +44,7 @@ import Loading from "@/components/Loading";
 import addLineAndCopy from "@/plugins/jq-codeCopy"
 import Breadcrumbs from "@/components/Breadcrumbs";
 export default {
+  name:'notebook',
   components: {
     Loading,
     Breadcrumbs

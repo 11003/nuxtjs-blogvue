@@ -76,7 +76,7 @@ import uploads from "~/plugins/uploads";
 import ReDialog from "~/components/ReDialog";
 import Breadcrumbs from "~/components/Breadcrumbs";
 export default {
-
+  name: 'timeline',
   async asyncData({ store }) {
     let seoTitle = store.getters.config.seo_name;
     return {seoTitle}

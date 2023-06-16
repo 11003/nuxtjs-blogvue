@@ -40,6 +40,7 @@ import {mapGetters} from "vuex";
 import axios from "axios";
 
 export default {
+  name:'page',
   components: {
     Comment
   },

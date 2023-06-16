@@ -47,6 +47,7 @@ import Loading from "@/components/Loading";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default {
+  name:'recordList',
   components: {
     Loading,
     Breadcrumbs

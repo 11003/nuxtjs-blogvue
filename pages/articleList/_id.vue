@@ -9,6 +9,7 @@
 import StartArticleList from '@/components/StartArticleList';
 import ArticleList from "@/components/ArticleList";
 export default {
+  name:'articleList',
   components: {
     StartArticleList,
     ArticleList,

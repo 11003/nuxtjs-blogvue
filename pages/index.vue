@@ -15,6 +15,7 @@ import ArticleList from '@/components/ArticleList';
 import {mapGetters} from "vuex";
 import axios from "axios";
 export default {
+  name: 'home',
   components: {
     Banner,
     HomeAbout,

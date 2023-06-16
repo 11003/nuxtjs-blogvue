@@ -43,6 +43,7 @@
 import {getCodeDetail} from "~/api";
 import {mapGetters} from "vuex";
 export default {
+  name: 'code',
   data() {
     return {
       post_data: {},
