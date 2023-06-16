@@ -12,7 +12,7 @@
             <Loading v-if="showLoading"/>
             <template v-if="!showLoading">
               <div class="books waterfall" id="article-content-book">
-                <div v-for="(item,index) of timeline_data" v-cloak class="books-item waterfall-item" style="animation-duration: .5s;"  :key="index">
+                <div v-for="(item,index) of timeline_data" v-cloak class="books-item waterfall-item" :key="index">
                   <div class="header">
                     <span class="title">{{item.title}}</span>
                     <a class="iconfont icon-wangzhi link" :title="item.url" v-if="item.url" target="_blank" :href="`${item.url}`"></a>
@@ -158,6 +158,7 @@ export default {
     .tags {
       .tag {
         margin: 0;
+        padding: 0 !important;
       }
       .tag a {
         display: inline-block;
