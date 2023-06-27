@@ -190,4 +190,17 @@ export default {
     color: #aaaaaa;
   }
 }
+
+</style>
+<style>
+@media screen and (max-width: 480px) {
+  .notebook-page .markdown-body pre .btn[data-clipboard-action] {
+    width: 40px;
+    font-size: 11px;
+  }
+  .notebook-page div.markdown-body img {
+    max-width: 100% !important;
+    display: block;
+  }
+}
 </style>
