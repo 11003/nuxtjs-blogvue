@@ -11,7 +11,7 @@
           <li class="fit shake shake-little" v-for="(item,index) in links" :key="index">
             <a :href="item.url" :title="item.name + ' - ' +item.desc" target="_blank" class="friends">
               <div class="avatar">
-                <img v-lazy="item.pic" />
+                <img v-lazy="item.pic" :alt="item.name" />
               </div>
               <div class="userinfo">
                 <div class="name">{{ item.name }}</div>
