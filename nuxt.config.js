@@ -1,3 +1,13 @@
+const QiniuPlugin = require("qn-webpack");
+const cdnName = "https://cdn.musclewiki.cn";
+const cdnPath = "nuxt/";
+const qiniuPlugin = new QiniuPlugin({
+  accessKey: "8keVSOpGEU9REPOMmnsSE-KMqPy8-1DU4f0mdpGI", // 自己配置
+  secretKey: "NdhuDcp4yLZJJw7PInFKqDUzf0NjkqWPM6GqZg1s", // 自己配置
+  bucket: "musclewiki", // 自己配置
+  path: cdnPath, // 与下面publicPath一致
+  exclude: /(html|json)$/  // 忽略这两种后缀的不上传
+})
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -60,7 +70,16 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: { allChunks: true },
-    postcss: null
+    postcss: null,
+    extend(config, ctx) {
+      if (ctx.isClient && !ctx.isDev) {
+        config.output.futureEmitAssets = false
+        config.plugins.push(qiniuPlugin) // 添加插件
+        config.output.publicPath = `${cdnName}/${cdnPath}` // 自己配置
+        console.log(config.output);
+      }
+    },
+    publicPath: `${cdnName}/${cdnPath}`,
   },
 
   env: {
