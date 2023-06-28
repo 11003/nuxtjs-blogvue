@@ -52,6 +52,14 @@ export function getArticle(data) {
     data
   });
 }
+// 文章查看数
+export function getArticleLook(data) {
+  return api({
+    url: '/api/getArticleLook',
+    method: 'get',
+    data
+  });
+}
 // 代码笔记详情
 export function getCodeDetail(data) {
   return api({

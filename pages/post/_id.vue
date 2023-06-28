@@ -22,7 +22,7 @@
                 </span>
                   <span class="inline-block">
                     <i class="icon fa-eye"></i>
-                    <span>{{ post_data.look }}</span>
+                    <span>{{ post_data.look }}次阅读</span>
                 </span>
                   <span class="inline-block">
                     <i class="icon fa-list-alt"></i>
@@ -119,7 +119,7 @@
 
 <script>
 import Comment from '@/components/Comment'
-import {commentList, getArticle, getLikeArticle, getPage} from "@/api";
+import {commentList, getArticle, getArticleLook, getLikeArticle, getPage} from "@/api";
 import addLineAndCopy from "@/plugins/jq-codeCopy"
 import {mapGetters} from "vuex";
 export default {
@@ -157,7 +157,7 @@ export default {
         desc: data.desc,
         create_time: data.create_time,
         img: data.pic ? data.pic : "https://picsum.photos/id/" + data.id + "/1100/328",
-        look: data.look + "次阅读",
+        look: data.look,
         cate_name: data.catename,
         cid: data.cid,
         keywords: data.keywords,
@@ -233,6 +233,12 @@ export default {
     }
   },
   methods: {
+    loadArticleLook(){
+      let id = this.id;
+      getArticleLook({id:id}).then(res=>{
+        this.post_data.look = res.look
+      })
+    },
     // localStorage取出信息，如果存在则不显示姓名 跟邮箱的输入框
     replyDataStorage() {
       let reply_data = JSON.parse(localStorage.getItem("reply_data")); // 取出用户信息
@@ -298,7 +304,7 @@ export default {
             img: data.pic
               ? data.pic
               : "https://picsum.photos/id/" + data.id + "/1100/328",
-            look: data.look + "次阅读",
+            look: data.look,
             cate_name: data.catename,
             cid: data.cid,
             keywords: data.keywords,
@@ -405,6 +411,7 @@ export default {
     // 解决地址变化，页面不变
     this.id = this.$route.params.id;
     this.is_index = this.$route.query.index;
+    this.loadArticleLook()
     this.getComment();
     if(process.client) {
       this.replyDataStorage();
