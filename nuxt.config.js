@@ -30,6 +30,7 @@ export default {
       { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/csshake/1.7.0/csshake.min.css' },
       { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.7/viewer.min.css' },
       { rel: 'stylesheet', href: '//at.alicdn.com/t/font_2800767_15lir43306m.css' },
+      { rel: 'dns-prefetch', href: '//cdn.musclewiki.cn' },
       { rel: 'stylesheet', href: '/css/main.css' },
     ],
     script: [
@@ -48,13 +49,13 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/axios.js' },
-    { src: '~/plugins/vue-lazyload.js', ssr: true },
+    { src: '~/plugins/vue-lazyload.js', ssr: false },
     { src: '~/plugins/vuex-persistedstate.js', ssr: false },
     { src: '~/plugins/highlight.js', ssr: false },
     { src: '~/plugins/nprogress.js', ssr: false }
   ],
   //设置缓存
-  cache: true,
+  // cache: true,
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -76,7 +77,6 @@ export default {
         config.output.futureEmitAssets = false
         config.plugins.push(qiniuPlugin) // 添加插件
         config.output.publicPath = `${cdnName}/${cdnPath}` // 自己配置
-        console.log(config.output);
       }
     },
     publicPath: `${cdnName}/${cdnPath}`,

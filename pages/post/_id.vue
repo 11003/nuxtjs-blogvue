@@ -119,7 +119,7 @@
 
 <script>
 import Comment from '@/components/Comment'
-import {commentList, getArticle, getArticleLook, getLikeArticle, getPage} from "@/api";
+import {commentList, getArticle, getLikeArticle, getPage} from "@/api";
 import addLineAndCopy from "@/plugins/jq-codeCopy"
 import {mapGetters} from "vuex";
 export default {
@@ -233,12 +233,6 @@ export default {
     }
   },
   methods: {
-    loadArticleLook(){
-      let id = this.id;
-      getArticleLook({id:id}).then(res=>{
-        this.post_data.look = res.look
-      })
-    },
     // localStorage取出信息，如果存在则不显示姓名 跟邮箱的输入框
     replyDataStorage() {
       let reply_data = JSON.parse(localStorage.getItem("reply_data")); // 取出用户信息
@@ -411,7 +405,6 @@ export default {
     // 解决地址变化，页面不变
     this.id = this.$route.params.id;
     this.is_index = this.$route.query.index;
-    this.loadArticleLook()
     this.getComment();
     if(process.client) {
       this.replyDataStorage();
