@@ -52,9 +52,12 @@ textarea.rp_editor {
   color: rgb(119, 140, 154) !important;
 }
 .markdown-body table tr {
-  background-color: #8c96a1 !important;
+  background-color: #0d1117 !important;
   color: #c9d1d9 !important;
   border-top: 1px solid #21262d;
+}
+.markdown-body table tr:nth-child(2n) {
+  background-color: #161b22 !important;
 }
 table td,table th {
   border: 1px solid #4a5056 !important;
