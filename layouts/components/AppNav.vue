@@ -1,25 +1,26 @@
 <template>
-  <div class="menuNav">
-    <div class="overlay" :class="{'show': visible}" ref="overlay" @click="closeMenu"></div>
-    <nav id="menu" :class="{'visible':visible}">
-      <a class="close" @click="closeMenu"></a>
-      <ul class="links">
-        <li v-for="item in nav_list" :key="item.id">
-          <nuxt-link @click.native="closeMenu" :title="item.catename" :to="{path: filterUrl(item)}">
-            {{ item.catename }}
-          </nuxt-link>
-          <ul v-if="item.children?.length">
-            <li v-for="val in item.children" :key="val.id">
-              <nuxt-link class="children-text" @click.native="closeMenu" :title="`${item.catename} - ${val.catename}`" :to="{path: `/articleList/${val.id}?title=${item.catename}- ${val.catename}`}">
-                {{ val.catename }}
-              </nuxt-link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
+  <client-only>
+    <div class="menuNav">
+      <div class="overlay" :class="{'show': visible}" ref="overlay" @click="closeMenu"></div>
+      <nav id="menu" :class="{'visible':visible}">
+        <a class="close" href="javascript:void(0)" @click="closeMenu"></a>
+        <ul class="links">
+          <li v-for="item in nav_list" :key="item.id">
+            <nuxt-link @click.native="closeMenu" :title="item.catename" :to="{path: filterUrl(item)}">
+              {{ item.catename }}
+            </nuxt-link>
+            <ul v-if="item.children?.length">
+              <li v-for="val in item.children" :key="val.id">
+                <nuxt-link class="children-text" @click.native="closeMenu" :title="`${item.catename} - ${val.catename}`" :to="{path: `/articleList/${val.id}?title=${item.catename}- ${val.catename}`}">
+                  {{ val.catename }}
+                </nuxt-link>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </client-only>
 </template>
 
 <script>

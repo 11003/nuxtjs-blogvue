@@ -2,7 +2,7 @@
   <client-only>
     <div class="right-tool-container">
       <template v-for="(item,index) in rightList">
-        <div @click="go(item.url)" class="fab-size-normal cell poptip--top" :aria-controls="item.title" :key="index">
+        <div @click="go(item.url)" class="fab-size-normal cell poptip--top" :class="[`right-tool-${item.icon}`,{'up-active':upActive === item.icon}]" :aria-controls="item.title" :key="index">
           <i class="fa" :class="item.icon"></i>
         </div>
       </template>
@@ -11,10 +11,23 @@
 </template>
 
 <script>
+function throttle(fn, wait = 100) {
+  let flag = false;
+  return function () {
+    if (flag) return;
+    flag = true;
+    fn.call(this, arguments);
+    setTimeout(() => {
+      flag = false;
+    }, wait);
+  }
+}
 export default {
   name: "AppRightTool",
   data() {
     return {
+      upActive: false,
+      top: 0,
       rightList: [
         {
           title: '代码笔记',
@@ -60,6 +73,14 @@ export default {
         this.to(document.querySelector('#top'),0);
       }
     }
+  },
+  mounted() {
+    window.addEventListener('scroll',()=>{
+      throttle(()=>{
+        this.top = document.documentElement.scrollTop || window.scrollY;
+        this.upActive = this.top > 800 ? 'fa-arrow-up' : ''; // 只给回到顶部加class
+      })();
+    }, false)
   }
 }
 </script>
@@ -107,5 +128,14 @@ export default {
 .cell[class*=poptip--]::after {
   background: #fff;
   color: #333333;
+}
+.right-tool-fa-arrow-up {
+  transform: scale(0);
+  transition: all .25s;
+  opacity: 0;
+  &.up-active {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 </style>
