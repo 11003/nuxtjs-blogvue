@@ -123,6 +123,7 @@ import {commentList, getArticle, getLikeArticle, getPage} from "@/api";
 import addLineAndCopy from "@/plugins/jq-codeCopy"
 import {mapGetters} from "vuex";
 export default {
+  name: 'post',
   components: {
     Comment,
   },

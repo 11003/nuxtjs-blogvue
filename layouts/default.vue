@@ -3,7 +3,7 @@
     <div id="top"></div>
     <app-nav @closeMenu="openMenu" :visible="openMenuShow"/>
     <app-header @openMenu="openMenu" :class="headerRevealClass"/>
-    <Nuxt keep-alive :keep-alive-props="{ include: keepAlivePage }"/>
+    <Nuxt keep-alive :keep-alive-props="{ exclude }"/>
     <app-footer v-once/>
     <app-right-tool v-once/>
   </div>
@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      keepAlivePage: ['home','code','notebook','page','recordList','timeline','articleList'],
+      exclude: ['post'],
       darkCssLink: '/css/dark.css',
       openMenuShow: false,
       revealNav: null,
