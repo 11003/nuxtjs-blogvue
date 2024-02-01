@@ -3,11 +3,14 @@
     <div class="tab-list-container">
       <div class="tabs">
         <input type="radio" id="radio-1" name="tabs" checked>
-        <label class="tab" for="radio-1" @click="getArticleOrder(orderList[0]['value'])">{{ orderList[0]['label'] }}</label>
+        <label class="tab" for="radio-1" @click="getArticleOrder(orderList[0]['value'])">{{ orderList[0]['label']
+        }}</label>
         <input type="radio" id="radio-2" name="tabs">
-        <label class="tab" for="radio-2" @click="getArticleOrder(orderList[1]['value'])">{{ orderList[1]['label'] }}</label>
+        <label class="tab" for="radio-2" @click="getArticleOrder(orderList[1]['value'])">{{ orderList[1]['label']
+        }}</label>
         <input type="radio" id="radio-3" name="tabs">
-        <label class="tab" for="radio-3" @click="getArticleOrder(orderList[2]['value'])">{{ orderList[2]['label'] }}</label>
+        <label class="tab" for="radio-3" @click="getArticleOrder(orderList[2]['value'])">{{ orderList[2]['label']
+        }}</label>
         <span class="glider"></span>
       </div>
     </div>
@@ -15,15 +18,15 @@
 </template>
 
 <script>
-function debounce(fn,wait = 500) {
+function debounce(fn, wait = 500) {
   let timer;
-  return function(){
+  return function () {
     let _this = this;
     let args = arguments; // 是一个对应于传递给函数的参数的类数组对象
-    if(timer) { clearTimeout(timer) }
-    timer = setTimeout(function(){
-      fn.apply(_this,args);
-    },wait);
+    if (timer) { clearTimeout(timer) }
+    timer = setTimeout(function () {
+      fn.apply(_this, args);
+    }, wait);
   }
 }
 export default {
@@ -31,9 +34,9 @@ export default {
   data() {
     return {
       orderList: [
-        {label: '默认排序',value: 'create_time'},
-        {label: '查看量',value: 'look'},
-        {label: '评论量',value: 'comment'},
+        { label: '默认排序', value: 'create_time' },
+        { label: '查看量', value: 'look' },
+        { label: '评论量', value: 'comment' },
       ],
       orderIndex: null
     }
@@ -56,6 +59,7 @@ export default {
   margin: 0 auto 20px auto;
   width: 337px;
 }
+
 .tab-list-container .tabs {
   display: flex;
   position: relative;
@@ -64,6 +68,7 @@ export default {
   padding: 0.55rem 0.75rem;
   border-radius: 10px;
 }
+
 .tabs * {
   z-index: 2;
 }
@@ -71,10 +76,13 @@ export default {
 input[type=radio] {
   display: none;
 }
-.tab,.glider {
+
+.tab,
+.glider {
   height: 40px;
   width: 105px;
 }
+
 .tab {
   display: flex;
   align-items: center;
@@ -88,21 +96,24 @@ input[type=radio] {
   margin-bottom: 0;
   user-select: none;
 }
+
 .tab:hover {
   color: #185ee0;
 }
-input[type=radio]:checked + label {
+
+input[type=radio]:checked+label {
   color: #185ee0 !important;
 }
-input[id=radio-1]:checked ~ .glider {
+
+input[id=radio-1]:checked~.glider {
   transform: translateX(0);
 }
 
-input[id=radio-2]:checked ~ .glider {
+input[id=radio-2]:checked~.glider {
   transform: translateX(100%);
 }
 
-input[id=radio-3]:checked ~ .glider {
+input[id=radio-3]:checked~.glider {
   transform: translateX(200%);
 }
 
@@ -119,8 +130,8 @@ input[id=radio-3]:checked ~ .glider {
   .tab-list-container {
     margin: 0 auto;
   }
+
   .tabs {
     transform: scale(0.6);
   }
-}
-</style>
+}</style>
