@@ -1,24 +1,21 @@
 <template>
   <section>
-    <Banner :inner_title="inner_title"/>
-    <HomeAbout :inner_title="inner_title"/>
-    <StartArticleList/>
-    <ArticleList/>
+    <Banner :inner_title="inner_title" />
+    <StartArticleList />
+    <ArticleList />
   </section>
 </template>
 
 <script>
 import Banner from '@/components/Banner';
-import HomeAbout from '@/components/HomeAbout';
 import StartArticleList from '@/components/StartArticleList';
 import ArticleList from '@/components/ArticleList';
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 import axios from "axios";
 export default {
   name: 'home',
   components: {
     Banner,
-    HomeAbout,
     StartArticleList,
     ArticleList,
   },
@@ -30,8 +27,8 @@ export default {
   computed: {
     ...mapGetters(['config']),
   },
-  async asyncData({store}){
-    await store.dispatch('app/getSystemConfig')
+  async asyncData({ store }) {
+    await store.dispatch('getSystemConfig')
   },
   head() {
     return {
@@ -59,10 +56,20 @@ export default {
 </script>
 <style>
 #nprogress .bar {
-  background: rgb(50,63,166) !important;
+  background: rgb(50, 63, 166) !important;
 }
+
 .viewer-in {
-  animation:dialog-in .2s
+  animation: dialog-in .2s
 }
-@keyframes dialog-in{0%{opacity:0}to{opacity:1}}
+
+@keyframes dialog-in {
+  0% {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
 </style>

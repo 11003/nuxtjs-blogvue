@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div id="top"></div>
-    <app-nav @closeMenu="openMenu" :visible="openMenuShow"/>
-    <app-header @openMenu="openMenu" :class="headerRevealClass"/>
-    <Nuxt keep-alive :keep-alive-props="{ exclude }"/>
-    <app-footer v-once/>
-    <app-right-tool v-once/>
+    <app-nav @closeMenu="openMenu" :visible="openMenuShow" />
+    <app-header @openMenu="openMenu" :class="headerRevealClass" />
+    <Nuxt keep-alive :keep-alive-props="{ exclude }" />
+    <app-footer v-once />
+    <app-right-tool v-once />
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ import AppHeader from "~/layouts/components/AppHeader";
 import AppFooter from "~/layouts/components/AppFooter";
 import AppNav from "~/layouts/components/AppNav";
 import AppRightTool from "~/layouts/components/AppRightTool";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: 'App',
   components: {
@@ -25,7 +25,7 @@ export default {
   computed: {
     ...mapGetters(['config']),
     headerRevealClass() {
-      if(this.$route.path === '/') {
+      if (this.$route.path === '/') {
         return this.revealNav === true ? 'reveal' : 'alt'
       }
     }
@@ -44,9 +44,9 @@ export default {
     },
     handleScroll() {
       let one = document.getElementById('one');
-      if(!one) return;
+      if (!one) return;
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      if((scrollTop+50) >= one.offsetTop) {
+      if ((scrollTop + 50) >= one.offsetTop) {
         this.revealNav = true;
         sessionStorage.setItem('revealNav', this.revealNav)
       } else {
@@ -63,13 +63,13 @@ export default {
       link.type = 'text/css'
       link.rel = 'stylesheet'
       link.href = url
-      localStorage.setItem('dark_link',this.darkCssLink)
+      localStorage.setItem('dark_link', this.darkCssLink)
       let head = document.getElementsByTagName('head')[0]
       head.appendChild(link)
     },
     setDark() {
       let darkCssLink = localStorage.getItem('dark_link') || this.darkCssLink
-      if(this.config.isDark === '是') {
+      if (this.config.isDark === '是') {
         this.loadStyle(darkCssLink)
       } else {
         localStorage.removeItem('dark_link')
@@ -78,22 +78,20 @@ export default {
   },
   mounted() {
     this.setDark();
-    if(this.$route.path === '/') {
+    if (this.$route.path === '/') {
       this.getRevealNavPosition();
       window.addEventListener('scroll', this.handleScroll, true);
     }
   },
   async created() {
-    await this.$store.dispatch('app/getSystemConfig')
-    await this.$store.dispatch('app/getFriendLinks')
+    await this.$store.dispatch('getSystemConfig')
+    await this.$store.dispatch('getFriendLinks')
   },
   destroyed() {
-    if(this.$route.path === '/') {
+    if (this.$route.path === '/') {
       window.removeEventListener('scroll', this.handleScroll, true);
     }
   },
 }
 </script>
-<style>
-
-</style>
+<style></style>
