@@ -91,6 +91,6 @@ export const getters = {
   links: state => state.links,
   articlePass: state => state.articlePass,
   articleByAbout: state => state.articleByAbout,
-  homeArticleList: state => state.homeArticleList,
-  hotListData: state => state.hotListData,
+  homeArticleList: state => JSON.parse(JSON.stringify(state.homeArticleList)),
+  hotListData: state => JSON.parse(JSON.stringify(state.hotListData)),
 }
