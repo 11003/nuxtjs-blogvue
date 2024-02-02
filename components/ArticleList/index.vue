@@ -114,7 +114,7 @@ export default {
     async getArticles(n) {
       if (this.limitNum >= 50) {
         this.limitNum = 20;
-        localStorage.setItem("page_number" + this.cid, this.limitNum);
+        sessionStorage.setItem("page_number" + this.cid, this.limitNum);
       }
       let limitNum = this.limitNum || 3
       const p = {
@@ -147,9 +147,9 @@ export default {
       return new Promise(resolve => {
         let page_number = 1;
         let limit_number = +this.config.artlsit_number
-        let lo_pageNumber = +localStorage.getItem('page_number' + this.cid);
+        let lo_pageNumber = +sessionStorage.getItem('page_number' + this.cid);
         if (!lo_pageNumber) {
-          localStorage.setItem("page_number" + this.cid, page_number);
+          sessionStorage.setItem("page_number" + this.cid, page_number);
           lo_pageNumber = page_number; // 防止NaN
         }
         //页面被刷新

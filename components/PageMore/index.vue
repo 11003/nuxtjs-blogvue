@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -23,32 +23,33 @@ export default {
   methods: {
     nextpage() {
       console.log(`this.pageNumber===>`, this.pageNumber)
-      if(this.moreTxt === 'Loading...') return;
-      this.$emit('nextnewpage', this.pageNumber+=1);
+      if (this.moreTxt === 'Loading...') return;
+      this.$emit('nextnewpage', this.pageNumber += 1);
       this.moreTxt = 'Loading...';
-      if(this.routerPath.indexOf('/search') !== -1) {
+      if (this.routerPath.indexOf('/search') !== -1) {
         return;
       }
-      localStorage.setItem('page_number' + this.cid, this.pageNumber);
+      sessionStorage.setItem('page_number' + this.cid, this.pageNumber);
     }
   },
   mounted() {
     this.cid = this.$route.query.cid || this.$route.params.id || '';
     this.routerPath = this.$route.path;
-    if(this.routerPath.indexOf('/search') !== -1) {
+    if (this.routerPath.indexOf('/search') !== -1) {
       return;
     }
-    this.pageNumber = parseInt(localStorage.getItem('page_number' + this.cid)) || 1;
+    this.pageNumber = parseInt(sessionStorage.getItem('page_number' + this.cid)) || 1;
   },
 }
 </script>
 
 <style scoped>
-li a.loading-btn{
+li a.loading-btn {
   border-radius: 50px;
 }
-@media screen and  (max-width:480px) and (max-width:736px) {
-  li a.loading-btn{
+
+@media screen and (max-width:480px) and (max-width:736px) {
+  li a.loading-btn {
     width: 50%;
   }
 }
