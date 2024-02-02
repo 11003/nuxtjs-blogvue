@@ -70,7 +70,7 @@ export default {
   ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extractCSS: { allChunks: true },
+    extractCSS: { ignoreOrder: true },
     postcss: null,
     extend(config, ctx) {
       if (ctx.isClient && !ctx.isDev) {
