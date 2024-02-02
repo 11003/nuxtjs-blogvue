@@ -49,7 +49,7 @@ export default {
       ]
     }
   },
-  mounted() {
+  created() {
     axios.get('https://v1.hitokoto.cn').then(res => {
       this.inner_title = res.data.hitokoto;
     })
