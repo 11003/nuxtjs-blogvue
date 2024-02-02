@@ -1,15 +1,16 @@
 <template>
-  <section id="banner" data-video="images/banner" :style="{backgroundImage: `url(${config.bannerImg})`}">
+  <section id="banner" data-video="images/banner" :style="{ backgroundImage: `url(${config.bannerImg})` }">
     <div class="inner">
       <h1>{{ config.seo_name }}</h1>
       <p>{{ inner_title }}</p>
       <a @click="goToAbout" class="button scrolly gradient">了解更多</a>
     </div>
     <video autoplay loop muted ref="video"></video>
+    <div id="forFixedHeader"></div>
   </section>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['config']),
@@ -26,7 +27,7 @@ export default {
   },
   watch: {
     'config.bannerVideo': {
-      handler: function(v) {
+      handler: function (v) {
         this.$nextTick(() => {
           this.$refs.video.src = v;
         })
@@ -40,7 +41,7 @@ export default {
     })
   },
   methods: {
-    to(toEl,n) {
+    to(toEl, n) {
       let bridge = toEl;
       let body = document.body;
       let height = 0;
@@ -54,7 +55,7 @@ export default {
       })
     },
     goToAbout() {
-      this.to(document.querySelector('#one'),0);
+      this.to(document.querySelector('#one'), 0);
     }
   }
 }
