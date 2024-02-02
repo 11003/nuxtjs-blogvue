@@ -5,7 +5,6 @@
     <ArticleList />
   </section>
 </template>
-
 <script>
 import Banner from '@/components/Banner';
 import StartArticleList from '@/components/StartArticleList';
@@ -25,10 +24,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['config']),
+    ...mapGetters(['config', 'homeArticleList']),
   },
   async asyncData({ store }) {
     await store.dispatch('getSystemConfig')
+    await store.dispatch('getHotList')
+    const limit = store.state.config.artlsit_number
+    await store.dispatch('getHomeArticleList', { pageNumber: 1, limitNumber: limit, order: 'create_time' })
   },
   head() {
     return {

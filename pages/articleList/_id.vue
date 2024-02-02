@@ -1,7 +1,9 @@
 <template>
   <section>
-    <StartArticleList/>
-    <ArticleList :cid="$route.params.id"/>
+    <StartArticleList />
+    <client-only>
+      <ArticleList :cid="$route.params.id" />
+    </client-only>
   </section>
 </template>
 
@@ -9,7 +11,7 @@
 import StartArticleList from '@/components/StartArticleList';
 import ArticleList from "@/components/ArticleList";
 export default {
-  name:'articleList',
+  name: 'articleList',
   components: {
     StartArticleList,
     ArticleList,
@@ -17,6 +19,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

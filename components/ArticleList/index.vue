@@ -1,49 +1,47 @@
 <template>
   <section id="three" class="wrapper style2">
     <div class="inner">
-      <TabSort v-show="config.showHomeSort === '是' && isIndex === 'true'" @setArticleOrder="setArticleOrder"/>
-      <Loading :show="showLoading"/>
+      <TabSort v-show="config.showHomeSort === '是' && isIndex === 'true'" @setArticleOrder="setArticleOrder" />
+      <Loading :show="showLoading" />
       <template v-if="emptyPic">
-        <p class="align-center shake-chunk shake-constant shake-constant--hover" style="padding-top: 6em;">
+        <div class="align-center shake-chunk shake-constant shake-constant--hover" style="padding-top: 6em;">
           <img src="https://i.loli.net/2019/10/16/CnoBqkweLcPgfNM.png" />
-        </p>
+        </div>
       </template>
       <div class="grid-style">
         <div v-for="item in article_list" :key="item.id">
           <div class="box wow zoomIn" style="animation-duration: .6s;">
-            <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${cid||item.cid}&index=${isIndex}`}">
-              <div class="image fit article_item">
-                <img
-                  :title="item.title"
-                  class="img-fit"
-                  v-lazy="item.pic"
-                />
-              </div>
-              <div class="entry-category">
-                <a href="javascript:void(0)" v-if="item.look" class="entry-category-tag">阅读 {{item.look}}</a>
-                <a href="javascript:void(0)" v-if="item.comment_count" class="entry-category-tag">评论 {{item.comment_count}}</a>
-                <template v-for="(key,ind) in item.keywords">
-                  <nuxt-link class="entry-category-tag" rel="category tag" :to="{path: `/search/${key}`}" :key="ind">{{ key }}</nuxt-link>
-                </template>
-              </div>
+            <nuxt-link class="article_box_item"
+              :to="{ path: `/post/${item.id}?cid=${cid || item.cid}&index=${isIndex}` }">
+              <span class="image fit article_item">
+                <img :title="item.title" class="img-fit" v-lazy="item.pic" />
+              </span>
+              <p class="entry-category">
+                <span v-if="item.look" class="entry-category-tag">阅读 {{ item.look }}</span>
+                <span v-if="item.comment_count" class="entry-category-tag">评论 {{ item.comment_count }}</span>
+                <span v-for="(key, ind) in item.keywords" @click.prevent="gotoPage(`/search/${key}`)" :key="ind"
+                  class="entry-category-tag" rel="category tag">
+                  {{ key }}
+                </span>
+              </p>
             </nuxt-link>
-
             <div class="content">
               <header class="align-center">
                 <h2 class="title">
-                  <nuxt-link :title="item.title" :to="{path: `/post/${item.id}?cid=${cid||item.cid}&index=${isIndex}`}">
+                  <nuxt-link :title="item.title"
+                    :to="{ path: `/post/${item.id}?cid=${cid || item.cid}&index=${isIndex}` }">
                     {{ item.title }}
                   </nuxt-link>
                 </h2>
                 <p>
-                      <span class="inline-block">
-                        <i class="icon fa-calendar"></i>
-                        <span> {{ item.create_time }}</span>
-                      </span>
                   <span class="inline-block">
-                        <i class="icon fa-list-alt"></i>
-                        <span> {{ item.catename }}</span>
-                      </span>
+                    <i class="icon fa-calendar"></i>
+                    <span> {{ item.create_time }}</span>
+                  </span>
+                  <span class="inline-block">
+                    <i class="icon fa-list-alt"></i>
+                    <span> {{ item.catename }}</span>
+                  </span>
                 </p>
               </header>
               <p>{{ item.content }}</p>
@@ -51,17 +49,17 @@
           </div>
         </div>
       </div>
-      <PageMore ref="pageBtn" @nextnewpage="moreArticles" v-if="pageStatus"/>
+      <PageMore ref="pageBtn" @nextnewpage="moreArticles" v-if="pageStatus" />
     </div>
   </section>
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 import Loading from '@/components/Loading';
 import PageMore from '@/components/PageMore';
 import TabSort from "@/components/TabSort";
-import {indexList} from "@/api";
+import { indexList } from "@/api";
 export default {
   components: {
     TabSort,
@@ -70,15 +68,15 @@ export default {
   },
   computed: {
     isIndex() {
-      if(this.$route.path === '/') {
+      if (this.$route.path === '/') {
         return 'true';
       }
       return 'false';
     },
-    ...mapGetters(['config']),
+    ...mapGetters(['config', 'homeArticleList']),
   },
   props: {
-    cid: {type: String, default: ''}
+    cid: { type: String, default: '' }
   },
   head() {
     return {
@@ -96,22 +94,26 @@ export default {
     }
   },
   methods: {
-    async setArticleOrder(order){
+    async setArticleOrder(order) {
       this.article_list = [];
       this.pageStatus = false;
       this.showLoading = true;
       this.orderName = order;
       await this.getArticles(1)
-      this.$nextTick(()=>{
-        if(this.$refs.pageBtn) this.$refs.pageBtn.pageNumber = 1
+      this.$nextTick(() => {
+        if (this.$refs.pageBtn) this.$refs.pageBtn.pageNumber = 1
       })
     },
-    moreArticles(n){
+    gotoPage(path) {
+      if (!path) return
+      this.$router.push({ path })
+    },
+    moreArticles(n) {
       this.getArticles(n)
     },
     async getArticles(n) {
-      if(this.limitNum>=50) {
-        this.limitNum=20;
+      if (this.limitNum >= 50) {
+        this.limitNum = 20;
         localStorage.setItem("page_number" + this.cid, this.limitNum);
       }
       let limitNum = this.limitNum || 3
@@ -121,28 +123,27 @@ export default {
         limitNumber: limitNum,
         cid: this.cid
       }
-      await indexList(p).then(res => {
-        let rowsList = res.rows
-        this.showLoading = false;
-        this.limitNum = +this.config.artlsit_number
-        if (res.count > 0) {
-          rowsList.map(item => {
-            if (item.pic === "") {
-              item.pic = `https://picsum.photos/id/${item.id}/600/350`;
-            }
-            if(this.$refs['pageBtn']) this.$refs['pageBtn'].moreTxt = 'More'; // 变回more文案
-          })
-        } else {
-          this.emptyPic = true;
-        }
-        this.article_list = this.article_list.concat(rowsList);
-        this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
-      })
+      const res = await indexList(p)
+      let rowsList = res.rows
+      this.showLoading = false;
+      this.limitNum = +this.config.artlsit_number
+      if (res.count > 0) {
+        rowsList.map(item => {
+          if (item.pic === "") {
+            item.pic = `https://picsum.photos/id/${item.id}/600/350`;
+          }
+          if (this.$refs['pageBtn']) this.$refs['pageBtn'].moreTxt = 'More'; // 变回more文案
+        })
+      } else {
+        this.emptyPic = true;
+      }
+      this.article_list = this.article_list.concat(rowsList);
+      this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
     },
     WOWInit() {
       new WOW().init();
     },
-    getPageNum(){
+    getPageNum() {
       return new Promise(resolve => {
         let page_number = 1;
         let limit_number = +this.config.artlsit_number
@@ -152,7 +153,7 @@ export default {
           lo_pageNumber = page_number; // 防止NaN
         }
         //页面被刷新
-        if(+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
+        if (+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
           this.limitNum = lo_pageNumber * limit_number
         }
         resolve();
@@ -162,7 +163,21 @@ export default {
   async mounted() {
     this.WOWInit();
     await this.getPageNum();
-    await this.getArticles(1)
+  },
+  created() {
+    if (this.cid) {
+      this.getArticles(1)
+    } else {
+      let rows = this.homeArticleList.rows;
+      rows.forEach(item => {
+        if (item.pic === "") {
+          item.pic = `https://picsum.photos/id/${item.id}/600/350`;
+        }
+      })
+      this.article_list = rows;
+      this.pageStatus = this.homeArticleList.rows.length !== this.homeArticleList.count; // 显示条数按钮
+      if (this.article_list.length) this.showLoading = false;
+    }
   }
 }
 </script>
