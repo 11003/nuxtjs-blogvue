@@ -9,21 +9,22 @@
         </div>
       </template>
       <div class="grid-style">
-        <div v-for="item in article_list" :key="item.id">
+        <div v-for="item in article_list" :key="item.id" :data-id="item.id">
           <div class="box wow zoomIn" style="animation-duration: .6s;">
             <nuxt-link class="article_box_item"
               :to="{ path: `/post/${item.id}?cid=${cid || item.cid}&index=${isIndex}` }">
               <span class="image fit article_item">
-                <img :title="item.title" class="img-fit" v-lazy="item.pic" />
+                <img :title="item.title" class="img-fit"
+                  v-lazy="item.pic ? item.pic : `https://picsum.photos/id/${item.id}/600/350`" />
               </span>
-              <p class="entry-category">
+              <span class="entry-category">
                 <span v-if="item.look" class="entry-category-tag">阅读 {{ item.look }}</span>
                 <span v-if="item.comment_count" class="entry-category-tag">评论 {{ item.comment_count }}</span>
                 <span v-for="(key, ind) in item.keywords" @click.prevent="gotoPage(`/search/${key}`)" :key="ind"
-                  class="entry-category-tag" rel="category tag">
+                  class="entry-category-tag">
                   {{ key }}
                 </span>
-              </p>
+              </span>
             </nuxt-link>
             <div class="content">
               <header class="align-center">
@@ -168,13 +169,7 @@ export default {
     if (this.cid) {
       this.getArticles(1)
     } else {
-      let rows = this.homeArticleList.rows;
-      rows.forEach(item => {
-        if (item.pic === "") {
-          item.pic = `https://picsum.photos/id/${item.id}/600/350`;
-        }
-      })
-      this.article_list = rows;
+      this.article_list = this.homeArticleList.rows;
       this.pageStatus = this.homeArticleList.rows.length !== this.homeArticleList.count; // 显示条数按钮
       if (this.article_list.length) this.showLoading = false;
     }
