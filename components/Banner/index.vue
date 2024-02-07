@@ -55,7 +55,7 @@ export default {
       })
     },
     goToAbout() {
-      this.to(document.querySelector('#one'), 0);
+      this.to(document.querySelector('#two'), 0);
     }
   }
 }
