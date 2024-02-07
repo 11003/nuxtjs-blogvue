@@ -113,15 +113,10 @@ export default {
       this.getArticles(n)
     },
     async getArticles(n) {
-      if (this.limitNum >= 50) {
-        this.limitNum = 20;
-        sessionStorage.setItem("page_number" + this.cid, this.limitNum);
-      }
-      let limitNum = this.limitNum || 3
       const p = {
         order: this.orderName,
         pageNumber: n || 1,
-        limitNumber: limitNum,
+        limitNumber: 10,
         cid: this.cid
       }
       const res = await indexList(p)
@@ -143,27 +138,10 @@ export default {
     },
     WOWInit() {
       new WOW().init();
-    },
-    getPageNum() {
-      return new Promise(resolve => {
-        let page_number = 1;
-        let limit_number = +this.config.artlsit_number
-        let lo_pageNumber = +sessionStorage.getItem('page_number' + this.cid);
-        if (!lo_pageNumber) {
-          sessionStorage.setItem("page_number" + this.cid, page_number);
-          lo_pageNumber = page_number; // 防止NaN
-        }
-        //页面被刷新
-        if (+window.performance.navigation.type === 1 || lo_pageNumber > 1) {
-          this.limitNum = lo_pageNumber * limit_number
-        }
-        resolve();
-      })
     }
   },
   async mounted() {
     this.WOWInit();
-    await this.getPageNum();
   },
   created() {
     if (this.cid) {

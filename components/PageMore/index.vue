@@ -8,37 +8,60 @@
 
 <script>
 import { mapGetters } from "vuex";
+function debounce(func, wait, immediate) {
+  var timeout, args, context, timestamp, result;
+
+  var later = function () {
+    var last = Date.now() - timestamp;
+
+    if (last < wait && last >= 0) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      }
+    }
+  };
+
+  return function () {
+    context = this;
+    args = arguments;
+    timestamp = Date.now();
+    var callNow = immediate && !timeout;
+    if (!timeout) timeout = setTimeout(later, wait);
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
+    return result;
+  };
+};
 export default {
   data() {
     return {
       routerPath: '',
       cid: '',
-      pageNumber: 1,
-      moreTxt: 'More'
+      pageNumber: 2,
+      moreTxt: 'More',
     }
   },
   computed: {
-    ...mapGetters(['config'])
+    ...mapGetters(['config', 'homeArticleList'])
   },
   methods: {
-    nextpage() {
-      console.log(`this.pageNumber===>`, this.pageNumber)
+    nextpage: debounce(function () {
       if (this.moreTxt === 'Loading...') return;
-      this.$emit('nextnewpage', this.pageNumber += 1);
+      if (this.routerPath.indexOf('/search') !== -1) return;
       this.moreTxt = 'Loading...';
-      if (this.routerPath.indexOf('/search') !== -1) {
-        return;
-      }
-      sessionStorage.setItem('page_number' + this.cid, this.pageNumber);
-    }
+      this.$emit('nextnewpage', this.pageNumber++);
+    }, 500, true),
   },
   mounted() {
-    this.cid = this.$route.query.cid || this.$route.params.id || '';
     this.routerPath = this.$route.path;
-    if (this.routerPath.indexOf('/search') !== -1) {
-      return;
-    }
-    this.pageNumber = parseInt(sessionStorage.getItem('page_number' + this.cid)) || 1;
+    if (this.routerPath.indexOf('/search') !== -1) return
   },
 }
 </script>
