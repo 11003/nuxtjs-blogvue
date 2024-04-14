@@ -74,7 +74,7 @@ export default {
       }
       return 'false';
     },
-    ...mapGetters(['config', 'homeArticleList']),
+    ...mapGetters(['config']),
   },
   props: {
     cid: { type: String, default: '' }
@@ -144,13 +144,7 @@ export default {
     this.WOWInit();
   },
   created() {
-    if (this.cid) {
-      this.getArticles(1)
-    } else {
-      this.article_list = this.homeArticleList.rows;
-      this.pageStatus = this.homeArticleList.rows.length !== this.homeArticleList.count; // 显示条数按钮
-      if (this.article_list.length) this.showLoading = false;
-    }
+    this.getArticles()
   }
 }
 </script>

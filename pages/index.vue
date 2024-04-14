@@ -29,8 +29,6 @@ export default {
   async asyncData({ store }) {
     await store.dispatch('getSystemConfig')
     await store.dispatch('getHotList')
-    const limit = store.state.config.artlsit_number
-    await store.dispatch('getHomeArticleList', { pageNumber: 1, limitNumber: limit, order: 'create_time' })
   },
   head() {
     return {
