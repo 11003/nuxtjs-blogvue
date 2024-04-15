@@ -1,24 +1,17 @@
 ## 使用项目
 
 ```bash
-# 下载 yarn
-$ npm install --global yarn
-
 # 淘宝源
-$ yarn config set registry https://registry.npm.taobao.org
+$ npm config set registry https://registry.npmmirror.com/
 
 # install dependencies
-$ yarn install
+$ npm install
 
 # serve with hot reload at localhost:3000
-$ yarn dev
+$ npm run dev
 
 # build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+$ npm run build
 ```
 
 ## 效果

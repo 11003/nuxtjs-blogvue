@@ -48,7 +48,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/axios.js' },
+    { src: '~/plugins/axios.js', ssr: false },
     { src: '~/plugins/vue-lazyload.js', ssr: false },
     { src: '~/plugins/vuex-persistedstate.js', ssr: false },
     { src: '~/plugins/highlight.js', ssr: false },
