@@ -52,16 +52,14 @@ export default {
     ...mapGetters(['config', 'homeArticleList'])
   },
   methods: {
-    nextpage: debounce(function () {
+    nextpage() {
       if (this.moreTxt === 'Loading...') return;
-      if (this.routerPath.indexOf('/search') !== -1) return;
       this.moreTxt = 'Loading...';
       this.$emit('nextnewpage', this.pageNumber++);
-    }, 500, true),
+    }
   },
   mounted() {
     this.routerPath = this.$route.path;
-    if (this.routerPath.indexOf('/search') !== -1) return
   },
 }
 </script>

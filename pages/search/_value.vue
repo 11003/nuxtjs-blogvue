@@ -6,12 +6,7 @@
           <form method="get" action="#" @submit.prevent="SearchBtn">
             <div class="row uniform">
               <div class="uniform-input">
-                <input
-                  type="text"
-                  v-model="SearchKey"
-                  ref="SearchKeyID"
-                  placeholder="请输入文章关键字"
-                />
+                <input type="text" v-model="SearchKey" ref="SearchKeyID" placeholder="请输入文章关键字" />
               </div>
               <div class="search_button_box">
                 <button type="submit" class="fit search_button">
@@ -22,7 +17,7 @@
           <div class="history-list" v-cloak>
             <div class="history-list-left">
               <template v-for="item in HistoryList">
-                <a class="history-item" @click="articles(1,item, true);">{{ item }}</a>
+                <a class="history-item" @click="articles(1, item, true);">{{ item }}</a>
               </template>
             </div>
             <div class="history-list-right">
@@ -31,36 +26,32 @@
               </a>
             </div>
           </div>
-          <span
-            class="search_msg"
-            v-if="SearchMsg"
-            v-html="SearchMsg"
-          ></span>
+          <span class="search_msg" v-if="SearchMsg" v-html="SearchMsg"></span>
         </div>
       </div>
     </section>
     <section id="three" class="wrapper style2">
       <div class="inner">
-        <p
-          style="padding-top: 6em;"
-          class="align-center shake-chunk shake-constant shake-constant--hover"
-          v-show="emptyPic"
-        >
-          <img src="https://i.loli.net/2019/10/16/CnoBqkweLcPgfNM.png"/>
+        <p style="padding-top: 6em;" class="align-center shake-chunk shake-constant shake-constant--hover"
+          v-show="emptyPic">
+          <img src="https://i.loli.net/2019/10/16/CnoBqkweLcPgfNM.png" />
         </p>
         <div class="grid-style" id="search-article-content">
-          <div v-for="(item,index) in article_list" :key="index" class="search_list-item">
-            <div v-if="item.article_type === 'CODE'" class="wow zoomIn books-item code-item copy-record-content-box" style="animation-duration: .5s;">
+          <div v-for="(item, index) in article_list" :key="index" class="search_list-item">
+            <div v-if="item.article_type === 'CODE'" class="wow zoomIn books-item code-item copy-record-content-box"
+              style="animation-duration: .5s;">
               <div class="header">
-                <span class="title">{{item.title}}</span>
-                <a class="iconfont icon-wangzhi link" :title="item.url" v-if="item.url" target="_blank" :href="`${item.url}`"></a>
+                <span class="title">{{ item.title }}</span>
+                <a class="iconfont icon-wangzhi link" :title="item.url" v-if="item.url" target="_blank"
+                  :href="`${item.url}`"></a>
               </div>
-              <div class="code-content markdown-body" @click="watchImg($event)" v-highlight v-html="item.content" v-lazy-container="{ selector: 'img' }"></div>
+              <div class="code-content markdown-body" @click="watchImg($event)" v-highlight v-html="item.content"
+                v-lazy-container="{ selector: 'img' }"></div>
               <div class="info">
                 <div class="tags" v-show="item.keywords">
                   🏷️
-                  <span class="tag" :key="indexK" v-for="(itemK,indexK) in item.keywords">
-                    <nuxt-link :to="{path: `/search/${itemK}`}">#{{ itemK }}</nuxt-link>
+                  <span class="tag" :key="indexK" v-for="(itemK, indexK) in item.keywords">
+                    <nuxt-link :to="{ path: `/search/${itemK}` }">#{{ itemK }}</nuxt-link>
                   </span>
                 </div>
                 <div class="tags" v-show="!item.keywords"></div>
@@ -68,36 +59,36 @@
               </div>
             </div>
             <div v-else class="box wow zoomIn" style="animation-duration: .5s;">
-              <nuxt-link class="article_box_item" :to="{path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search`}">
+              <nuxt-link class="article_box_item"
+                :to="{ path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search` }">
                 <div class="image fit article_item">
-                  <img
-                    :title="item.title"
-                    class="img-fit no-zoom"
-                    v-lazy="item.pic"
-                  />
+                  <img :title="item.title" class="img-fit no-zoom" v-lazy="item.pic" />
                 </div>
                 <div class="entry-category">
-                  <a href="javascript:void(0)" v-if="item.look" class="entry-category-tag">阅读 {{item.look}}</a>
-                  <a href="javascript:void(0)" v-if="item.comment_count" class="entry-category-tag">评论 {{item.comment_count}}</a>
-                  <template v-for="(key,ind) in item.keywords">
-                    <nuxt-link class="entry-category-tag" rel="category tag" :to="{path: `/search/${key}`}" :key="ind">{{ key }}</nuxt-link>
+                  <a href="javascript:void(0)" v-if="item.look" class="entry-category-tag">阅读 {{ item.look }}</a>
+                  <a href="javascript:void(0)" v-if="item.comment_count" class="entry-category-tag">评论
+                    {{ item.comment_count }}</a>
+                  <template v-for="(key, ind) in item.keywords">
+                    <nuxt-link class="entry-category-tag" rel="category tag" :to="{ path: `/search/${key}` }">{{ key
+                      }}</nuxt-link>
                   </template>
                 </div>
               </nuxt-link>
               <div class="content">
                 <header class="align-center">
                   <h2 class="title">
-                    <nuxt-link :to="{path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search`}" >{{ item.title }}</nuxt-link>
+                    <nuxt-link :to="{ path: `/post/${item.id}?cid=${item.cid}&search=${searchValue}&index=search` }">{{
+            item.title }}</nuxt-link>
                   </h2>
                   <p>
-                      <span class="inline-block">
-                        <i class="icon fa-calendar"></i>
-                        <span> {{ item.create_time }}</span>
-                      </span>
                     <span class="inline-block">
-                        <i class="icon fa-list-alt"></i>
-                        <span> {{ item.catename }}</span>
-                      </span>
+                      <i class="icon fa-calendar"></i>
+                      <span> {{ item.create_time }}</span>
+                    </span>
+                    <span class="inline-block">
+                      <i class="icon fa-list-alt"></i>
+                      <span> {{ item.catename }}</span>
+                    </span>
                   </p>
                 </header>
                 <p>{{ item.content }}</p>
@@ -106,15 +97,15 @@
           </div>
         </div>
       </div>
-      <PageMore ref="pageBtn" @nextnewpage="articles" v-if="pageStatus"/>
+      <PageMore ref="pageBtn" @nextnewpage="articles" v-if="pageStatus" />
     </section>
   </div>
 </template>
 
 <script>
-import {indexList} from "@/api";
+import { indexList } from "@/api";
 import PageMore from "@/components/PageMore";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 import addLineAndCopy from "~/plugins/jq-codeCopy";
 
 export default {
@@ -123,14 +114,14 @@ export default {
   },
   computed: {
     ...mapGetters(['config']),
-    searchValue: function(){
+    searchValue: function () {
       return this.SearchKey
     },
-    searchText: function(){
+    searchText: function () {
       return this.showLoading ? '搜索中' : '搜索'
     },
   },
-  head(){
+  head() {
     return {
       title: `搜索${this.SearchKey} - ${this.config.seo_name}`,
     }
@@ -151,9 +142,9 @@ export default {
   },
   methods: {
     watchImg(event) {
-      if(event.target.tagName !== 'IMG') return;
+      if (event.target.tagName !== 'IMG') return;
       let parentElement = event.currentTarget.parentElement
-      if(parentElement.classList.contains('code-item')) {
+      if (parentElement.classList.contains('code-item')) {
         this.viewer.show();
       }
     },
@@ -163,7 +154,7 @@ export default {
     initViewer() {
       let that = this;
       let _id = document.getElementById("search-article-content");
-      if(!_id) return;
+      if (!_id) return;
       this.viewer = new Viewer(_id, {
         title: false,
         toolbar: false,
@@ -181,7 +172,7 @@ export default {
     },
     SearchBtn() {
       if (this.SearchKey) {
-        this.articles(1, this.SearchKey,true);
+        this.articles(1, this.SearchKey, true);
       } else {
         this.$nextTick(() => {
           this.$refs.SearchKeyID.focus();
@@ -190,7 +181,7 @@ export default {
       }
     },
     SearchVal(val) {
-      if(!val) return;
+      if (!val) return;
       val = val.trim();
       this.SearchKey = val;
       if (this.HistoryList.length > 0) {
@@ -202,7 +193,7 @@ export default {
       if (this.HistoryList.length > 6) {
         this.HistoryList.pop()
       }
-      if(process.client) {
+      if (process.client) {
         localStorage.setItem('HistoryList', JSON.stringify(this.HistoryList))
       }
     },
@@ -210,11 +201,11 @@ export default {
       localStorage.removeItem('HistoryList');
       this.HistoryList = [];
     },
-    articles(n, search,clear = false) {
-      if(this.showLoading) return;
-      if(clear && this.article_list.length) {
-        this.$nextTick(()=>{
-          if(this.$refs.pageBtn) {
+    articles(n, search, clear = false) {
+      if (this.showLoading) return;
+      if (clear && this.article_list.length) {
+        this.$nextTick(() => {
+          if (this.$refs.pageBtn) {
             this.$refs.pageBtn.pageNumber = 1
           }
         })
@@ -228,7 +219,7 @@ export default {
       const p = {
         pageNumber: n,
         limitNumber: 6,
-        searchValue: (search || this.SearchKey).replace(' ','%')
+        searchValue: (search || this.SearchKey).replace(' ', '%')
       }
       indexList(p).then(res => {
         this.showLoading = false;
@@ -239,11 +230,11 @@ export default {
               item.pic = `https://picsum.photos/id/${item.id}/600/300`;
             }
           });
-          if(this.$refs['pageBtn']) this.$refs['pageBtn'].moreTxt = 'More'; // 变回more文案
+          if (this.$refs['pageBtn']) this.$refs['pageBtn'].moreTxt = 'More'; // 变回more文案
           this.emptyPic = false;
           this.article_list = this.article_list.concat(rowsList);
           this.pageStatus = this.article_list.length !== res.count; // 显示条数按钮
-          this.$nextTick(()=>{
+          this.$nextTick(() => {
             addLineAndCopy();
           })
           this.SearchMsg =
@@ -263,8 +254,8 @@ export default {
   },
   created() {
     this.SearchKey = this.$route.params.value || "";
-    if(this.SearchKey) {
-      this.articles(1,this.SearchKey,true);
+    if (this.SearchKey) {
+      this.articles(1, this.SearchKey, true);
     }
   },
   mounted() {
@@ -319,6 +310,7 @@ export default {
 .history-list .history-list-right a {
   color: #9F9F9F !important;
 }
+
 .books-item {
   padding: 10px;
   margin-right: 10px;
@@ -326,32 +318,39 @@ export default {
   border-radius: 5px;
   border: 1px solid rgba(144, 144, 144, 0.25);
   background-color: #fff;
+
   &:nth-child(2n) {
     margin-right: 0;
   }
+
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
+
     .title {
       font-weight: bold;
       color: #333;
       font-size: 20px;
     }
+
     .link {
       &:hover {
         color: #00B0FB !important;
       }
     }
   }
+
   .code-content {
     min-height: 0;
     word-break: break-all;
+
     ::v-deep {
       pre {
         margin-bottom: 20px;
       }
+
       img {
         max-width: 60%;
         display: block;
@@ -360,19 +359,23 @@ export default {
       }
     }
   }
+
   .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
+
     .time {
       margin: 0;
     }
+
     .tags {
       .tag {
         margin: 0;
         padding: 0;
       }
+
       .tag a {
         display: inline-block;
         padding: 0 8px;
@@ -385,6 +388,7 @@ export default {
     }
   }
 }
+
 .search_button {
   display: flex;
   align-items: center;
@@ -395,20 +399,25 @@ export default {
   border: 1px solid #292b35;
   padding: 0;
 }
+
 .btn-title {
   font-size: 16px;
 }
+
 @media (prefers-color-scheme: dark) {
   .btn-title {
     color: #fff;
   }
+
   .search_button {
     border: 1px solid #5c5656;
   }
+
   .books-item {
     background-color: #000;
   }
-  .books-item .header .title{
+
+  .books-item .header .title {
     color: #aaaaaa;
   }
 }
